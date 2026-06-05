@@ -1,0 +1,73 @@
+{
+  "_metadata": {
+    "version": "v2",
+    "coding_date": "2026-06-02",
+    "corpus_size": 6,
+    "files_coded": [
+      "2023-10-08-milei-segundo-debate-presidencial.md",
+      "2024-01-17-milei-wef-davos.md",
+      "2024-09-24-milei-un-general-assembly.md",
+      "2025-01-23-milei-davos-speech.md",
+      "2025-09-24-milei-onu-80-asamblea-general.md",
+      "2026-01-22-milei-davos-speech.md"
+    ],
+    "note": "One count per coded passage per speech. A passage that receives two stacked codes counts once per code."
+  },
+  "D1_Discursive_Delegitimization": {
+    "D1.1_State_Intervention_Governance": {
+      "Market_Primacy": 4,
+      "Anti_State_Anti_Bureaucratic": 2,
+      "Anti_Casta": 3,
+      "Delegitimization_of_Regulation": 6,
+      "Deregulation_Benefits": 5,
+      "Sustainability_as_Ideological_or_Harmful": 6,
+      "Rejection_of_Multilateral_Governance": 9
+    },
+    "D1.2_Public_Science_Expertise": {
+      "Attack_on_Public_Research_Institutions": 0,
+      "Attack_on_Universities": 3,
+      "Attack_on_Experts_and_Technocrats": 5,
+      "Climate_Skepticism_or_Dismissal": 2,
+      "Pseudo_Science_or_Ideological_Science": 3,
+      "Rejection_of_Expert_Mediation": 1
+    },
+    "D1.3_Cultural_Backlash": {
+      "Woke_Bundling": 6,
+      "Neo_Marxism": 6,
+      "Civilizational_Defense": 6
+    }
+  },
+  "D2_State_Capability_Erosion": {
+    "D2.1_Budgetary_Retrenchment": {
+      "Budget_Cuts_Science": 0,
+      "Budget_Cuts_Environment": 0,
+      "Budget_Cuts_Sustainability_Programs": 0,
+      "Budget_Cuts_Universities": 0
+    },
+    "D2.2_Institutional_Downgrading": {
+      "Ministry_Reorganization": 0,
+      "Agency_Elimination_or_Merger": 1,
+      "Regulatory_Institution_Changes": 0,
+      "Administrative_Hollowing_Out": 0
+    },
+    "D2.3_Policy_Dismantling": {
+      "Changes_in_Climate_Commitments": 0,
+      "Withdrawal_from_International_Initiatives": 4,
+      "Policy_Instrument_Changes": 0,
+      "Deregulation_Environmental_Protection": 0,
+      "Reduced_Implementation_or_Enforcement": 0
+    }
+  },
+  "Inductive": {
+    "Selective_Empiricism": 3,
+    "Temporal_Appropriation": 1,
+    "Reported_Denial": 1
+  },
+  "_corpus_notes": {
+    "D1_D2_ratio": "Corpus is heavily D1-dominant (~93% D1, ~7% D2). D2 codes appear only in the two UN General Assembly speeches (2024, 2025), where Milei references or announces concrete institutional actions. The Davos speeches (2024, 2025, 2026) and the presidential debate are entirely D1.",
+    "D2_gap": "D2.1 (budgetary retrenchment) and most D2.2/D2.3 sub-codes are absent from the corpus. This is expected: presidential speeches at international forums do not typically enumerate domestic budget cuts. D2 data should be sought in executive decrees, budget documents, and administrative reorganization records, which fall outside the speech corpus.",
+    "dominant_D1_codes": "Rejection_of_Multilateral_Governance (9) is the single most frequent code in the corpus, reflecting that all five post-debate speeches were delivered at international forums where Argentina's relationship to multilateral governance is the primary concern. Delegitimization_of_Regulation (6), Sustainability_as_Ideological_or_Harmful (6), Woke_Bundling (6), Neo_Marxism (6), and Civilizational_Defense (6) are joint second — this convergence suggests a highly coherent rhetorical architecture across speeches.",
+    "inductive_note": "Selective_Empiricism (3) and Temporal_Appropriation (1) are carried from v1. Selective_Empiricism recurs consistently enough across speeches to consider formal promotion to a deductive sub-code in v3 — recommend researcher evaluation. Temporal_Appropriation's clearest instance is the 2025 ONU speech; with only one fully developed instance, it remains tentative.",
+    "evolution_observation": "D2.3 > Withdrawal_from_International_Initiatives escalates across UN speeches: 2024 = dissent from Pact for Future (single event); 2025 = retrospective confirmation of 18 months of contrary voting + formal 2030 Agenda exit. Davos speeches show no D2 codes, consistent with their function as narrative/ideological addresses rather than policy announcements."
+  }
+}

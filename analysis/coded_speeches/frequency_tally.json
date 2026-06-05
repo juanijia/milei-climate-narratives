@@ -1,0 +1,76 @@
+{
+  "Epistemological_Discrediting": {
+    "Knowledge_Problem": 1,
+    "No_Market_Failures": 14,
+    "Fallacy_of_Authority": 5,
+    "Government_Failure": 11
+  },
+  "Denialism": {
+    "Natural_Cycles": 2,
+    "Manipulated_Models": 1
+  },
+  "Cultural_Backlash": {
+    "Woke_Bundling": 7,
+    "Neo-Marxism": 10,
+    "Sovereignty_Threat": 10
+  },
+  "Dual_Policy_Output": {
+    "Discursive_Delegitimation": 16,
+    "State_Capability_Erosion": 0
+  },
+  "Inductive": {
+    "Civilizational_Defense_Frame": 8,
+    "Selective_Empiricism": 2,
+    "Temporal_Appropriation": 2,
+    "Reported_Denial": 1
+  },
+  "_meta": {
+    "speeches_coded": 6,
+    "last_updated": "2026-05-21",
+    "last_file": "2026-01-22-milei-davos-speech.md",
+    "per_speech": {
+      "2024-01-17-milei-wef-davos.md": {
+        "Epistemological_Discrediting": {"Knowledge_Problem": 1, "No_Market_Failures": 4, "Fallacy_of_Authority": 1, "Government_Failure": 3},
+        "Denialism": {"Natural_Cycles": 0, "Manipulated_Models": 0},
+        "Cultural_Backlash": {"Woke_Bundling": 1, "Neo-Marxism": 2, "Sovereignty_Threat": 1},
+        "Dual_Policy_Output": {"Discursive_Delegitimation": 2, "State_Capability_Erosion": 0},
+        "Inductive": {"Civilizational_Defense_Frame": 3, "Selective_Empiricism": 1}
+      },
+      "2023-10-08-milei-segundo-debate-presidencial.md": {
+        "Epistemological_Discrediting": {"Knowledge_Problem": 0, "No_Market_Failures": 0, "Fallacy_of_Authority": 1, "Government_Failure": 0},
+        "Denialism": {"Natural_Cycles": 1, "Manipulated_Models": 0},
+        "Cultural_Backlash": {"Woke_Bundling": 0, "Neo-Marxism": 1, "Sovereignty_Threat": 0},
+        "Dual_Policy_Output": {"Discursive_Delegitimation": 1, "State_Capability_Erosion": 0},
+        "Inductive": {"Reported_Denial": 1}
+      },
+      "2024-09-24-milei-un-general-assembly.md": {
+        "Epistemological_Discrediting": {"Knowledge_Problem": 0, "No_Market_Failures": 2, "Fallacy_of_Authority": 0, "Government_Failure": 0},
+        "Denialism": {"Natural_Cycles": 0, "Manipulated_Models": 0},
+        "Cultural_Backlash": {"Woke_Bundling": 1, "Neo-Marxism": 2, "Sovereignty_Threat": 3},
+        "Dual_Policy_Output": {"Discursive_Delegitimation": 4, "State_Capability_Erosion": 0},
+        "Inductive": {"Civilizational_Defense_Frame": 1}
+      },
+      "2025-01-23-milei-davos-speech.md": {
+        "Epistemological_Discrediting": {"Knowledge_Problem": 0, "No_Market_Failures": 2, "Fallacy_of_Authority": 3, "Government_Failure": 3},
+        "Denialism": {"Natural_Cycles": 1, "Manipulated_Models": 0},
+        "Cultural_Backlash": {"Woke_Bundling": 4, "Neo-Marxism": 4, "Sovereignty_Threat": 2},
+        "Dual_Policy_Output": {"Discursive_Delegitimation": 6, "State_Capability_Erosion": 0},
+        "Inductive": {}
+      },
+      "2025-09-24-milei-onu-80-asamblea-general.md": {
+        "Epistemological_Discrediting": {"Knowledge_Problem": 0, "No_Market_Failures": 2, "Fallacy_of_Authority": 0, "Government_Failure": 3},
+        "Denialism": {"Natural_Cycles": 0, "Manipulated_Models": 0},
+        "Cultural_Backlash": {"Woke_Bundling": 0, "Neo-Marxism": 0, "Sovereignty_Threat": 4},
+        "Dual_Policy_Output": {"Discursive_Delegitimation": 4, "State_Capability_Erosion": 0},
+        "Inductive": {"Civilizational_Defense_Frame": 1, "Temporal_Appropriation": 2}
+      },
+      "2026-01-22-milei-davos-speech.md": {
+        "Epistemological_Discrediting": {"Knowledge_Problem": 0, "No_Market_Failures": 3, "Fallacy_of_Authority": 0, "Government_Failure": 2},
+        "Denialism": {"Natural_Cycles": 0, "Manipulated_Models": 1},
+        "Cultural_Backlash": {"Woke_Bundling": 1, "Neo-Marxism": 1, "Sovereignty_Threat": 0},
+        "Dual_Policy_Output": {"Discursive_Delegitimation": 0, "State_Capability_Erosion": 0},
+        "Inductive": {"Civilizational_Defense_Frame": 2, "Selective_Empiricism": 1}
+      }
+    }
+  }
+}
