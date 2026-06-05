@@ -1,0 +1,19 @@
+# LibreOffice / Excel lock files
+.~lock.*#
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Temp / draft files
+_draft_*
+
+# OS
+.DS_Store
