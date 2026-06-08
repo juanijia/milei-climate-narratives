@@ -1,0 +1,73 @@
+---
+title: "Address to the 79th Session of the United Nations General Assembly"
+date: 2024-09-24
+source_url: "https://www.cfr.org/articles/truth-telling-turtle-bay"
+source_type: speech
+language: en
+summary_en: "Milei's first address to the UN General Assembly. Frames the UN as a collectivist Leviathan imposing a socialist agenda. Explicitly attacks the 2030 Agenda as 'supranational government, socialist in nature'; criticizes WEF 'Zero Emission' policies as Malthusian; formally registers Argentina's rhetorical dissent from the Pact for the Future and frames it as a principled stand against multilateral coercion."
+coded_version: v3
+coded_date: 2026-06-04
+coding_dimension: D1 only (speeches corpus)
+coding_note: "V3 correction from v2: the passage announcing dissent from the Pact for the Future was coded D2.3 in v2. In v3 it is re-coded as D1.1 > Rejection_of_Multilateral_Governance — the speech is performing a rhetorical act of delegitimization and framing of dissent; the formal institutional act belongs in the D2 formal documentation corpus."
+---
+
+*Address by Javier Milei, President of Argentina, to the 79th Session of the United Nations General Assembly, delivered 24 September 2024.*
+
+For those who do not know, I am not a politician, I am an economist, a libertarian liberal economist, who was honored with the position of President of the Argentine Republic, in the face of the resounding failure of more than a century of collectivist policies, a century of collectivist policies that destroyed our country.
+
+This is my first speech in front of the United Nations General Assembly, and I would like to take this opportunity to alert the various nations of the world to the path they have been treading for decades and the danger of this organization's failure to fulfill its original mission.
+
+I do not come here to tell the world what to do; I come here to tell the world, on the one hand, what will happen if the United Nations continues to promote collectivist policies, which they have been promoting under the mandate of the 2030 Agenda, and, on the other hand, what are the values that the new Argentina defends.
+
+I want to be clear on the position of the Argentine agenda: the 2030 Agenda, although well-intentioned in its goals, is nothing more than a supranational government program, socialist in nature, which seeks to solve the problems of modernity with solutions that violate the sovereignty of nation states and violate people's right to life, liberty and property. It is an agenda that pretends to solve poverty, inequality and discrimination with legislation that only deepens them. Because world history shows that the only way to guarantee prosperity is by limiting the power of the monarch, guaranteeing equality before the law and defending the right to life, liberty and property of individuals.
+
+`[CODE: D1.1 > Rejection_of_Multilateral_Governance]` — *Memo: The 2030 Agenda — the overarching UN sustainability framework encompassing SDGs, climate action (SDG 13), clean energy, and biodiversity — is formally declared "a supranational government program, socialist in nature." Delivered before the General Assembly, this is the highest-profile Rejection_of_Multilateral_Governance in the corpus. The framing — socialism, sovereignty violation, counterproductive legislation — activates the full set of D1.1 delegitimation registers simultaneously: ideological, statist, and harmful.*
+
+`[CODE: D1.1 > Sustainability_as_Ideological_or_Harmful]` — *Memo: "An agenda that pretends to solve poverty with legislation that only deepens it" is Sustainability_as_Ideological_or_Harmful in its strongest formulation: not merely ineffective but actively counterproductive. For climate specifically, SDG 13 and the Paris Agreement-linked elements are cast as policies that will deepen poverty — a geopolitically charged claim delivered to an audience of predominantly developing nations.*
+
+`[CODE: D1.3 > Civilizational_Defense]` — *Memo: The UN is positioned as an agent of collectivist civilizational decline. Argentina's dissent is framed as a defense of the principles — life, liberty, property — that define legitimate civilization. The speech functions as a civilizational declaration: Argentina aligning itself in a conflict between freedom and collectivism, with the 2030 Agenda as a key battlefield.*
+
+It has been precisely the adoption of this agenda, which obeys privileged interests, the abandonment of the principles — outlined in the Universal Declaration of Human Rights — that has distorted the role of this institution. Thus, we have seen how an organization, born to defend the rights of man, has been one of the main proponents of the systematic violation of freedom, as — for example — with the global quarantines during the year 2020, which should be considered a crime against humanity.
+
+`[CODE: D1.2 > Attack_on_Experts_and_Technocrats]` — *Memo: Framing the UN's COVID-19 pandemic response as "a crime against humanity" attacks both the institution and the expert consensus (epidemiological, public health) that underpinned the lockdown policies. For climate governance, the structural implication is powerful: if the UN's expert-backed response to one global emergency constitutes a crime, why should its expert-backed response to another global emergency (climate change) be trusted? This passage pre-empts any UN-mediated climate science or policy recommendation by establishing institutional criminality as a precedent.*
+
+In the economic sphere, collectivist policies have been promoted that threaten economic growth, violate property rights, and hinder the natural economic process, preventing the most underprivileged countries in the world from freely enjoying their own resources. Moreover, a toxic relationship has been promoted between global governance policies and international lending agencies, requiring the most neglected countries to commit resources they do not have to programs they do not need, turning them into perpetual debtors to promote the agenda of the global elites.
+
+`[CODE: D1.1 > Rejection_of_Multilateral_Governance]` — *Memo: The "toxic relationship" between global governance and multilateral lending agencies is a direct reference to the conditionality apparatus through which climate commitments are embedded in development finance. Framed as extortion — poor countries committing "resources they do not have to programs they do not need" — this delegitimizes climate finance conditionality as neocolonial extraction rather than international solidarity. Delivered at the General Assembly with a developing-world majority, this is a geopolitically targeted version of Rejection_of_Multilateral_Governance.*
+
+`[CODE: D1.1 > Sustainability_as_Ideological_or_Harmful]` — *Memo: Sustainability programs are characterized as ones that developing countries "do not need," framing the entire sustainable development agenda — SDGs, climate adaptation, energy transition — as externally imposed and harmful to the global poor. This repositions climate skepticism as a defense of the world's poorest nations against elite climate imperialism, maximizing the political appeal of the argument in this specific venue.*
+
+Nor has the tutelage of the World Economic Forum helped, where ridiculous policies are promoted with Malthusian blinders on — such as "Zero Emission" policies — which harm poor countries in particular. To policies linked to sexual and reproductive rights, when the birth rate in Western countries is plummeting, heralding a bleak future for all.
+
+`[CODE: D1.1 > Sustainability_as_Ideological_or_Harmful]` — *Memo: "Zero Emission" policies are named explicitly and characterized as "ridiculous" and "Malthusian," harmful especially to poor countries. This is the most direct attack on net-zero climate policy as policy in the UN corpus: the agenda is framed as ideologically driven (Malthusian) and materially harmful (to the poor), deploying both the sustainability-as-harmful and the broader Malthusian anti-humanist framing simultaneously.*
+
+`[CODE: D1.3 > Woke_Bundling]` — *Memo: "Zero Emission" policies are listed in the same breath as "policies linked to sexual and reproductive rights" — climate policy bundled with population/reproductive policy via the Malthusian linkage. At the General Assembly, where many member states are deeply conservative on reproductive rights, this bundling maximizes delegitimization of climate governance among the audience most capable of blocking multilateral sustainability commitments.*
+
+An organization that, instead of confronting real global conflicts, invests time and effort in imposing on poor countries what, how and what they should produce, with whom they should associate, what they should eat and what they should believe in, as the present Pact for the Future intends to dictate.
+
+`[CODE: D1.1 > Rejection_of_Multilateral_Governance]` — *Memo: The list — what to produce, with whom to associate, what to eat, what to believe — encompasses climate-related production constraints (fossil fuel restrictions), trade conditionalities (Paris-Agreement-linked), dietary sustainability guidelines (meat consumption), and scientific orthodoxy (climate consensus). Framing these as illegitimate impositions on sovereignty and self-determination performs a comprehensive delegitimation covering the full scope of the sustainable development agenda.*
+
+Therefore, I would like to issue a warning: we are at the end of a cycle. Collectivism and moral posturing, of the woke agenda, have collided with reality and no longer have credible solutions to offer to the world's real problems.
+
+`[CODE: D1.3 > Woke_Bundling]` — *Memo: "Collectivism and moral posturing, of the woke agenda" — the UN sustainability agenda is absorbed into the "woke agenda" at the General Assembly, delivering the same cultural-war framing to the world's premier diplomatic institution. "Has collided with reality and no longer has credible solutions" performs a temporal delegitimation: the entire 30-year history of sustainable development (from Rio 1992 to the 2030 Agenda) is retroactively framed as a project that never worked and has now conclusively failed.*
+
+I want to be clear about something: Argentina will not support any policy that implies the restriction of individual freedoms, of trade, or the violation of the natural rights of individuals, no matter who promotes it or how much consensus that institution has. For this reason, we wish to express — officially — our dissent on the Pact of the Future, signed on Sunday, and we invite all the nations of the free world to join us, not only in dissenting from this pact, but also in the creation of a new agenda for this noble institution: the agenda of freedom.
+
+`[CODE: D1.1 > Rejection_of_Multilateral_Governance]` — *Memo: [V3 re-code — was D2.3 in v2] The formal announcement of dissent from the Pact for the Future is here coded as D1.1 > Rejection_of_Multilateral_Governance because this passage is a rhetorical act: Milei is legitimizing and framing the exit, not performing the institutional act itself. The phrase "no matter who promotes it or how much consensus that institution has" directly applies the Fallacy_of_Authority logic to formal multilateral commitments — scientific and institutional consensus is explicitly declared non-binding. The invitation to form a counter-coalition extends the rhetorical delegitimation to a geopolitical project. The actual formal institutional act (official communication, voting record, decree) belongs in the D2 formal documentation corpus.*
+
+From this day on, know that the Argentine Republic will abandon the position of historical neutrality and will be at the forefront of the struggle in defense of freedom.
+
+`[CODE: D1.1 > Rejection_of_Multilateral_Governance]` — *Memo: Argentina's declaration of a new activist foreign policy stance "in defense of freedom" — framed against the multilateral collectivist governance architecture — establishes a discursive commitment to sustained opposition to the international sustainability governance system. The rhetorical register is civilizational mobilization: Argentina is not a passive defector but a vanguard actor in a freedom-versus-collectivism conflict.*
+
+`[CODE: D1.3 > Civilizational_Defense]` — *Memo: "La lucha en defensa de la libertad" against multilateral collectivism is the Civilizational_Defense frame applied as foreign policy commitment. Western civilization's survival requires active opposition to the institutions (UN, WEF, 2030 Agenda) that Milei has spent the speech identifying as the agents of civilizational decline.*
+
+---
+
+## Coding Summary (v3)
+
+- **Dominant codes:** D1.1 > Rejection_of_Multilateral_Governance (5 instances); D1.1 > Sustainability_as_Ideological_or_Harmful (3); D1.3 > Woke_Bundling + Civilizational_Defense (2 each)
+- **Dimension balance:** Entirely D1. This speech is the most institutionally targeted in the corpus — all D1.1 codes concern specific multilateral institutions (UN, WEF, 2030 Agenda, Pact for the Future). No D1.2 codes beyond the COVID-expert-trust passage; D1.3 provides the civilizational and cultural-war framing.
+- **New inductive categories:** None.
+- **Notable rhetorical moves:** (1) **South-South framing**: unlike Davos (wealthy-country audience), the UN General Assembly has a developing-country majority. Milei recalibrates the anti-climate argument to appeal to this audience: zero-emission policies harm poor countries, multilateral lending agencies trap developing nations in debt. (2) **The COVID anchor**: framing COVID lockdowns as "crimes against humanity" establishes a precedent for treating expert-backed international policy responses as potential atrocities. (3) **The counter-coalition bid**: the invitation to a "new agenda for freedom" makes Argentina not just a passive defector from multilateral sustainability governance but an active recruiter of an opposition bloc.
+- **V3 vs V2 correction:** The passage announcing "official dissent from the Pact for the Future" was coded D2.3 > Withdrawal_from_International_Initiatives in v2. In v3 it is re-coded as D1.1 > Rejection_of_Multilateral_Governance. Rationale: the speech is a rhetorical performance — announcing and framing the exit, legitimizing it discursively. The formal institutional act (official UN communication, voting record) is D2 evidence to be found in Corpus B.
+- **Flagged for follow-up:** The formal dissent from the Pact for the Future referenced here should be cross-referenced with Argentina's official UN voting record and any executive communications to identify the D2 institutional evidence.

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milei Climate Narratives — QDA Explorer v3</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3349;
+    --text: #e2e8f0;
+    --text-muted: #8892aa;
+    --accent: #6366f1;
+    --c-d11: #3B82F6;
+    --c-d12: #F59E0B;
+    --c-d13: #EF4444;
+    --c-ind: #9CA3AF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ── HEADER ── */
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; align-items: center; gap: 20px; height: 52px; flex-shrink: 0; }
+  header h1 { font-size: 13px; font-weight: 700; color: var(--text-muted); letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+  .v3-badge { background: #6366f1; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 4px; letter-spacing: .04em; }
+  nav { display: flex; gap: 4px; }
+  nav button { background: none; border: none; color: var(--text-muted); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all .15s; }
+  nav button:hover { background: var(--surface2); color: var(--text); }
+  nav button.active { background: var(--accent); color: #fff; }
+  .badge { background: var(--surface2); color: var(--text-muted); font-size: 10px; padding: 1px 6px; border-radius: 10px; margin-left: 4px; }
+
+  /* ── TABS ── */
+  .tab { display: none; flex: 1; overflow: hidden; }
+  .tab.active { display: flex; }
+
+  /* ── BROWSE ── */
+  #tab-browse { flex-direction: row; }
+  .speech-list { width: 220px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+  .speech-list h2 { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: .08em; text-transform: uppercase; padding: 14px 16px 8px; }
+  .speech-list ul { list-style: none; overflow-y: auto; flex: 1; }
+  .speech-list li { padding: 10px 16px; cursor: pointer; border-left: 3px solid transparent; transition: all .1s; }
+  .speech-list li:hover { background: var(--surface2); }
+  .speech-list li.active { background: var(--surface2); border-left-color: var(--accent); }
+  .speech-list li .s-date { font-size: 10px; color: var(--text-muted); }
+  .speech-list li .s-title { font-size: 12px; font-weight: 600; line-height: 1.3; margin-top: 2px; }
+  .speech-list li .s-meta { display: flex; gap: 5px; margin-top: 4px; flex-wrap: wrap; }
+  .tag { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* ── TOOLBAR ── */
+  .reader-toolbar { display: flex; gap: 8px; align-items: center; padding: 8px 20px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; flex-shrink: 0; }
+  .toolbar-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+  .toolbar-label { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+  .filter-chip { border: none; border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700; cursor: pointer; opacity: .4; transition: opacity .15s; }
+  .filter-chip.on { opacity: 1; }
+  /* View toggle */
+  .view-toggle { display: flex; background: var(--surface2); border-radius: 8px; padding: 2px; gap: 2px; margin-left: auto; }
+  .view-btn { border: none; background: none; color: var(--text-muted); padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 600; transition: all .15s; white-space: nowrap; }
+  .view-btn.active { background: var(--accent); color: #fff; }
+
+  /* ── READER ── */
+  .reader-wrap { flex: 1; display: flex; overflow: hidden; }
+  .reader { flex: 1; overflow-y: auto; padding: 24px 32px; line-height: 1.8; }
+  .reader h2 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .reader .meta-row { font-size: 11px; color: var(--text-muted); margin-bottom: 24px; display: flex; gap: 14px; }
+
+  /* Excerpt view: plain paragraphs hidden, only coded shown */
+  .reader.view-excerpts .plain-block { display: none; }
+  /* Full view: all shown */
+  .reader.view-full .plain-block { display: block; }
+
+  .plain-block { margin-bottom: 14px; color: #9aa3b8; font-size: 13.5px; }
+  .plain-block.speaker-label { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 4px; }
+
+  /* Coded block */
+  .coded-block { position: relative; margin-bottom: 16px; }
+  .coded-block .passage { border-radius: 6px; padding: 10px 14px; cursor: pointer; transition: filter .15s; line-height: 1.7; font-size: 13.5px; }
+  .coded-block .passage:hover { filter: brightness(1.18); }
+  /* In excerpts view, coded blocks are full opacity */
+  .reader.view-excerpts .coded-block .passage { }
+  /* In full speech view, coded blocks stand out against muted text */
+  .reader.view-full .coded-block .passage { }
+  .code-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+  .pill { font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 10px; letter-spacing: .04em; text-transform: uppercase; color: #fff; }
+
+  /* Hidden coded block when all its codes are filtered out */
+  .coded-block.all-filtered .passage { background: rgba(255,255,255,.03) !important; border-left-color: var(--border) !important; cursor: default; }
+  .coded-block.all-filtered .passage:hover { filter: none; }
+  .reader.view-excerpts .coded-block.all-filtered { display: none; }
+
+  /* Memo panel */
+  .memo-panel { width: 310px; flex-shrink: 0; background: var(--surface); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+  .memo-panel .mp-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .memo-panel .mp-header h3 { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; flex: 1; }
+  .mp-body { overflow-y: auto; flex: 1; padding: 12px 16px; }
+  .memo-item { margin-bottom: 14px; }
+  .memo-item .mi-code { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; color: #fff; display: inline-block; margin-bottom: 5px; }
+  .memo-item .mi-text { font-size: 12px; color: #b0bbd4; line-height: 1.6; }
+  .memo-placeholder { color: var(--text-muted); font-size: 12px; padding: 20px 0; text-align: center; }
+  .legend { padding: 14px 16px; border-top: 1px solid var(--border); }
+  .legend h4 { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; font-size: 11px; color: var(--text-muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .legend-note { margin-top: 10px; font-size: 10px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── PATTERNS ── */
+  #tab-patterns { flex-direction: column; overflow-y: auto; padding: 24px 28px; gap: 24px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .panel h2 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .panel p.sub { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+  .heatmap-wrap { overflow-x: auto; }
+  table.heatmap { border-collapse: collapse; font-size: 11px; min-width: 600px; }
+  table.heatmap th { font-size: 10px; font-weight: 700; color: var(--text-muted); padding: 6px 10px; text-align: center; white-space: nowrap; }
+  table.heatmap th.row-h { text-align: left; max-width: 160px; }
+  table.heatmap td { width: 44px; height: 32px; text-align: center; border: 1px solid var(--border); font-size: 12px; font-weight: 700; }
+  table.heatmap td.row-label { text-align: left; padding: 0 10px; font-size: 11px; color: var(--text-muted); white-space: nowrap; width: 160px; }
+  .co-occur-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .co-item { background: var(--surface2); border-radius: 6px; padding: 10px 12px; }
+  .co-item .pair { font-size: 10px; font-weight: 700; margin-bottom: 4px; }
+  .co-item .count { font-size: 22px; font-weight: 800; }
+  .co-item .speeches { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .rank-list { display: flex; flex-direction: column; gap: 6px; }
+  .rank-row { display: flex; align-items: center; gap: 10px; }
+  .rank-label { font-size: 11px; color: var(--text-muted); width: 240px; flex-shrink: 0; text-align: right; }
+  .rank-bar-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 22px; overflow: hidden; }
+  .rank-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 800; color: #fff; transition: width .4s; }
+  .rank-n { width: 28px; font-size: 13px; font-weight: 800; text-align: right; flex-shrink: 0; }
+
+  /* ── VIZ ── */
+  #tab-viz { flex-direction: column; overflow-y: auto; padding: 24px 28px; gap: 24px; }
+  .viz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .chart-wrap { position: relative; height: 320px; }
+  .chart-wrap-tall { position: relative; height: 420px; }
+  .dim-bars { display: flex; gap: 16px; margin-top: 8px; }
+  .dim-bar-item { flex: 1; background: var(--surface2); border-radius: 8px; padding: 14px; text-align: center; }
+  .dim-bar-item .db-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: .05em; }
+  .dim-bar-item .db-n { font-size: 36px; font-weight: 800; margin: 6px 0; }
+  .dim-bar-item .db-pct { font-size: 12px; color: var(--text-muted); }
+  .timeline-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 8px; }
+  .tl-col { background: var(--surface2); border-radius: 6px; padding: 10px 8px; }
+  .tl-col h4 { font-size: 9px; font-weight: 700; color: var(--text-muted); text-align: center; margin-bottom: 8px; line-height: 1.3; }
+  .tl-dot { border-radius: 4px; margin-bottom: 3px; padding: 2px 5px; font-size: 9px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .v3-note { background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.3); border-radius: 8px; padding: 10px 16px; font-size: 11px; color: #a5b4fc; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Milei Climate Narratives · QDA Explorer <span class="v3-badge">V3</span></h1>
+  <nav>
+    <button class="active" onclick="switchTab('browse',this)">📖 Corpus Browser <span class="badge">6</span></button>
+    <button onclick="switchTab('patterns',this)">🔗 Pattern Analysis</button>
+    <button onclick="switchTab('viz',this)">📊 Visualizations</button>
+  </nav>
+</header>
+
+<!-- ══════ TAB 1: BROWSE ══════ -->
+<div id="tab-browse" class="tab active">
+
+  <div class="speech-list">
+    <h2>Speeches</h2>
+    <ul id="speech-nav"></ul>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+
+    <div class="reader-toolbar">
+      <span class="toolbar-label">Show:</span>
+      <button class="filter-chip on" style="background:var(--c-d11);color:#fff" data-dim="D1.1" onclick="toggleFilter(this)">D1.1 Gov/State</button>
+      <button class="filter-chip on" style="background:var(--c-d12);color:#fff" data-dim="D1.2" onclick="toggleFilter(this)">D1.2 Science/Experts</button>
+      <button class="filter-chip on" style="background:var(--c-d13);color:#fff" data-dim="D1.3" onclick="toggleFilter(this)">D1.3 Cultural</button>
+      <button class="filter-chip on" style="background:var(--c-ind);color:#fff" data-dim="IND" onclick="toggleFilter(this)">Inductive</button>
+
+      <div class="toolbar-sep"></div>
+
+      <div class="view-toggle">
+        <button class="view-btn active" id="btn-excerpts" onclick="setView('excerpts')">✦ Excerpts</button>
+        <button class="view-btn" id="btn-full" onclick="setView('full')">📜 Full Speech</button>
+      </div>
+    </div>
+
+    <div class="reader-wrap">
+      <div class="reader view-excerpts" id="reader-content">
+        <p style="color:var(--text-muted);margin-top:40px;text-align:center;">← Select a speech to begin reading</p>
+      </div>
+
+      <div class="memo-panel">
+        <div class="mp-header">
+          <h3>Annotation</h3>
+          <span id="memo-count" style="font-size:10px;color:var(--text-muted)"></span>
+        </div>
+        <div class="mp-body" id="memo-body">
+          <p class="memo-placeholder">Click a highlighted passage to see coding memos</p>
+        </div>
+        <div class="legend">
+          <h4>Colour key — v3</h4>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--c-d11)"></div>D1.1 — State/Governance</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--c-d12)"></div>D1.2 — Science/Experts</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--c-d13)"></div>D1.3 — Cultural Backlash</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--c-ind)"></div>Inductive</div>
+          <div class="legend-note">D2 codes removed in v3 — passages re-coded as D1 where applicable.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ TAB 2: PATTERNS ══════ -->
+<div id="tab-patterns" class="tab">
+  <div class="v3-note">⚑ v3 — All D2 codes removed. Five formerly-D2 passages re-coded as D1.1. Net total: 77 coded passages (↑9 from v2).</div>
+  <div class="panel">
+    <h2>Code Frequency Ranking</h2>
+    <p class="sub">Total coded passages per sub-code across the full corpus (n=6 speeches, 77 total)</p>
+    <div class="rank-list" id="rank-list"></div>
+  </div>
+  <div class="panel">
+    <h2>Speech × Code Heatmap</h2>
+    <p class="sub">Coded passages per speech × sub-code. Darker = more occurrences.</p>
+    <div class="heatmap-wrap"><table class="heatmap" id="heatmap"></table></div>
+  </div>
+  <div class="panel">
+    <h2>Code Co-occurrence</h2>
+    <p class="sub">Pairs of codes that appear in the same passage — indicates rhetorical bundling</p>
+    <div class="co-occur-grid" id="co-occur"></div>
+  </div>
+</div>
+
+<!-- ══════ TAB 3: VIZ ══════ -->
+<div id="tab-viz" class="tab">
+  <div class="dim-bars" id="dim-summary"></div>
+  <div class="viz-grid">
+    <div class="panel">
+      <h2>Code Frequency — All Corpus</h2>
+      <p class="sub">Passages coded per sub-code (all 6 speeches, n=77)</p>
+      <div class="chart-wrap"><canvas id="chart-freq"></canvas></div>
+    </div>
+    <div class="panel">
+      <h2>D1 Sub-dimension per Speech</h2>
+      <p class="sub">D1.1 / D1.2 / D1.3 / Inductive codes per speech</p>
+      <div class="chart-wrap"><canvas id="chart-d1breakdown"></canvas></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Code Timeline</h2>
+    <p class="sub">Codes appearing in each speech — chronological evolution of rhetorical repertoire</p>
+    <div class="timeline-grid" id="timeline"></div>
+  </div>
+  <div class="panel">
+    <h2>Dimension Breakdown per Speech</h2>
+    <p class="sub">Stacked bar — share of D1.1 / D1.2 / D1.3 / Inductive per speech</p>
+    <div class="chart-wrap-tall"><canvas id="chart-stacked"></canvas></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  CONSTANTS
+// ═══════════════════════════════════════
+const DIM_COLOR = {
+  "D1.1":"#3B82F6", "D1.2":"#F59E0B", "D1.3":"#EF4444", "IND":"#9CA3AF"
+};
+const DIM_BG = {
+  "D1.1":"rgba(59,130,246,0.18)", "D1.2":"rgba(245,158,11,0.18)",
+  "D1.3":"rgba(239,68,68,0.18)",  "IND":"rgba(156,163,175,0.14)"
+};
+
+// ═══════════════════════════════════════
+//  CORPUS DATA
+// ═══════════════════════════════════════
+const CORPUS = [
+  {id:"debate2023",date:"2023-10-08",title:"Debate Presidencial 2023",venue:"Buenos Aires",type:"debate",
+    segments:[
+      {type:"plain",text:"[BREGMAN — Pregunta a Milei]: usted niega el cambio climático niega el genocidio niega los 3000 detenidos desaparecidos niega el patriarcado niega también los femicidios"},
+      {type:"coded",text:"[MILEI — Respuesta]: A ver primero no mienta. Yo no niego el cambio climático. Lo que yo digo es que existe en la historia de la tierra un ciclo de temperaturas, es decir hay un comportamiento cíclico y este es el quinto punto del ciclo — donde la diferencia con los cuatro anteriores es que antes no estaba el ser humano. Por lo tanto todas esas políticas que culpan al ser humano del cambio climático son falsas y lo único que buscan es recaudar fondos para financiar vagos socialistas que escriben papers de cuarta.",codes:[{dim:"D1.2",sub:"Climate_Skepticism_or_Dismissal",memo:"Milei performs the disclaimer-then-dismiss move: \"I don't deny climate change\" is immediately followed by the natural-cycles attribution, which reproduces effective denial while maintaining rhetorical deniability. The key claim — \"all those policies that blame humans for climate change are false\" — is a direct dismissal of the scientific basis for climate regulation, delivered as a logical conclusion from the paleoclimatic premise. This is the most compressed instance of Climate_Skepticism_or_Dismissal in the corpus: denial of anthropogenic attribution without denial of the climate phenomenon itself."},{dim:"D1.1",sub:"Sustainability_as_Ideological_or_Harmful",memo:"\"Recaudar fondos para financiar vagos socialistas que escriben papers de cuarta\" reframes climate policy as a rent-extraction mechanism for a parasitic academic class. The claim is not that climate policy is merely wrong — it is that climate policy exists as an institutional vehicle for redistributing resources to ideologically motivated, low-quality scholarship. This is Sustainability_as_Ideological_or_Harmful at its most direct: the policy's real function is material redistribution under ideological cover, not environmental protection."},{dim:"D1.2",sub:"Attack_on_Experts_and_Technocrats",memo:"\"Vagos socialistas que escriben papers de cuarta\" is the rawest expert delegitimation in the corpus — climate scientists reduced to lazy, ideologically motivated rent-seekers producing worthless work. Unlike the more sophisticated epistemological arguments deployed at Davos (which grant good intentions while invalidating the theoretical framework), here the attack is purely ad hominem and institutional, characterizing climate science as professionally worthless rather than merely theoretically flawed."}]},
+      {type:"coded",text:"[BREGMAN — Réplica]: la destrucción del Planeta es una de las muestras más claras de la irracionalidad de este sistema capitalista... pero [Milei] defiende la libertad de las empresas para contaminar hasta los ríos y llegó a decir que el cambio climático es del socialismo.",codes:[{dim:"IND",sub:"Reported_Denial",memo:"Bregman's reported-speech paraphrase (\"llegó a decir que el cambio climático es del socialismo\") functions as inter-discursive corroboration: a nationally televised opponent accurately summarizing a Milei position confirms the claim circulates publicly and is understood as politically legible. The paraphrase maps directly onto D1.3 > Neo_Marxism — framing climate change as caused by or synonymous with socialism. Not primary Milei discourse; coded here for contextual and confirmatory purposes only."}]},
+      {type:"plain",text:"[SCHIARETTI]: hay que continuar cumpliendo Los acuerdos de París y la agenda 2030... También tenemos que crear el mercado Nacional de carbono."}
+    ]},
+  {id:"davos2024",date:"2024-01-17",title:"WEF Davos 2024",venue:"Davos",type:"speech",
+    segments:[
+      {type:"coded",text:"Buenas tardes, muchas gracias: hoy estoy acá para decirles que Occidente está en peligro, está en peligro porque aquellos, que supuestamente deben defender los valores de Occidente, se encuentran cooptados por una visión del mundo que – inexorablemente – conduce al socialismo, en consecuencia a la pobreza. Lamentablemente en las últimas décadas, motivados por algunos deseos bien pensantes de querer ayudar al prójimo y otros por el deseo de querer pertenecer a una casta privilegiada, los principales líderes del mundo occidental han abandonado el modelo de la libertad, por distintas versiones, de lo que llamamos colectivismo.",codes:[{dim:"D1.3",sub:"Civilizational_Defense",memo:"The opening sentences establish the master civilizational frame for the entire speech: Western civilization is under existential threat from socialism, and the WEF audience itself is identified as part of a \"casta privilegiada\" complicit in that decline. This frame pre-loads every subsequent critique — including of environmental policy — with civilizational stakes. Climate governance emanating from the \"cooptados\" Western establishment is tainted by association with civilizational threat, making engagement with it a form of civilizational capitulation."},{dim:"D1.1",sub:"Anti_Casta",memo:"\"Pertenecer a una casta privilegiada\" extends Milei's domestic anti-elite frame to the global governance level, targeting the WEF audience itself. International climate institutions and their leaders are pre-emptively delegitimized as members of a global caste pursuing privilege rather than planetary welfare — the same logic used domestically against environmental ministries and CONICET is applied globally to IPCC, UNEP, and multilateral climate bodies."}]},
+      {type:"plain",text:"Nosotros estamos, acá, para decirles que los experimentos colectivistas nunca son la solución a los problemas, que aquejan a los ciudadanos del mundo, sino que – por el contrario – son su causa."},
+      {type:"plain",text:"Cuando adoptamos el modelo de la libertad – allá por el año 1860 – en 35 años nos convertimos en la primera potencia mundial, mientras que cuando abrazamos el colectivismo, a lo largo de los últimos 100 años, vimos como nuestros ciudadanos comenzaron a empobrecerse sistemáticamente."},
+      {type:"plain",text:"Si consideramos la historia del progreso económico podemos ver cómo desde el año cero hasta el año 1800, aproximadamente, el PBI per cápita del mundo, prácticamente, se mantuvo constante durante todo el período de referencia."},
+      {type:"plain",text:"Ahora bien, no sólo que el capitalismo generó una explosión de riqueza, desde el momento que se adoptó como sistema económico, sino que si uno analiza los datos lo que se observa es que el crecimiento se viene acelerando, a lo largo de todo el período."},
+      {type:"coded",text:"La conclusión es obvia: lejos de ser la causa de nuestros problemas, el capitalismo de libre empresa, como sistema económico, es la única herramienta que tenemos para terminar con el hambre, la pobreza y la indigencia, a lo largo y a lo ancho de todo el planeta. La evidencia empírica es incuestionable.",codes:[{dim:"D1.1",sub:"Market_Primacy",memo:"The hockey-stick economic history culminates in the categorical Market_Primacy claim: free-enterprise capitalism is \"the only tool\" for ending poverty, and the conclusion is declared empirically self-evident. For sustainability governance, the structural implication is total: if markets are the only legitimate mechanism for solving the most fundamental collective problem (poverty), they are implicitly the only legitimate mechanism for environmental problems, displacing any basis for state-led climate regulation."},{dim:"IND",sub:"Selective_Empiricism",memo:"\"La evidencia empírica es incuestionable\" is the canonical Selective_Empiricism instance in the corpus: Milei claims unquestionable empirical authority for the pro-market historical narrative, but later in the same speech systematically dismisses opposing academic and institutional knowledge (including climate science) as ideologically captured. The move is to appropriate the prestige of empiricism for one side while denying it to the other — crowding out rather than refuting."}]},
+      {type:"plain",text:"Por eso, como no cabe duda de que el capitalismo de libre mercado es superior – en términos productivos – la doxa de izquierda ha atacado al capitalismo por sus cuestiones de moralidad."},
+      {type:"plain",text:"Quienes promueven la justicia social parten de la idea de que el conjunto de la economía es una torta que se puede repartir de una manera distinta, pero esa torta no está dada, es riqueza que se va generando, en lo que – por ejemplo – Israel Kirzner llama un proceso de descubrimiento de mercado."},
+      {type:"coded",text:"El colectivismo - al inhibir estos procesos de descubrimiento y al dificultar la apropiación de lo descubierto - ata al emprendedor de las manos y le imposibilita producir mejores bienes y ofrecer mejores servicios a un mejor precio. ¿Cómo puede ser, entonces, que desde la academia, los organismos internacionales, la política y la teoría económica se demonice un sistema económico que no sólo ha sacado de la pobreza más extrema, al 90 por ciento de la población mundial?",codes:[{dim:"D1.1",sub:"Market_Primacy",memo:"The Kirznerian market-as-discovery-process argument provides theoretical grounding: environmental outcomes, like economic ones, are best achieved through decentralized market discovery rather than state planning. \"Academia, los organismos internacionales, la política y la teoría económica\" — the four pillars of climate governance legitimacy — are grouped as an ideological bloc irrationally hostile to the proven market mechanism."},{dim:"D1.2",sub:"Attack_on_Experts_and_Technocrats",memo:"The entire authority apparatus — academic, international, political, theoretical — is presented as a unified bloc that \"demonizes\" capitalism. For sustainability governance: IPCC, UNEP, national science ministries, and environmental economics are all expressions of the same anti-capitalist ideological formation. This is a structural delegitimation of the expert class, not a dispute with specific scientific findings."}]},
+      {type:"coded",text:"El problema esencial de occidente hoy es que no sólo debemos enfrentarnos a quienes siguen bregando por el socialismo empobrecedor; sino también a nuestros propios líderes, pensadores y académicos que, amparados en un marco teórico equivocado, socavan los fundamentos del sistema que nos ha dado la mayor expansión de riqueza y prosperidad de nuestra historia.",codes:[{dim:"D1.2",sub:"Pseudo_Science_or_Ideological_Science",memo:"\"Amparados en un marco teórico equivocado\" frames the entire academic and expert community as epistemically compromised: their framework is wrong, and therefore their outputs — including climate science, environmental economics, and sustainability research — are systematically distorted. The concession of good intentions (\"sin quererlo,\" as the next paragraph notes) makes this a structurally more powerful delegitimation than the debate's ad hominem: it invalidates conclusions while preserving a veneer of charity toward the actors."}]},
+      {type:"coded",text:"El marco teórico al que me refiero es el de la teoría económica neoclásica, que diseña un instrumental que, sin quererlo, termina siendo funcional a la intromisión del estado. El problema de los neoclásicos es que como el modelo del que se enamoraron no mapea contra la realidad, atribuyen el error a supuestos fallos del mercado en vez de revisar las premisas de su modelo.",codes:[{dim:"D1.1",sub:"Delegitimization_of_Regulation",memo:"The attack on neoclassical economics demolishes the theoretical foundation of environmental regulation. Mainstream climate policy — carbon pricing, Pigouvian taxes, cap-and-trade — derives its justification from externality theory, precisely the \"instrumental\" Milei argues ends up serving state intrusion. By framing neoclassical economics as the theoretical Trojan horse through which socialism enters, he delegitimizes the entire economic-theoretical basis for climate regulation at the level of first principles."}]},
+      {type:"coded",text:"El pretexto de un supuesto fallo de mercado se introducen regulaciones que lo único que generan es distorsiones en el sistema de precios, que impiden el cálculo económico, y en consecuencia el ahorro, la inversión y el crecimiento.",codes:[{dim:"D1.1",sub:"Deregulation_Benefits",memo:"The positive deregulation case through intervention-spiral logic: each regulatory \"correction\" of a supposed market failure compounds the problem by distorting price signals, impairing economic calculation, reducing saving, investment, and growth. Applied to climate policy: carbon taxes, emissions standards, and green industrial mandates suppress economic activity rather than solving an environmental problem."}]},
+      {type:"plain",text:"El mercado no es una curva de oferta y demanda en un gráfico. El mercado es un mecanismo de cooperación social donde se intercambian voluntariamente. Por lo tanto, dada esa definición, el fallo del mercado es un oxímoron. No existe fallo de mercado."},
+      {type:"coded",text:"Si las transacciones son voluntarias, el único contexto en el que puede haber un fallo de mercado es si hay coacción. Y el único con la capacidad de coaccionar de manera generalizada es el estado que tiene el monopolio de la violencia. Los fallos de mercado no existen.",codes:[{dim:"D1.1",sub:"Market_Primacy",memo:"\"El fallo del mercado es un oxímoron. No existe fallo de mercado.\" This is the most consequential passage in the speech for sustainability governance. Environmental externalities — greenhouse gas emissions, pollution, deforestation — are the paradigmatic market failures in environmental economics; the entire justification for climate regulation rests on this concept. By declaring market failures logically impossible (not empirically absent, but conceptually self-contradictory), Milei eliminates the theoretical ground for any climate policy whatsoever."},{dim:"D1.1",sub:"Delegitimization_of_Regulation",memo:"The inversion of causality — apparent market failures are actually state failures — performs total delegitimation of environmental regulation: if every environmental harm traces to prior state intervention rather than market dynamics, the correct response to environmental problems is always less regulation, never more. The \"monopolio de la violencia\" framing additionally casts environmental regulation as coercive imposition on voluntary exchange, not corrective policy."}]},
+      {type:"plain",text:"Dicho de otro modo, cada vez que ustedes quieran hacer una corrección de un supuesto fallo de mercado, inexorablemente, por desconocer lo que es el mercado o por haberse enamorado de un modelo fallido, le están abriendo las puertas al socialismo y están condenando a la gente a la pobreza."},
+      {type:"coded",text:"Sin embargo, frente a la demostración teórica de que la intervención del estado es perjudicial, y la evidencia empírica de que fracasó, la solución que propondrán los colectivistas no es mayor libertad sino que es mayor regulación, generando una espiral descendiente de regulaciones hasta que todos seamos más pobres, y la vida de todos nosotros dependa de un burócrata sentado en una oficina de lujo.",codes:[{dim:"D1.1",sub:"Anti_State_Anti_Bureaucratic",memo:"\"Un burócrata sentado en una oficina de lujo\" personifies the regulatory state as a rent-seeking class who live off others' productivity. Sustainability agencies, CONICET researchers, and UNFCCC secretariat staff are implicitly \"parasites\" in this framing. The \"espiral descendiente de regulaciones\" presents regulatory accumulation as inherently self-reinforcing and catastrophic — every incremental climate regulation is a step toward total bureaucratic control."},{dim:"D1.1",sub:"Deregulation_Benefits",memo:"The positive deregulation argument is restated: each regulatory intervention contributes to the downward spiral, making removal of regulations the only way to restore growth and freedom. Applied to climate architecture: the case for removing carbon pricing, emissions standards, and green mandates is framed as preventing the slide toward bureaucratic dependency."}]},
+      {type:"plain",text:"Dado el estrepitoso fracaso de los modelos colectivistas, los socialistas se vieron forzados a cambiar su agenda. Dejaron atrás la lucha de clases basada en el sistema económico para reemplazarla por otros supuestos conflictos sociales igual de nocivos para la vida en comunidad y para el crecimiento económico."},
+      {type:"coded",text:"Otro de los conflictos que los socialistas plantean es el del hombre contra la naturaleza. Sostienen que los seres humanos dañamos el planeta y que debe ser protegido a toda costa, incluso llegando a abogar por mecanismos de control poblacional o en la agenda sangrienta del aborto.",codes:[{dim:"D1.3",sub:"Neo_Marxism",memo:"Environmentalism enters explicitly as the second front in the socialist \"new agenda\" after gender — \"el conflicto del hombre contra la naturaleza.\" This is Neo_Marxism's core formulation in the corpus: the green agenda is a tactical repositioning by socialists who abandoned classical class struggle. Placement as structurally equivalent to feminism as a manufactured \"conflict\" denies both its empirical basis and its autonomous political legitimacy."},{dim:"D1.3",sub:"Woke_Bundling",memo:"Feminism then environmentalism, both introduced as socialist \"new battles\" — the formal Woke_Bundling move. The emotional charge of the \"ridiculous and unnatural\" gender conflict transfers directly to climate via juxtaposition. The population control linkage (\"mecanismos de control poblacional\") further toxifies the climate cause by association with abortion in Milei's audience."}]},
+      {type:"coded",text:"Lamentablemente, estas ideas nocivas han impregnado fuertemente en nuestra sociedad. Los neo-marxistas han sabido cooptar el sentido común de occidente. Lograron esto gracias a la apropiación de los medios de comunicación, de la cultura, de las universidades, y sí, también de los organismos internacionales.",codes:[{dim:"D1.2",sub:"Pseudo_Science_or_Ideological_Science",memo:"The \"cooptation\" narrative positions universities and international organizations as ideologically captured producers of knowledge in service of a political agenda. IPCC, UNEP, WMO, and the media disseminating climate research are all nodes in an ideological network — climate science is not wrong because its methods are bad but because its institutions have been colonized by neo-Marxists."},{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"\"Los organismos internacionales\" as the final node of the neo-Marxist cooptation network places the UNFCCC process, the 2030 Agenda framework, and multilateral climate funds within a conspiracy of ideological capture. This establishes the principled rationale for Argentina not to participate in or be bound by international climate commitments: these institutions are not neutral coordinators but captured instruments of a political project."}]},
+      {type:"coded",text:"Por suerte, somos cada vez más los que nos atrevemos a levantar la voz. Porque vemos que, si no combatimos frontalmente estas ideas, el único destino posible es que cada vez vamos a tener más estado, más regulación, más socialismo, más pobreza, menos libertad, y, en consecuencia, peor nivel de vida.",codes:[{dim:"D1.1",sub:"Delegitimization_of_Regulation",memo:"The escalation chain — \"más estado, más regulación, más socialismo, más pobreza\" — presents all regulation as steps in a deterministic descent toward poverty and unfreedom. Environmental regulation is subsumed within this chain: more climate policy means more socialism, which means more poverty. Every individual regulatory act (a carbon tax, a protected area designation, an emissions standard) is a contributing step to civilizational decline."}]},
+      {type:"coded",text:"Con herramientas como la emisión monetaria, el endeudamiento, los subsidios, el control de la tasa de interés, los controles de precios y las regulaciones para corregir los supuestos \"fallos de mercado\", pueden controlar los destinos de millones de seres humanos.",codes:[{dim:"D1.1",sub:"Delegitimization_of_Regulation",memo:"The enumeration of state control tools — including \"las regulaciones para corregir los supuestos 'fallos de mercado'\" — explicitly places environmental regulation in the toolkit of totalitarian control. Climate instruments (carbon pricing, emissions regulation, green industrial policy) fall squarely under one or more items in this list, framing them as mechanisms of mass control rather than environmental management."}]},
+      {type:"coded",text:"Para finalizar, quiero dejarle un mensaje a todos los empresarios: no se dejen amedrentar ni por la casta política ni por los parásitos que viven del estado.",codes:[{dim:"D1.1",sub:"Anti_Casta",memo:"The closing exhortation to business leaders against \"la casta política\" and \"los parásitos que viven del estado\" consolidates the Anti_Casta frame globally. ESG frameworks, green investment mandates, and corporate climate disclosure requirements — all of which constrain private business on behalf of state-defined environmental goals — are implicitly tools through which \"la casta\" extends its reach into the productive sector."}]}
+    ]},
+  {id:"un2024",date:"2024-09-24",title:"UN General Assembly — 79th Session",venue:"New York",type:"speech",
+    segments:[
+      {type:"plain",text:"Address by Javier Milei, President of Argentina, to the 79th Session of the United Nations General Assembly, delivered 24 September 2024."},
+      {type:"plain",text:"For those who do not know, I am not a politician, I am an economist, a libertarian liberal economist, who was honored with the position of President of the Argentine Republic, in the face of the resounding failure of more than a century of collectivist policies, a century of collectivist policies that destroyed our country."},
+      {type:"plain",text:"This is my first speech in front of the United Nations General Assembly, and I would like to take this opportunity to alert the various nations of the world to the path they have been treading for decades and the danger of this organization's failure to fulfill its original mission."},
+      {type:"plain",text:"I do not come here to tell the world what to do; I come here to tell the world, on the one hand, what will happen if the United Nations continues to promote collectivist policies, which they have been promoting under the mandate of the 2030 Agenda, and, on the other hand, what are the values that the new Argentina defends."},
+      {type:"coded",text:"I want to be clear on the position of the Argentine agenda: the 2030 Agenda, although well-intentioned in its goals, is nothing more than a supranational government program, socialist in nature, which seeks to solve the problems of modernity with solutions that violate the sovereignty of nation states and violate people's right to life, liberty and property. It is an agenda that pretends to solve poverty, inequality and discrimination with legislation that only deepens them. Because world history shows that the only way to guarantee prosperity is by limiting the power of the monarch, guaranteeing equality before the law and defending the right to life, liberty and property of individuals.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"The 2030 Agenda — the overarching UN sustainability framework encompassing SDGs, climate action (SDG 13), clean energy, and biodiversity — is formally declared \"a supranational government program, socialist in nature.\" Delivered before the General Assembly, this is the highest-profile Rejection_of_Multilateral_Governance in the corpus. The framing — socialism, sovereignty violation, counterproductive legislation — activates the full set of D1.1 delegitimation registers simultaneously: ideological, statist, and harmful."},{dim:"D1.1",sub:"Sustainability_as_Ideological_or_Harmful",memo:"\"An agenda that pretends to solve poverty with legislation that only deepens it\" is Sustainability_as_Ideological_or_Harmful in its strongest formulation: not merely ineffective but actively counterproductive. For climate specifically, SDG 13 and the Paris Agreement-linked elements are cast as policies that will deepen poverty — a geopolitically charged claim delivered to an audience of predominantly developing nations."},{dim:"D1.3",sub:"Civilizational_Defense",memo:"The UN is positioned as an agent of collectivist civilizational decline. Argentina's dissent is framed as a defense of the principles — life, liberty, property — that define legitimate civilization. The speech functions as a civilizational declaration: Argentina aligning itself in a conflict between freedom and collectivism, with the 2030 Agenda as a key battlefield."}]},
+      {type:"coded",text:"It has been precisely the adoption of this agenda, which obeys privileged interests, the abandonment of the principles — outlined in the Universal Declaration of Human Rights — that has distorted the role of this institution. Thus, we have seen how an organization, born to defend the rights of man, has been one of the main proponents of the systematic violation of freedom, as — for example — with the global quarantines during the year 2020, which should be considered a crime against humanity.",codes:[{dim:"D1.2",sub:"Attack_on_Experts_and_Technocrats",memo:"Framing the UN's COVID-19 pandemic response as \"a crime against humanity\" attacks both the institution and the expert consensus (epidemiological, public health) that underpinned the lockdown policies. For climate governance, the structural implication is powerful: if the UN's expert-backed response to one global emergency constitutes a crime, why should its expert-backed response to another global emergency (climate change) be trusted? This passage pre-empts any UN-mediated climate science or policy recommendation by establishing institutional criminality as a precedent."}]},
+      {type:"coded",text:"In the economic sphere, collectivist policies have been promoted that threaten economic growth, violate property rights, and hinder the natural economic process, preventing the most underprivileged countries in the world from freely enjoying their own resources. Moreover, a toxic relationship has been promoted between global governance policies and international lending agencies, requiring the most neglected countries to commit resources they do not have to programs they do not need, turning them into perpetual debtors to promote the agenda of the global elites.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"The \"toxic relationship\" between global governance and multilateral lending agencies is a direct reference to the conditionality apparatus through which climate commitments are embedded in development finance. Framed as extortion — poor countries committing \"resources they do not have to programs they do not need\" — this delegitimizes climate finance conditionality as neocolonial extraction rather than international solidarity. Delivered at the General Assembly with a developing-world majority, this is a geopolitically targeted version of Rejection_of_Multilateral_Governance."},{dim:"D1.1",sub:"Sustainability_as_Ideological_or_Harmful",memo:"Sustainability programs are characterized as ones that developing countries \"do not need,\" framing the entire sustainable development agenda — SDGs, climate adaptation, energy transition — as externally imposed and harmful to the global poor. This repositions climate skepticism as a defense of the world's poorest nations against elite climate imperialism, maximizing the political appeal of the argument in this specific venue."}]},
+      {type:"coded",text:"Nor has the tutelage of the World Economic Forum helped, where ridiculous policies are promoted with Malthusian blinders on — such as \"Zero Emission\" policies — which harm poor countries in particular. To policies linked to sexual and reproductive rights, when the birth rate in Western countries is plummeting, heralding a bleak future for all.",codes:[{dim:"D1.1",sub:"Sustainability_as_Ideological_or_Harmful",memo:"\"Zero Emission\" policies are named explicitly and characterized as \"ridiculous\" and \"Malthusian,\" harmful especially to poor countries. This is the most direct attack on net-zero climate policy as policy in the UN corpus: the agenda is framed as ideologically driven (Malthusian) and materially harmful (to the poor), deploying both the sustainability-as-harmful and the broader Malthusian anti-humanist framing simultaneously."},{dim:"D1.3",sub:"Woke_Bundling",memo:"\"Zero Emission\" policies are listed in the same breath as \"policies linked to sexual and reproductive rights\" — climate policy bundled with population/reproductive policy via the Malthusian linkage. At the General Assembly, where many member states are deeply conservative on reproductive rights, this bundling maximizes delegitimization of climate governance among the audience most capable of blocking multilateral sustainability commitments."}]},
+      {type:"coded",text:"An organization that, instead of confronting real global conflicts, invests time and effort in imposing on poor countries what, how and what they should produce, with whom they should associate, what they should eat and what they should believe in, as the present Pact for the Future intends to dictate.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"The list — what to produce, with whom to associate, what to eat, what to believe — encompasses climate-related production constraints (fossil fuel restrictions), trade conditionalities (Paris-Agreement-linked), dietary sustainability guidelines (meat consumption), and scientific orthodoxy (climate consensus). Framing these as illegitimate impositions on sovereignty and self-determination performs a comprehensive delegitimation covering the full scope of the sustainable development agenda."}]},
+      {type:"coded",text:"Therefore, I would like to issue a warning: we are at the end of a cycle. Collectivism and moral posturing, of the woke agenda, have collided with reality and no longer have credible solutions to offer to the world's real problems.",codes:[{dim:"D1.3",sub:"Woke_Bundling",memo:"\"Collectivism and moral posturing, of the woke agenda\" — the UN sustainability agenda is absorbed into the \"woke agenda\" at the General Assembly, delivering the same cultural-war framing to the world's premier diplomatic institution. \"Has collided with reality and no longer has credible solutions\" performs a temporal delegitimation: the entire 30-year history of sustainable development (from Rio 1992 to the 2030 Agenda) is retroactively framed as a project that never worked and has now conclusively failed."}]},
+      {type:"coded",text:"I want to be clear about something: Argentina will not support any policy that implies the restriction of individual freedoms, of trade, or the violation of the natural rights of individuals, no matter who promotes it or how much consensus that institution has. For this reason, we wish to express — officially — our dissent on the Pact of the Future, signed on Sunday, and we invite all the nations of the free world to join us, not only in dissenting from this pact, but also in the creation of a new agenda for this noble institution: the agenda of freedom.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"[V3 re-code — was D2.3 in v2] The formal announcement of dissent from the Pact for the Future is here coded as D1.1 > Rejection_of_Multilateral_Governance because this passage is a rhetorical act: Milei is legitimizing and framing the exit, not performing the institutional act itself. The phrase \"no matter who promotes it or how much consensus that institution has\" directly applies the Fallacy_of_Authority logic to formal multilateral commitments — scientific and institutional consensus is explicitly declared non-binding. The invitation to form a counter-coalition extends the rhetorical delegitimation to a geopolitical project. The actual formal institutional act (official communication, voting record, decree) belongs in the D2 formal documentation corpus."}]},
+      {type:"coded",text:"From this day on, know that the Argentine Republic will abandon the position of historical neutrality and will be at the forefront of the struggle in defense of freedom.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"Argentina's declaration of a new activist foreign policy stance \"in defense of freedom\" — framed against the multilateral collectivist governance architecture — establishes a discursive commitment to sustained opposition to the international sustainability governance system. The rhetorical register is civilizational mobilization: Argentina is not a passive defector but a vanguard actor in a freedom-versus-collectivism conflict."},{dim:"D1.3",sub:"Civilizational_Defense",memo:"\"La lucha en defensa de la libertad\" against multilateral collectivism is the Civilizational_Defense frame applied as foreign policy commitment. Western civilization's survival requires active opposition to the institutions (UN, WEF, 2030 Agenda) that Milei has spent the speech identifying as the agents of civilizational decline."}]}
+    ]},
+  {id:"davos2025",date:"2025-01-23",title:"WEF Davos 2025",venue:"Davos",type:"speech",
+    segments:[
+      {type:"plain",text:"AI-generated English transcript of President Milei's address at Davos 2025."},
+      {type:"plain",text:"Good morning everyone. A year ago, I stood here before you, alone, and spoke some truths about the state of the Western world that were met with some surprise and astonishment by much of the political, economic and media establishment of the West."},
+      {type:"plain",text:"Nor do I feel alone because over the course of this year, I have found allies in this fight for the ideas of freedom in every corner of the world — from the amazing Elon Musk to that fierce Italian lady, my dear Giorgia Meloni; from Bukele in El Salvador to Viktor Orbán in Hungary; from Benjamin Netanyahu in Israel to Donald Trump in the United States — slowly an international alliance has been forming among all those nations which, like ours, want to be free and believe in the ideas of liberty."},
+      {type:"plain",text:"And slowly, what once seemed like the absolute global hegemony of the woke left in politics and educational institutions, in the media, in supranational organizations, or even in forums like Davos, has begun to crumble."},
+      {type:"plain",text:"Today I've come here to tell you that our battle is not yet won. And although hope has been rekindled, it is our moral duty and our historical responsibility to dismantle the ideological edifice of sickly wokeism, until we have succeeded in rebuilding our historical cathedral."},
+      {type:"coded",text:"Because I must say that forums like this one have been protagonists and promoters of the sinister agenda of wokeism that is doing so much damage to the Western world.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"WEF is named a \"protagonist and promoter\" of a \"sinister agenda\" — the institution that convenes global climate governance (the Davos Consensus, net-zero pledges, green capitalism frameworks) is delegitimized as ideologically captured before any specific climate argument is made. This is meta-level Rejection_of_Multilateral_Governance: not objecting to a specific commitment but delegitimizing the entire governance institution, meaning everything it produces — climate targets, ESG standards, green investment pledges — is tainted at source."}]},
+      {type:"coded",text:"This is the great epidemic of our time that must be cured. This is the cancer we need to get rid of. This ideology has colonized the world's most important institutions — from the political parties and governments of leading Western nations to global governance organizations, even NGOs, universities and media outlets.",codes:[{dim:"D1.2",sub:"Attack_on_Universities",memo:"Universities appear in the list of colonized institutions alongside global governance organizations and media. Universities are the primary sites where climate scientists are trained, climate research is produced, and the expert community underpinning IPCC assessment reports is formed. By framing universities as ideologically colonized, Milei delegitimizes the climate knowledge-production chain at its origin point."},{dim:"D1.2",sub:"Rejection_of_Expert_Mediation",memo:"The enumeration of captured institutions — political parties, global governance organizations, NGOs, universities, media — covers the entire infrastructure of expert mediation in public policy: the channels through which scientific knowledge reaches and legitimizes policy decisions. Claiming all are colonized by a single ideology denies any possibility of legitimate expert mediation in climate governance."}]},
+      {type:"coded",text:"These are all various heads of the same beast aimed at justifying the state's expansion through the appropriation and distortion of noble causes.",codes:[{dim:"D1.3",sub:"Neo_Marxism",memo:"Environmentalism is listed (alongside feminism, gender ideology, and immigration) as one of several \"heads of the same beast aimed at justifying the state's expansion.\" Neo_Marxism's core formulation: these causes are strategic tools for state expansion, not genuine moral concerns. Carbon taxes, green industrial policy, and emissions regulation are Trojan horses for socialist state growth — not environmental management."}]},
+      {type:"plain",text:"Wokism also manifests in sinister radical environmentalism and the climate change agenda. Preserving our planet for future generations is a matter of common sense. No-one wants to live in a landfill."},
+      {type:"coded",text:"But once again, wokeism has managed to pervert this fundamental idea. From preserving the environment for human enjoyment, we have shifted to a fanatical environmentalism, where we humans are seen as a cancer that must be eradicated and economic development is considered little more than a crime against nature.",codes:[{dim:"D1.3",sub:"Woke_Bundling",memo:"The pivot from feminism to environmentalism using \"Wokism also manifests in...\" is the formal Woke_Bundling move: climate governance is positioned as another chapter in the same ideological story, governed by the same analytical template applied to feminism. The concession-then-perversion structure (\"a matter of common sense\" → \"perverted\") is more sophisticated than Davos 2024 — acknowledging legitimacy before delegitimizing, making the attack harder to characterize as reactionary denial."},{dim:"D1.3",sub:"Neo_Marxism",memo:"\"Economic development is considered little more than a crime against nature\" frames climate regulation as anti-civilization and anti-progress ideology. The \"cancer\" metaphor is analytically notable: Milei applies \"cancer\" both to woke ideology (which must be cured) and to how environmentalists supposedly view humanity — a double inversion equating climate advocates with those who dehumanize people."},{dim:"D1.1",sub:"Sustainability_as_Ideological_or_Harmful",memo:"\"Economic development is considered a crime against nature\" reframes climate regulation as anti-development ideology. Particularly effective for the Global South dimension: if climate governance criminalizes development, it condemns poor countries to permanent underdevelopment in the name of ideology."}]},
+      {type:"coded",text:"And yet, when we argue that the Earth has already gone through five abrupt temperature change cycles, and that during four of those men was not even around, we are called 'Flat Earthers' in order to discredit our ideas, even though science and the data are on our side.",codes:[{dim:"D1.2",sub:"Climate_Skepticism_or_Dismissal",memo:"The five-cycles argument — Earth has undergone abrupt temperature changes without human presence — is the natural cycles denialist claim deployed as a counter to anthropogenic attribution. This is the clearest direct climate science denial in the corpus. The logical structure (\"this happened before without humans, therefore humans are not causing it now\") elides attribution science, which isolates the anthropogenic signal from natural variability."},{dim:"D1.2",sub:"Pseudo_Science_or_Ideological_Science",memo:"\"Science and the data are on our side\" directly appropriates scientific authority for the denialist position. The \"Flat Earthers\" label is framed as a delegitimation tactic rather than a substantive critique. The epistemic authority reversal: consensus scientists become dogmatists silencing dissent, while the climate skeptic becomes the true empiricist. The move engages with no actual scientific arguments."},{dim:"IND",sub:"Selective_Empiricism",memo:"Clearest corpus instance of Selective_Empiricism: \"science and data are on our side\" legitimates the natural-cycles claim while framing the institutional scientific community's response as ideological silencing. The dual move — appropriating empiricism for the denialist side while denying it to the consensus side — is the defining feature of this pattern."}]},
+      {type:"coded",text:"It is no coincidence that these same groups are the main promoters of the bloody, murderous abortion agenda, an agenda designed on the basis of the Malthusian premise that overpopulation will destroy the Earth, and that we must therefore implement some form of population control.",codes:[{dim:"D1.3",sub:"Woke_Bundling",memo:"The Malthus-abortion-climate chain is an intensified Woke_Bundling move: climate advocates and abortion advocates are revealed to share a common ideological foundation (Malthusianism = overpopulation as the root threat). \"It is no coincidence\" signals conspiratorial reasoning. Maximal contamination: climate cause associated with \"bloody, murderous\" abortion agenda for Milei's audience."},{dim:"D1.3",sub:"Neo_Marxism",memo:"The Malthusian framing codes environmentalism as anti-human-development: its real goal is population reduction through abortion promotion. The Neo_Marxism thesis: the green agenda is a power-accumulation project in disguise. The explicit causal chain (Malthus → overpopulation fear → abortion → population control) provides theoretical lineage, making it appear as a coherent intellectual tradition rather than a rhetorical association."}]},
+      {type:"coded",text:"And wokeism also seeks to hijack our future because by dominating the faculties of the world's most prestigious universities, it is shaping the elites of our countries to reject and deny the culture, ideas and values that made us great.",codes:[{dim:"D1.2",sub:"Attack_on_Universities",memo:"The university attack reappears in a futurity register: universities are not just producing bad knowledge now but \"shaping the elites\" who will govern and make policy in the future. For climate governance, this extends the delegitimation forward in time: the next generation of policymakers, business leaders, and public intellectuals is being trained to accept the climate-governance framework as legitimate — a long-term institutional threat."}]},
+      {type:"plain",text:"And unfortunately, these are the beliefs that institutions like this one have been promoting for 40 years, and no one here can feign innocence. For decades, there has been a worship of a sinister and murderous ideology, as if it were a golden calf, moving heaven and Earth to impose it on humanity."},
+      {type:"coded",text:"And this organization, along with the most influential supranational bodies, have been the ideologues of this barbarity. Multilateral lending organizations have been instruments of extortion, while many national governments, and especially the European Union, have acted as their armed wing.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"WEF, \"the most influential supranational bodies,\" multilateral lending organizations, and the EU are collectively framed as \"ideologues of barbarity\" and \"instruments of extortion.\" These are precisely the institutions that implement and finance climate policy globally. Framing them as a malevolent totalizing project — not misguided but malevolent — closes off any possibility of engagement with the multilateral climate governance system."},{dim:"D1.3",sub:"Civilizational_Defense",memo:"\"Worship of a sinister and murderous ideology, as if it were a golden calf\" elevates the stakes to civilizational-religious dimensions. The WEF-led governance consensus — including its climate architecture — is not an error but an idolatry that must be dismantled to save Western civilization. Civilizational_Defense at maximum intensity."}]},
+      {type:"plain",text:"But there is no such thing as market failures. Market failures, I say this again, do not exist. Since the market is a mechanism of social cooperation where property rights are voluntarily exchanged, the very concept of market failures is a contradiction in terms."},
+      {type:"coded",text:"The only thing such intervention achieves is the creation of new distortions within the price system, which in turn hinders economic calculation, savings and investment — ultimately leading to even more poverty in its wake or a mesh of abhorrent regulations, such as is the case in Europe, which kills economic growth.",codes:[{dim:"D1.1",sub:"Market_Primacy",memo:"The denial of market failures restated verbatim from Davos 2024, now anchored to European climate regulation as the exemplary case of \"abhorrent regulations that kill economic growth.\" The EU's climate regulatory architecture (ETS, CBAM, Fit for 55) is the world's most ambitious; naming it as evidence for the No_Market_Failures thesis directly targets the leading model of climate governance as proof that climate regulation causes poverty."},{dim:"D1.1",sub:"Deregulation_Benefits",memo:"The positive deregulation argument paired with the Europe case: removing climate regulation restores economic calculation, investment, and growth. \"Such as is the case in Europe, which kills economic growth\" — Deregulation_Benefits applied to climate regulation specifically, with the EU's climate architecture as empirical evidence."}]},
+      {type:"plain",text:"For this same reason, since wokism is nothing more than a systematic plan by the party of the state to justify state intervention and increase public spending, this means that our first and foremost mission has to be the drastic reduction in the size of the state."},
+      {type:"coded",text:"Not only in each of our countries, but also the drastic reduction of all supranational organizations, as this is the only way to root out this perverse system, draining its resources in order to give back to taxpayers what belongs to them, and to put an end to the sale of favours.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"[V3 re-code — was D2.3 in v2] \"Drastic reduction of all supranational organizations\" and \"draining its resources\" — this passage is here coded D1.1 > Rejection_of_Multilateral_Governance because the speech is performing a rhetorical act: declaring a policy prescription and framing it as ideologically necessary. The actual institutional actions (funding reductions, withdrawal from bodies, defunding climate funds) are D2 evidence to be found in Corpus B. The prescriptive force of the passage does not change its discursive nature."},{dim:"D1.3",sub:"Neo_Marxism",memo:"\"Wokism is nothing more than a systematic plan by the party of the state to justify state intervention\" explicitly articulates the Neo_Marxism thesis for the entire woke project — including its environmental dimension: the climate agenda is a state-expansion pretext. The logical consequent is direct: drastic state reduction (including of climate institutions) is the necessary response."}]},
+      {type:"coded",text:"The functions of the state must once again be limited to defending the right to life, liberty and property. Any other function the state assumes will come at the expense of its fundamental role and will inevitably lead to the 'omnipresent Leviathan' that we all suffer under today.",codes:[{dim:"D1.1",sub:"Delegitimization_of_Regulation",memo:"The minimal-state prescriptive principle categorically excludes environmental regulation as a legitimate state function. Climate policy in all its forms — carbon pricing, emissions regulation, environmental ministries, adaptation planning, clean energy mandates — falls outside life, liberty, and property, making it constitutionally illegitimate regardless of empirical merits. This is Delegitimization_of_Regulation stated as a first-principles categorical exclusion."}]}
+    ]},
+  {id:"onu2025",date:"2025-09-24",title:"UN General Assembly — 80th Session",venue:"New York",type:"speech",
+    segments:[
+      {type:"plain",text:"A las autoridades de las Naciones Unidas, a los representantes de los países miembros y a todos los ciudadanos del mundo que siguen atentamente esta cumbre, buenos días."},
+      {type:"plain",text:"El año pasado me paré ante ustedes en esta misma asamblea y presenté una nueva orientación en política exterior para la Argentina. Sostuvimos que era imperativo un retorno a las ideas de la libertad, a los principios inmortales que sostienen la dignidad de la vida, la libertad y la propiedad de todos los individuos bajo la ley, y la necesidad de que la cooperación internacional tenga como fin, precisamente, asegurarlas."},
+      {type:"coded",text:"Sin embargo, advertí que la ONU se había alejado de su norte en las últimas décadas. El exitoso modelo de Naciones Unidas que hablaba de la necesidad de paz sin victoria y que se fundaba en la cooperación de los Estados-Nación se vio reemplazado por un modelo de gobierno supranacional de burócratas internacionales que buscan imponerles a los ciudadanos del mundo un modo de vivir determinado. Así es como pasamos de una organización que pretendía mediar la paz entre pares a una organización que pretende decidir no solo qué debe hacer cada Estado o Nación, sino también cada uno de los individuos en las distintas latitudes del planeta.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"The critique of the UN's transformation from a peace-mediation body to a \"supranational government of international bureaucrats\" directly targets the institutional architecture through which climate governance operates. UNFCCC, SDG framework, and Paris Agreement all require exactly the kind of normative prescription (\"what each state must do, what each individual must do\") that Milei characterizes as illegitimate overreach. \"Modo de vivir determinado\" positions climate NDCs and energy transition requirements as externally imposed lifestyle dictates rather than voluntary multilateral cooperation."},{dim:"D1.2",sub:"Attack_on_Experts_and_Technocrats",memo:"\"Burócratas internacionales\" is the recurring personification of international governance expertise: UN climate secretariat staff, IPCC working group members, and sustainability agency personnel are \"bureaucrats who impose rather than advise,\" denied legitimacy as technical mediators and recast as political actors pursuing their own agenda."}]},
+      {type:"coded",text:"Nosotros creemos en el fin original de este organismo. Creemos que existen problemas globales que requieren del diálogo y la cooperación internacional para ser resueltos. Pero para eso debemos rechazar estas extralimitaciones que a menudo acompañan a las agendas nobles. Como sostuvimos el año pasado, no acompañaremos nunca el cercenamiento de libertades individuales, comerciales, ni la violación de los derechos naturales de los ciudadanos de los Estados miembros; y, durante el último año y medio, hemos votado en consecuencia.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"[V3 re-code — was D2.3 in v2] \"Durante el último año y medio, hemos votado en consecuencia\" is here coded as D1.1 > Rejection_of_Multilateral_Governance because this is a rhetorical act — Milei is legitimizing and affirming Argentina's principled opposition to multilateral governance overreach. The statement performs the discursive work of framing Argentina's voting behavior as ideologically consistent and morally obligatory. The voting record itself (actual votes cast at UN bodies) is the D2 institutional evidence in Corpus B. Note that the concession opening (\"We believe in the original purpose of this organization\") is an inoculation move — acknowledging legitimate multilateral cooperation before rejecting its current form."}]},
+      {type:"plain",text:"Así, los Estados contemporáneos han entrado en una dinámica muy compleja de revertir en la que los incentivos, tanto de la población como de los políticos, apuntan a privilegiar el repartir la riqueza de hoy por sobre generar la riqueza de mañana. Como la incomodidad le resta voto y poder a quien lo asume, los dirigentes prefieren hacer todo lo que está a su alcance para mantener el statu quo heredado, aunque sea a costa de las consecuencias futuras. Incendian el futuro para mantener caliente el presente."},
+      {type:"coded",text:"Así, los Estados contemporáneos han entrado en una dinámica donde el interés del político siempre será sacrificar el futuro en el altar del presente porque consumir el capital acumulado genera bienestar momentáneo y ese bienestar momentáneo genera votos.",codes:[{dim:"IND",sub:"Temporal_Appropriation",memo:"\"Incendian el futuro para mantener caliente el presente\" is the central rhetorical move of the entire speech: intergenerational responsibility language — the moral foundation of sustainability discourse — is co-opted and directed against the 2030 Agenda and the multilateral governance apparatus. Milei appropriates the sustainability regime's own vocabulary (futurity, sacrifice-of-present, protecting future generations) and turns it against sustainability governance itself: the bureaucrats and agencies of the 2030 Agenda are the ones sacrificing the future for present bureaucratic comfort. This is the clearest and most fully developed Temporal_Appropriation instance in the corpus."}]},
+      {type:"coded",text:"Con el correr de los años esta organización ha ido adquiriendo funciones ajenas a su espíritu fundacional. Ha ido creando capas sobre capa de organismos, agencias y programas hasta alcanzar una hipertrofia de administraciones que son poco efectivas a la hora de resolver los problemas para los cuales fueron creadas. Así se engrosan las responsabilidades de la ONU, se engrosan los aportes recibidos por parte de las Naciones miembro y se redujeron los resultados palpables que esta organización tenía para ofrecerle al mundo.",codes:[{dim:"D1.2",sub:"Attack_on_Experts_and_Technocrats",memo:"\"Hipertrofia de administraciones que son poco efectivas\" characterizes the proliferation of UN agencies and programs as bureaucratic bloat producing poor results. UNEP, UNFCCC secretariat, IPCC, and SDG-linked programs are implicitly included in the indictment. If the agencies fail despite growing resources, the experts guiding them are not competent."},{dim:"D1.1",sub:"Anti_State_Anti_Bureaucratic",memo:"\"Capas sobre capa de organismos, agencias y programas\" applies the domestic anti-bureaucratic critique at the international level: the UN sustainability architecture is presented as the supranational equivalent of the Argentine administrative bloat Milei is dismantling domestically. This normalizes drastic reduction of the multilateral sustainability apparatus as rational efficiency reform — not political hostility to climate governance but consistent application of anti-bureaucratic logic."}]},
+      {type:"coded",text:"A este cóctel de incentivos cruzados se le suma que, a diferencia de los primeros mandatarios nacionales, las organizaciones internacionales nadie rinde verdaderamente cuentas por fallar en la resolución de un problema. Sin ir más lejos, los malos resultados de la Agenda 2030 dan testimonio de esto que describo. Lo que persiste en la práctica es un ciclo de estructuras que se reciclan, recursos que se multiplican y metas que se reprograman. Por esta razón, la Argentina decidió en su momento apartarse de este proceso porque veíamos en esta agenda un mal gasto de recursos escasos, con fines que no compartíamos y con el efecto de distraer la atención de las dificultades reales de un mundo encaminado al estancamiento.",codes:[{dim:"D1.1",sub:"Sustainability_as_Ideological_or_Harmful",memo:"\"Malos resultados de la Agenda 2030\" performs a consequentialist delegitimation: the sustainability framework has failed its own stated objectives. \"Estructuras que se reciclan, recursos que se multiplican y metas que se reprograman\" is a devastating characterization of SDG governance as self-perpetuating institutional inertia. \"Distraer la atención de las dificultades reales\" frames sustainability governance as an opportunity cost — absorbing scarce resources from pressing problems. This is Sustainability_as_Ideological_or_Harmful in its consequentialist register: not that the agenda is socialist per se, but that it wastes resources and obscures real needs."},{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"[V3 re-code — was D2.3 in v2] \"La Argentina decidió en su momento apartarse de este proceso\" is here coded D1.1 > Rejection_of_Multilateral_Governance. The speech is performing the discursive work of justifying and legitimizing Argentina's exit from the 2030 Agenda process — framing it as principled, rational, and sovereign. The rhetorical rationale (bad results, wrong goals, opportunity cost) is the D1 content. The formal institutional act (official communication to UN bodies, executive decree if any) is the D2 evidence to be sought in Corpus B."},{dim:"IND",sub:"Temporal_Appropriation",memo:"\"Un mal gasto de recursos escasos\" used to justify exiting the 2030 Agenda completes the Temporal_Appropriation move: the framework tasked with protecting future generations is reframed as the actor wasting the scarce resources that future generations will need. The same intergenerational moral vocabulary that launched the speech (\"incendian el futuro\") is now applied to delegitimize the 2030 Agenda as itself guilty of sacrificing future welfare."}]},
+      {type:"coded",text:"No somos, sin embargo, los únicos que estamos tomando las decisiones difíciles que este momento histórico demanda. El Presidente Trump, en Estados Unidos, también entiende que es el momento de revertir una dinámica que estaba llevando a Estados Unidos a una catástrofe. Entiende que debe hacer lo necesario, aunque a muchos no les guste.",codes:[{dim:"D1.3",sub:"Civilizational_Defense",memo:"The invocation of Trump as co-protagonist in \"the decisions this historical moment demands\" elevates the obstruction of multilateral sustainability governance to a coordinated civilizational project. The U.S.-Argentina alignment — both having defected from or undermined multilateral climate commitments — is framed as a deliberate civilizational intervention against a catastrophic trajectory, not bilateral political alignment."}]},
+      {type:"plain",text:"Por eso quisiera humildemente poner a disposición de esta Asamblea cuatro principios que creemos pueden ser útiles:"},
+      {type:"coded",text:"1. Principio del mandato esencial. La misión central de la ONU es preservar la paz y la seguridad internacional, todo lo demás debe concebirse como complementario a ese fin. 2. Principio de subsidiariedad internacional. La ONU debería intervenir sobre un tema únicamente cuando sea evidente que el problema excede de manera demostrable las capacidades de acción nacional; en todos los demás casos corresponde devolver la iniciativa a los Estados. 3. Principio de diligencia institucional. Eso implica la realización de auditorías confiables, el cierre de programas ineficaces, la consolidación de agencias únicas y un financiamiento condicionado a resultados verificables. 4. Principio de simplificación y racionalización normativa. Solo debemos apoyar iniciativas que no restrinjan la capacidad de los Estados de liberar sus fuerzas productivas, atraer inversión y fomentar el comercio.",codes:[{dim:"D1.1",sub:"Rejection_of_Multilateral_Governance",memo:"[V3 re-code — was split D2.2 + D1.1 in v2] The four principles constitute a comprehensive institutional redesign proposal that strips the UN of its sustainability governance function: Principle 1 (peace/security only) excludes SDGs and climate action from legitimate UN mandates; Principle 2 (subsidiarity) removes the binding character of international climate commitments by making all sustainability governance contingent on national voluntary adoption; Principle 4 (no restrictions on productive forces) would prohibit carbon pricing and emissions regulation categorically. This is coded entirely as D1.1 > Rejection_of_Multilateral_Governance in v3 because the speech is making a rhetorical proposal — arguing for an institutional redesign. The actual institutional acts required to implement these principles (treaty amendments, funding reductions, agency closures) belong in Corpus B."},{dim:"D1.1",sub:"Deregulation_Benefits",memo:"Principle 4 — \"solo debemos apoyar iniciativas que no restrinjan la capacidad de los Estados de liberar sus fuerzas productivas, atraer inversión y fomentar el comercio\" — frames deregulation as the positive prescription for international governance. Removing environmental and social standards from trade and investment conditions is framed as generating growth more effectively than climate programs. Proposed as a constitutional principle for international governance."},{dim:"D1.1",sub:"Anti_State_Anti_Bureaucratic",memo:"Principle 3 — \"cierre de programas ineficaces, consolidación de agencias únicas\" — is the anti-bureaucratic argument applied at the international institutional level. Milei explicitly parallels this to his domestic restructuring, framing international agency consolidation as the same rational efficiency logic: wasteful bureaucracy must be eliminated wherever it exists, domestic or international."}]},
+      {type:"plain",text:"[Remaining closing section on Malvinas, AMIA, Venezuela, Gaza — no climate-codeable content.]"}
+    ]},
+  {id:"davos2026",date:"2026-01-22",title:"WEF Davos 2026",venue:"Davos",type:"speech",
+    segments:[
+      {type:"plain",text:"Good afternoon, everyone."},
+      {type:"plain",text:"I stand here before you to state categorically that Machiavelli is dead."},
+      {type:"plain",text:"For years, our thinking was distorted by the presentation of a false dilemma in the design of public policies, one in which we were supposedly faced with a choice between political efficiency on the one hand and respect for the ethical and moral values of the West on the other."},
+      {type:"plain",text:"As Professor Jesús Huerta de Soto points out in his work on dynamic efficiency, from that perspective, efficiency is not compatible with various schemes of equity or justice, but rather arises solely and exclusively from one of them, the one based on respect for private property and the entrepreneurial function."},
+      {type:"coded",text:"Therefore, the opposition between the dimensions of efficiency and justice is false and erroneous. That is to say, what is just can't be inefficient, nor can what is efficient be unjust. Actually, from the standpoint of dynamic analysis, justice and efficiency are two sides of the same coin.",codes:[{dim:"D1.1",sub:"Market_Primacy",memo:"The Huerta de Soto dynamic efficiency argument performs a foundational move for Market_Primacy: it collapses the efficiency-justice distinction that underpins much environmental economics. In standard welfare economics, a carbon tax may be efficient (correcting an externality) while raising distributional concerns (justice). Milei's framework eliminates this tradeoff by definitional fiat: what is just (private property, voluntary exchange) is by definition efficient, and what is efficient cannot be unjust. This forecloses the standard case for environmental regulation — that a market failure produces an outcome both inefficient and unjust that state intervention can improve."}]},
+      {type:"coded",text:"However, this required embracing a mathematical structure that left the door open to state intervention under the well-intentioned goal of correcting market failures, which, from my perspective, do not really exist. To address this, the proof developed by Hans-Hermann Hoppe, based on property rights in line with Locke's principle of original appropriation together with the non-aggression principle, not only proves satisfactory in establishing optimality, but also leaves no room for intervention.",codes:[{dim:"D1.1",sub:"Delegitimization_of_Regulation",memo:"The Hoppe property-rights proof is invoked to argue that the neoclassical framework \"leaves the door open to state intervention\" through the market failure concept, and that the correct theoretical framework (Lockean property rights + non-aggression principle) \"leaves no room for intervention.\" For climate governance, this is the most philosophically grounded version of the Delegitimization_of_Regulation argument: the entire framework justifying carbon pricing and emissions regulation is replaced by a rival framework in which intervention is not merely inadvisable but logically prohibited by natural law."}]},
+      {type:"coded",text:"In turn, in 2025, I explained the mental parasites sown by the left in humanity. Therefore, today more than ever, in the face of the ethical and moral degradation afflicting the West as a result of embracing the new socialist agenda, it is necessary to once again promote the ideas of freedom.",codes:[{dim:"D1.3",sub:"Civilizational_Defense",memo:"\"Ethical and moral degradation afflicting the West as a result of embracing the new socialist agenda\" restates the Civilizational_Defense master frame from Davos 2024 and 2025, condensed to a single sentence. The reference to \"mental parasites sown by the left\" (2025 speech) — which explicitly enumerated radical environmentalism — links this speech's philosophical argument directly to the prior year's attack on climate governance. The current speech does not need to repeat the climate-specific argument; the philosophical foundation presented here is the theoretical grounding for it."}]},
+      {type:"coded",text:"The values-based view of capitalism holds that if such a position has been achieved through discovery, voluntary exchange and without violating the non-aggression principle, there is no justification for intervention. Indeed, intervention constitutes a violation of property rights, and by punishing profits, the economy's potential growth declines, so intervention and regulation are dynamically inefficient because they are violent and therefore unjust.",codes:[{dim:"D1.1",sub:"Delegitimization_of_Regulation",memo:"\"Intervention and regulation are dynamically inefficient because they are violent and therefore unjust\" is the most compressed and philosophically grounded Delegitimization_of_Regulation in the corpus. The argument flows from natural law (non-aggression principle) through property rights theory to a categorical moral-and-efficiency condemnation. Environmental regulation — carbon taxes, emissions standards, green mandates — violates property rights, punishes profits, and is therefore both unjust and dynamically inefficient. The dual characterization (violent + unjust) is more comprehensive than prior formulations, which typically argued only that regulation was harmful."},{dim:"D1.1",sub:"Deregulation_Benefits",memo:"The positive case is structurally present: if regulation is violent and inefficient, then removing it restores both justice and efficiency simultaneously. \"Economy's potential growth declines when profits are punished\" — removing environmental regulations restores profit incentives, increases investment, and raises growth. Deregulation_Benefits at the level of foundational political economy: not just that deregulation produces better outcomes, but that it is what justice requires."}]},
+      {type:"coded",text:"Note that along the same lines, we can also address the issue of artificial intelligence. Therefore, the most responsible thing states can do regarding this issue is to stop pestering those who are creating a better world.",codes:[{dim:"D1.1",sub:"Deregulation_Benefits",memo:"\"The most responsible thing states can do is to stop pestering those who are creating a better world\" — deregulation prescription applied to AI, but the logic is explicitly general and applies identically to climate technology (clean energy, carbon capture, EVs). The \"pestering\" metaphor diminishes regulatory intervention as petty harassment of innovators rather than legitimate public policy, pre-empting any case for green industrial mandates, technology standards, or innovation requirements."}]},
+      {type:"plain",text:"For some time now, and for some strange reason, the West began to turn its back on the ideas of liberty. That is why, in this same place in 2024, I stated that the West was in danger, as a result of having embraced increasing doses of socialism in its most hypocritical form, which is wokeism."},
+      {type:"coded",text:"However, 2026 is the year in which I bring you good news. The world has begun to awaken. The best proof of this is what is happening in the Americas with the rebirth of the ideas of liberty. Therefore, the Americas will be the beacon of light that will once again illuminate the entire West, thereby repaying the civilizational debt with expressions of gratitude towards the foundations in Greek philosophy, Roman law and Judeo-Christian values.",codes:[{dim:"D1.3",sub:"Civilizational_Defense",memo:"The three-year Davos arc (2024: West in danger; 2025: battle not yet won; 2026: world awakening) is consolidated into a progressive civilizational recovery narrative. Climate governance — previously identified with \"wokeism in its most hypocritical form\" — is implicitly receding along with the broader woke project. The \"Americas as beacon of light\" framing positions the U.S.-Argentina axis (both having defected from multilateral climate commitments) as the civilizational vanguard, normalizing climate obstruction as the leading edge of Western renewal. The Judeo-Christian values reference grounds the civilization in religious tradition, raising the moral stakes beyond policy disagreement."}]}
+    ]}
+];
+
+// ═══════════════════════════════════════
+//  DERIVED
+// ═══════════════════════════════════════
+function allCoded() {
+  return CORPUS.flatMap(sp =>
+    sp.segments.filter(s=>s.type==='coded').flatMap(s=>
+      s.codes.map(c=>({speechId:sp.id,speechDate:sp.date,speechTitle:sp.title,...c}))
+    )
+  );
+}
+function codesBySpeech() {
+  const map = {};
+  CORPUS.forEach(sp => {
+    map[sp.id] = {};
+    sp.segments.forEach(s => {
+      if (s.type==='coded') s.codes.forEach(c => {
+        const k = c.dim+'>'+c.sub;
+        map[sp.id][k] = (map[sp.id][k]||0)+1;
+      });
+    });
+  });
+  return map;
+}
+function totalFreq() {
+  const f = {};
+  allCoded().forEach(c => { const k=c.dim+'>'+c.sub; f[k]=(f[k]||0)+1; });
+  return f;
+}
+function coOccurrences() {
+  const pairs = {};
+  CORPUS.forEach(sp => sp.segments.forEach(s => {
+    if (s.type==='coded' && s.codes.length>1) {
+      for (let i=0;i<s.codes.length;i++) for (let j=i+1;j<s.codes.length;j++) {
+        const a=s.codes[i].dim+'>'+s.codes[i].sub, b=s.codes[j].dim+'>'+s.codes[j].sub;
+        const key=[a,b].sort().join(' + ');
+        if (!pairs[key]) pairs[key]={count:0,speeches:new Set()};
+        pairs[key].count++; pairs[key].speeches.add(sp.title);
+      }
+    }
+  }));
+  return pairs;
+}
+
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+let activeSpeech = null;
+let activeFilters = new Set(["D1.1","D1.2","D1.3","IND"]);
+let currentView = 'excerpts';  // 'excerpts' | 'full'
+
+// ═══════════════════════════════════════
+//  TAB SWITCHING
+// ═══════════════════════════════════════
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  if (name==='patterns') buildPatterns();
+  if (name==='viz') buildViz();
+}
+
+// ═══════════════════════════════════════
+//  VIEW TOGGLE
+// ═══════════════════════════════════════
+function setView(v) {
+  currentView = v;
+  document.getElementById('btn-excerpts').classList.toggle('active', v==='excerpts');
+  document.getElementById('btn-full').classList.toggle('active', v==='full');
+  const reader = document.getElementById('reader-content');
+  reader.classList.toggle('view-excerpts', v==='excerpts');
+  reader.classList.toggle('view-full', v==='full');
+  // Re-render to update filter-hidden states
+  if (activeSpeech !== null) applyFiltersToView();
+}
+
+// ═══════════════════════════════════════
+//  FILTER
+// ═══════════════════════════════════════
+function toggleFilter(btn) {
+  const dim = btn.dataset.dim;
+  if (activeFilters.has(dim)) { activeFilters.delete(dim); btn.classList.remove('on'); }
+  else { activeFilters.add(dim); btn.classList.add('on'); }
+  if (activeSpeech !== null) applyFiltersToView();
+}
+
+function applyFiltersToView() {
+  // Update coded blocks visibility based on active filters
+  document.querySelectorAll('.coded-block').forEach(block => {
+    const dims = block.dataset.dims.split(',');
+    const hasVisible = dims.some(d => activeFilters.has(d));
+    block.classList.toggle('all-filtered', !hasVisible);
+    // Update pills visibility
+    block.querySelectorAll('.pill').forEach(pill => {
+      const d = pill.dataset.dim;
+      pill.style.opacity = activeFilters.has(d) ? '1' : '0.25';
+    });
+    // Update background color based on first visible dim
+    if (hasVisible) {
+      const firstVisible = dims.find(d => activeFilters.has(d));
+      const passage = block.querySelector('.passage');
+      passage.style.background = DIM_BG[firstVisible] || 'rgba(255,255,255,.05)';
+      passage.style.borderLeftColor = DIM_COLOR[firstVisible] || '#888';
+    }
+  });
+}
+
+// ═══════════════════════════════════════
+//  SPEECH NAV
+// ═══════════════════════════════════════
+function buildNav() {
+  const ul = document.getElementById('speech-nav');
+  CORPUS.forEach((sp, i) => {
+    const li = document.createElement('li');
+    const totalCodes = sp.segments.filter(s=>s.type==='coded').reduce((a,s)=>a+s.codes.length,0);
+    const d11 = sp.segments.flatMap(s=>s.type==='coded'?s.codes:[]).filter(c=>c.dim==='D1.1').length;
+    li.innerHTML = `<div class="s-date">${sp.date}</div>
+      <div class="s-title">${sp.title}</div>
+      <div class="s-meta">
+        <span class="tag" style="background:rgba(59,130,246,.2);color:#93c5fd">D1:${totalCodes}</span>
+        <span class="tag" style="background:rgba(99,102,241,.2);color:#a5b4fc">D1.1:${d11}</span>
+        <span class="tag" style="background:var(--surface2);color:var(--text-muted)">${sp.type}</span>
+      </div>`;
+    li.onclick = () => {
+      document.querySelectorAll('.speech-list li').forEach(l=>l.classList.remove('active'));
+      li.classList.add('active');
+      activeSpeech = i;
+      renderSpeech(i);
+    };
+    ul.appendChild(li);
+  });
+}
+
+// ═══════════════════════════════════════
+//  RENDER SPEECH
+// ═══════════════════════════════════════
+function renderSpeech(idx) {
+  const sp = CORPUS[idx];
+  const reader = document.getElementById('reader-content');
+  clearMemo();
+
+  let html = `<h2>${sp.title}</h2>
+    <div class="meta-row">
+      <span>📅 ${sp.date}</span>
+      <span>📍 ${sp.venue}</span>
+      <span>🏷 ${sp.type}</span>
+    </div>`;
+
+  let segIdx = 0;
+  sp.segments.forEach(seg => {
+    if (seg.type === 'plain') {
+      const isLabel = seg.text.startsWith('[') && seg.text.includes(']:');
+      html += `<p class="plain-block${isLabel?' speaker-label':''}">${escHtml(seg.text)}</p>`;
+    } else {
+      // Coded segment
+      const dims = [...new Set(seg.codes.map(c=>c.dim))];
+      const dimsAttr = dims.join(',');
+      const hasVisible = dims.some(d => activeFilters.has(d));
+      const allFiltered = !hasVisible;
+      const primaryDim = dims.find(d=>activeFilters.has(d)) || dims[0];
+      const bg = allFiltered ? 'rgba(255,255,255,.03)' : (DIM_BG[primaryDim]||'rgba(255,255,255,.05)');
+      const borderColor = allFiltered ? 'var(--border)' : (DIM_COLOR[primaryDim]||'#888');
+
+      const pills = seg.codes.map(c => {
+        const dimColor = DIM_COLOR[c.dim]||'#888';
+        const opacity = activeFilters.has(c.dim) ? '1' : '0.25';
+        return `<span class="pill" style="background:${dimColor};opacity:${opacity}" data-dim="${c.dim}">${c.dim} · ${c.sub.replace(/_/g,' ')}</span>`;
+      }).join('');
+
+      const si = segIdx;
+      html += `<div class="coded-block${allFiltered?' all-filtered':''}" data-dims="${dimsAttr}" data-seg="${si}" data-sp="${idx}">
+        <div class="passage" style="background:${bg};border-left:3px solid ${borderColor}" onclick="showMemo(${si},${idx})">${escHtml(seg.text)}</div>
+        <div class="code-pills">${pills}</div>
+      </div>`;
+      segIdx++;
+    }
+  });
+
+  reader.innerHTML = html;
+  // Ensure correct view class
+  reader.classList.toggle('view-excerpts', currentView==='excerpts');
+  reader.classList.toggle('view-full', currentView==='full');
+
+  // Update memo count
+  const codedCount = sp.segments.filter(s=>s.type==='coded').length;
+  const codeCount = sp.segments.filter(s=>s.type==='coded').reduce((a,s)=>a+s.codes.length,0);
+  document.getElementById('memo-count').textContent = `${codeCount} codes · ${codedCount} passages`;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ═══════════════════════════════════════
+//  MEMOS
+// ═══════════════════════════════════════
+function showMemo(segIdx, spIdx) {
+  const sp = CORPUS[spIdx];
+  // Find the segIdx-th coded segment
+  let codedCount = 0;
+  let seg = null;
+  for (const s of sp.segments) {
+    if (s.type === 'coded') {
+      if (codedCount === segIdx) { seg = s; break; }
+      codedCount++;
+    }
+  }
+  if (!seg) return;
+  const body = document.getElementById('memo-body');
+  const visibleCodes = seg.codes.filter(c => activeFilters.has(c.dim));
+  if (!visibleCodes.length) {
+    body.innerHTML = '<p class="memo-placeholder">No visible codes for this passage (check filters)</p>';
+    return;
+  }
+  body.innerHTML = visibleCodes.map(c => `
+    <div class="memo-item">
+      <span class="mi-code" style="background:${DIM_COLOR[c.dim]||'#888'}">${c.dim} · ${c.sub.replace(/_/g,' ')}</span>
+      <p class="mi-text">${escHtml(c.memo)}</p>
+    </div>`).join('<hr style="border-color:var(--border);margin:10px 0">');
+}
+
+function clearMemo() {
+  document.getElementById('memo-body').innerHTML = '<p class="memo-placeholder">Click a highlighted passage to see coding memos</p>';
+  document.getElementById('memo-count').textContent = '';
+}
+
+// ═══════════════════════════════════════
+//  PATTERNS
+// ═══════════════════════════════════════
+function buildPatterns() {
+  // Rank list
+  const freq = totalFreq();
+  const sorted = Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+  const max = sorted[0][1];
+  document.getElementById('rank-list').innerHTML = sorted.map(([key,n]) => {
+    const [dim,sub] = key.split('>');
+    const color = DIM_COLOR[dim]||'#888';
+    return `<div class="rank-row">
+      <div class="rank-label">${dim} · ${sub.replace(/_/g,' ')}</div>
+      <div class="rank-bar-wrap"><div class="rank-bar" style="width:${Math.round(n/max*100)}%;background:${color}">${n}</div></div>
+      <div class="rank-n" style="color:${color}">${n}</div>
+    </div>`;
+  }).join('');
+
+  // Heatmap
+  const bySpeech = codesBySpeech();
+  const allCodes = Object.keys(freq).sort();
+  let html = '<thead><tr><th class="row-h">Speech</th>';
+  allCodes.forEach(k => {
+    const [dim,sub] = k.split('>');
+    html += `<th style="color:${DIM_COLOR[dim]}" title="${k}">${sub.replace(/_/g,' ').substring(0,12)}</th>`;
+  });
+  html += '</tr></thead><tbody>';
+  CORPUS.forEach(sp => {
+    html += `<tr><td class="row-label">${sp.date.substring(0,7)} ${sp.title.substring(0,18)}</td>`;
+    allCodes.forEach(k => {
+      const n = bySpeech[sp.id][k]||0;
+      const [dim] = k.split('>');
+      const color = DIM_COLOR[dim]||'#888';
+      const alpha = n===0 ? 0 : 0.15+(n/5)*0.6;
+      const bg = n===0 ? 'transparent' : hexToRgba(color, alpha);
+      html += `<td style="background:${bg};color:${n>0?color:'var(--border)'}">${n||''}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  document.getElementById('heatmap').innerHTML = html;
+
+  // Co-occurrence
+  const pairs = coOccurrences();
+  const topPairs = Object.entries(pairs).sort((a,b)=>b[1].count-a[1].count).slice(0,12);
+  document.getElementById('co-occur').innerHTML = topPairs.map(([pair,data]) => {
+    const [a,b] = pair.split(' + ');
+    const dimA=a.split('>')[0], dimB=b.split('>')[0];
+    return `<div class="co-item">
+      <div class="pair"><span style="color:${DIM_COLOR[dimA]}">${a.replace('>','·').replace(/_/g,' ')}</span>
+      <span style="color:var(--text-muted)"> + </span>
+      <span style="color:${DIM_COLOR[dimB]}">${b.replace('>','·').replace(/_/g,' ')}</span></div>
+      <div class="count" style="color:${DIM_COLOR[dimA]}">${data.count}</div>
+      <div class="speeches">${[...data.speeches].join(', ')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+//  VISUALIZATIONS
+// ═══════════════════════════════════════
+let charts = {};
+
+function buildViz() {
+  // Summary bars
+  const coded = allCoded();
+  const total = coded.length;
+  const cnts = {D1_1:0,D1_2:0,D1_3:0,IND:0};
+  coded.forEach(c => {
+    if (c.dim==='D1.1') cnts.D1_1++;
+    else if (c.dim==='D1.2') cnts.D1_2++;
+    else if (c.dim==='D1.3') cnts.D1_3++;
+    else cnts.IND++;
+  });
+  document.getElementById('dim-summary').innerHTML = [
+    {label:'Total Coded',n:total,color:'var(--text)',pct:'100%'},
+    {label:'D1.1 — State/Gov',n:cnts.D1_1,color:'#3B82F6',pct:Math.round(cnts.D1_1/total*100)+'%'},
+    {label:'D1.2 — Science',n:cnts.D1_2,color:'#F59E0B',pct:Math.round(cnts.D1_2/total*100)+'%'},
+    {label:'D1.3 — Cultural',n:cnts.D1_3,color:'#EF4444',pct:Math.round(cnts.D1_3/total*100)+'%'},
+    {label:'Inductive',n:cnts.IND,color:'#9CA3AF',pct:Math.round(cnts.IND/total*100)+'%'},
+  ].map(i=>`<div class="dim-bar-item"><div class="db-label">${i.label}</div><div class="db-n" style="color:${i.color}">${i.n}</div><div class="db-pct">${i.pct}</div></div>`).join('');
+
+  // Freq chart
+  const freq = totalFreq();
+  const sorted = Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+  if (charts.freq) charts.freq.destroy();
+  charts.freq = new Chart(document.getElementById('chart-freq'), {
+    type:'bar',
+    data:{labels:sorted.map(([k])=>{const[d,s]=k.split('>');return d+'·'+s.replace(/_/g,' ').substring(0,14);}),
+          datasets:[{data:sorted.map(([,n])=>n),backgroundColor:sorted.map(([k])=>(DIM_COLOR[k.split('>')[0]]||'#888')+'cc'),borderColor:sorted.map(([k])=>DIM_COLOR[k.split('>')[0]]||'#888'),borderWidth:1}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},y:{grid:{color:'#2e3349'},ticks:{color:'#aab',font:{size:10}}}}}
+  });
+
+  // D1 breakdown per speech
+  const bySpeech = codesBySpeech();
+  const dims = ['D1.1','D1.2','D1.3','IND'];
+  const dimNames = {'D1.1':'D1.1 Gov/State','D1.2':'D1.2 Science','D1.3':'D1.3 Cultural','IND':'Inductive'};
+  if (charts.d1) charts.d1.destroy();
+  charts.d1 = new Chart(document.getElementById('chart-d1breakdown'), {
+    type:'bar',
+    data:{labels:CORPUS.map(s=>s.date.substring(0,7)),datasets:dims.map(dim=>({label:dimNames[dim],data:CORPUS.map(sp=>Object.entries(bySpeech[sp.id]).filter(([k])=>k.startsWith(dim)).reduce((a,[,n])=>a+n,0)),backgroundColor:DIM_COLOR[dim]+'99',borderColor:DIM_COLOR[dim],borderWidth:1}))},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#aab'}}},scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},y:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'},title:{display:true,text:'Coded passages',color:'#8892aa'}}}}
+  });
+
+  // Timeline
+  document.getElementById('timeline').innerHTML = CORPUS.map(sp => {
+    const codes = sp.segments.flatMap(s=>s.type==='coded'?s.codes:[]);
+    const unique = [...new Map(codes.map(c=>[c.dim+'>'+c.sub,c])).values()];
+    return `<div class="tl-col"><h4>${sp.date.substring(0,7)}<br>${sp.title}</h4>${unique.map(c=>`<div class="tl-dot" style="background:${DIM_COLOR[c.dim]}88;border-left:2px solid ${DIM_COLOR[c.dim]}">${c.sub.replace(/_/g,' ')}</div>`).join('')}</div>`;
+  }).join('');
+
+  // Stacked
+  if (charts.stacked) charts.stacked.destroy();
+  charts.stacked = new Chart(document.getElementById('chart-stacked'), {
+    type:'bar',
+    data:{labels:CORPUS.map(s=>s.date.substring(0,7)+' '+s.title.substring(0,12)),datasets:dims.map(dim=>({label:dimNames[dim],data:CORPUS.map(sp=>Object.entries(bySpeech[sp.id]).filter(([k])=>k.startsWith(dim)).reduce((a,[,n])=>a+n,0)),backgroundColor:DIM_COLOR[dim]+'bb',borderColor:DIM_COLOR[dim],borderWidth:1}))},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#aab',font:{size:11}}}},scales:{x:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:10}}},y:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa'},title:{display:true,text:'Coded passages',color:'#8892aa'}}}}
+  });
+}
+
+// ═══════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════
+function hexToRgba(hex, alpha) {
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+buildNav();
+</script>
+</body>
+</html>
