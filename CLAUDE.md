@@ -62,14 +62,11 @@ User-level skills (available in all sessions):
 - skill-creator - use when creating or improving skills
 
 Data collector agent uses the following skills:
-- speech-collector skill located at `agent/skills/speech-collector/SKILL.md` used to scrap text from URLs and save them as structured Markdown files.
-- youtube-transcript skill located at `agent/skills/youtube-transcript/SKILL.md` used to extract transcripts from youtube videos.
+- speech-collector skill located at `skills/speech-collector/SKILL.md` used to scrap text from URLs and save them as structured Markdown files.
+- youtube-transcript skill located at `skills/youtube-transcript/SKILL.md` used to extract transcripts from youtube videos.
 
-
-This project uses the energia-analysis skill located at `agent/skills/
-
- `skills/energia-analysis/SKILL.md`.
-Read it at the start of any energy analysis session.
+Narrative analyst agent uses the following skills:
+- discourse-coder-v3 skill located at `skills/discourse-coder-v3/SKILL.md` — the current coding skill for Phase 3. Applies Dimension 1 (Discursive Delegitimization) exclusively to speech data. Always use this version, not discourse-coder or discourse-coder-v2.
 
 ---
 
