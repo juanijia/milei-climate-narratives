@@ -166,15 +166,26 @@ it appears, and what it reveals about Milei's rhetorical sophistication.
 
 ## Rhetorical Evolution Across the Corpus (2023–2026)
 
-This section should read as a narrative arc, not a list. Track how the rhetoric develops:
+This section should read as a narrative arc, not a list. Track how the rhetoric develops
+across both international forums (Davos, UN) and domestic state-of-nation addresses
+(apertura sesiones ordinarias):
 
-- **2023 (Debate Presidencial):** Condensed, ad hominem, climate denial explicit
-- **2024 (WEF Davos, UN 79th):** Theoretically elaborated; market-failure argument
-  fully developed; counter-coalition bid; international audience recalibration
-- **2025 (WEF Davos, UN 80th):** Five-cycles denial; civilizational framing peaks;
-  Temporal_Appropriation emerges; institutional reform blueprint proposed
-- **2026 (WEF Davos):** Values-order argument (ethics → efficiency → utility);
-  rhetoric shifts from warning to victory narrative as political winds shift
+- **2023 (Debate Presidencial):** Condensed, ad hominem, climate denial explicit;
+  the only speech with outright `Climate_Skepticism_or_Dismissal`
+- **2024 (WEF Davos + Apertura 142°):** Davos: theoretically elaborated market-failure
+  argument; counter-coalition bid. Apertura 142°: no explicit climate content — DNU
+  framed as "freedom from senseless regulations"; foundational anti-casta and
+  anti-university framing established
+- **2025 (WEF Davos + Apertura 143° + UN 80th):** Davos: five-cycles denial;
+  Temporal_Appropriation emerges. Apertura 143°: Elon Musk/DOGE alignment as global
+  validation; Mercosur exit threat; "motosierra as policy of state" permanence claim.
+  UN 80th: civilizational framing peaks; institutional reform blueprint proposed
+- **2026 (WEF Davos + Apertura 144°):** Davos: values-order argument (ethics →
+  efficiency → utility); rhetoric shifts from warning to victory narrative.
+  Apertura 144°: "prejuicios ambientalistas absurdos" — strongest explicit
+  anti-environmentalism in corpus; "era de cooperación global sin brújula moral ha
+  terminado" — most direct multilateral governance rejection; "moral occidental como
+  política de estado" for 50 years — civilizational permanence claim
 
 Key analytical question: Is there a trajectory from D1.3 culture-war framing (candidate
 register) toward D1.1 economic-foundational arguments (governing president register)?
@@ -226,39 +237,53 @@ inductive categories are ready for formalization.
 
 ## Analytical Anchors
 
-These observations from the v3 coding should inform your report — verify against the
-actual tally, confirm or update as needed:
+These observations reflect the full 9-speech v3 corpus (6 international forum speeches +
+3 apertura sesiones ordinarias). Verify against the actual tally before writing the report.
 
 **On the dominant mechanism:**
-D1.1 (State/Governance) accounts for roughly 55% of D1 codes. The single most frequent
-sub-code is `Rejection_of_Multilateral_Governance`. This tells us Milei's primary
-obstruction target is state authority over sustainability governance, not climate science
-per se — a distinctively libertarian pattern vs. the populist alt-right pattern that
-leads with climate denial.
+D1.1 (State/Governance) accounts for ~59% of D1 codes — up from 55% before the apertura
+speeches were added, confirming its dominance across all venue types. The single most
+frequent sub-code is `Rejection_of_Multilateral_Governance` (14 instances).
+`Deregulation_Benefits` (10) and `Delegitimization_of_Regulation` (9) are close behind.
+This tells us Milei's primary obstruction target is state authority over sustainability
+governance, not climate science per se — a distinctively libertarian pattern vs. the
+populist alt-right pattern that leads with climate denial.
 
 **On the science/expertise axis:**
-D1.2 at ~18% is notable for being *lower* than D1.3 (Cultural Backlash, ~26%). The
-`Selective_Empiricism` inductive category bridges D1.1 and D1.2: Milei appropriates
+D1.2 at ~16% is the smallest sub-dimension, lower than D1.3 (Cultural Backlash, ~25%).
+The `Selective_Empiricism` inductive category bridges D1.1 and D1.2: Milei appropriates
 empirical authority for his own economic claims while denying it to climate institutions.
 
 **On Temporal_Appropriation:**
 The most analytically distinctive inductive find. Milei hijacks sustainability's core
 moral vocabulary — intergenerational responsibility, protecting the future — and redirects
-it against sustainability governance itself ("quienes incendian el futuro"). It turns the
-opponent's strongest rhetorical asset into a weapon against them.
+it against sustainability governance itself. Four confirmed corpus instances (Davos 2024,
+UN 80th 2025, Davos 2025 [inferred], Apertura 144 2026). **This exceeds the formalization
+threshold of 2+ instances — recommend promoting to a permanent deductive sub-code in the
+next codebook revision.**
 
-**On international forum speeches:**
-The UN and Davos speeches carry a disproportionate share of `Rejection_of_Multilateral_
-Governance` codes, which makes sense structurally — they are delivered *at* the targeted
-institutions. The rhetoric is calibrated for those audiences: the UN speech deploys
-South-South framing (climate policy harms poor countries) absent from the Davos speeches.
+**On international forums vs. apertura speeches:**
+Davos/UN speeches average ~11 codes each; apertura speeches average ~7. International
+forums remain the primary venue for explicit climate obstruction rhetoric — delivered at
+the very institutions being targeted. Apertura speeches construct the domestic ideological
+infrastructure: the anti-state, anti-casta, and deregulatory frameworks that are later
+applied explicitly to climate governance.
+
+**On the apertura corpus (2024–2026):**
+Explicit climate content escalates sharply across the three apertura speeches: the 2024
+address has no direct climate references; 2025 has limited climate adjacency (deregulation
+scale, Mercosur exit threat); 2026 contains the corpus's strongest anti-environmentalism
+statement ("lejos de prejuicios ambientalistas absurdos") and the most direct rejection of
+the multilateral governance era ("La era de la cooperación global sin brújula moral ha
+terminado"). This escalation tracks the consolidation of Milei's government.
 
 **On the 2023 → 2026 arc:**
 The 2023 debate speech is the only one with outright climate denial (`Climate_Skepticism_
 or_Dismissal`). By 2026, explicit denial has given way to philosophical argumentation
-(the Hoppe property-rights proof, the Huerta de Soto dynamic efficiency theorem). The
-rhetoric becomes *less* anti-science and *more* anti-state as Milei transitions from
-candidate to president — a shift worth theorizing in the report.
+(the Hoppe property-rights proof, the Huerta de Soto dynamic efficiency theorem, the
+Western moral order hierarchy). The rhetoric becomes *less* anti-science and *more*
+anti-state and *more* explicitly anti-environmentalist as Milei transitions from
+candidate to governing president — a shift worth theorizing in the report.
 
 ---
 
