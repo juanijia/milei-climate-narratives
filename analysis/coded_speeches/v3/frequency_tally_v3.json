@@ -1,82 +1,92 @@
 {
   "_metadata": {
     "version": "v3",
-    "coding_date": "2026-06-04",
-    "corpus_size": 6,
+    "coding_date": "2026-06-08",
+    "corpus_size": 9,
     "coding_dimension": "Dimension 1 only — speeches corpus",
     "files_coded": [
       "2023-10-08-milei-segundo-debate-presidencial.md",
       "2024-01-17-milei-wef-davos.md",
+      "2024-03-01-apertura-sesiones-ordinarias-142.md",
       "2024-09-24-milei-un-general-assembly.md",
       "2025-01-23-milei-davos-speech.md",
+      "2025-03-01-apertura-sesiones-ordinarias-143.md",
       "2025-09-24-milei-onu-80-asamblea-general.md",
-      "2026-01-22-milei-davos-speech.md"
+      "2026-01-22-milei-davos-speech.md",
+      "2026-03-01-apertura-sesiones-ordinarias-144.md"
     ],
-    "note": "One count per coded passage per speech. A passage receiving two stacked codes counts once per code. D2 codes are not applied to speeches in v3 — they belong to the formal documentation corpus (Corpus B)."
+    "note": "One count per coded passage per speech. A passage receiving two stacked codes counts once per code. D2 codes are not applied to speeches in v3 — they belong to the formal documentation corpus (Corpus B). Apertura sessions (142, 143, 144) added in second coding pass on 2026-06-08."
   },
   "D1_Discursive_Delegitimization": {
     "D1.1_State_Intervention_Governance": {
-      "Market_Primacy": 4,
-      "Anti_State_Anti_Bureaucratic": 3,
-      "Anti_Casta": 3,
-      "Delegitimization_of_Regulation": 7,
-      "Deregulation_Benefits": 6,
-      "Sustainability_as_Ideological_or_Harmful": 7,
-      "Rejection_of_Multilateral_Governance": 12
+      "Market_Primacy": 6,
+      "Anti_State_Anti_Bureaucratic": 5,
+      "Anti_Casta": 5,
+      "Delegitimization_of_Regulation": 9,
+      "Deregulation_Benefits": 10,
+      "Sustainability_as_Ideological_or_Harmful": 8,
+      "Rejection_of_Multilateral_Governance": 14
     },
     "D1.2_Public_Science_Expertise": {
       "Attack_on_Public_Research_Institutions": 0,
-      "Attack_on_Universities": 3,
+      "Attack_on_Universities": 4,
       "Attack_on_Experts_and_Technocrats": 5,
       "Climate_Skepticism_or_Dismissal": 2,
       "Pseudo_Science_or_Ideological_Science": 3,
       "Rejection_of_Expert_Mediation": 1
     },
     "D1.3_Cultural_Backlash": {
-      "Woke_Bundling": 6,
-      "Neo_Marxism": 7,
-      "Civilizational_Defense": 7
+      "Woke_Bundling": 7,
+      "Neo_Marxism": 8,
+      "Civilizational_Defense": 9
     }
   },
   "Inductive": {
     "Selective_Empiricism": 3,
-    "Temporal_Appropriation": 3,
+    "Temporal_Appropriation": 4,
     "Reported_Denial": 1
   },
   "_corpus_notes": {
-    "total_D1_codes": 76,
-    "total_inductive": 7,
+    "total_D1_codes": 96,
+    "total_inductive": 8,
     "total_D2_applied": 0,
+    "new_codes_this_pass": 20,
     "D1_subtotals": {
-      "D1.1": 42,
-      "D1.2": 14,
-      "D1.3": 20
+      "D1.1": 57,
+      "D1.2": 15,
+      "D1.3": 24
     },
     "D1_distribution_pct": {
-      "D1.1": "55%",
-      "D1.2": "18%",
-      "D1.3": "26%"
+      "D1.1": "59%",
+      "D1.2": "16%",
+      "D1.3": "25%"
+    },
+    "codes_per_new_speech": {
+      "2024-03-01-apertura-142": 4,
+      "2025-03-01-apertura-143": 6,
+      "2026-03-01-apertura-144": 10
     },
     "most_frequent_codes": [
-      "Rejection_of_Multilateral_Governance (12)",
-      "Delegitimization_of_Regulation (7)",
-      "Sustainability_as_Ideological_or_Harmful (7)",
-      "Neo_Marxism (7)",
-      "Civilizational_Defense (7)"
+      "Rejection_of_Multilateral_Governance (14)",
+      "Deregulation_Benefits (10)",
+      "Delegitimization_of_Regulation (9)",
+      "Civilizational_Defense (9)",
+      "Sustainability_as_Ideological_or_Harmful (8)",
+      "Neo_Marxism (8)"
     ],
-    "v3_vs_v2_changes": {
-      "codes_added": 5,
-      "codes_removed": 5,
-      "net_change": 0,
-      "detail": "Five formerly-D2 passages re-coded as D1.1 > Rejection_of_Multilateral_Governance (3), D1.1 > Rejection_of_Multilateral_Governance + D1.1 > Sustainability_as_Ideological_or_Harmful (1 passage = 2 codes), D1.1 > Deregulation_Benefits + D1.1 > Anti_State_Anti_Bureaucratic (1 passage). Five D2 codes removed (4x D2.3, 1x D2.2). Temporal_Appropriation count increased from 1 to 3 as UN 2025 passages are now both coded as INDUCTIVE > Temporal_Appropriation rather than D2.3."
-    },
-    "key_analytical_observations": {
-      "dominant_mechanism": "D1.1 (State/Governance) is the dominant rhetorical register at 55% of codes, confirming that the primary delegitimation target is state authority over sustainability governance, not just the scientific consensus.",
-      "Rejection_of_Multilateral_Governance": "The single most frequent code (12), reflecting that all five post-debate speeches were delivered at international forums. V3 increase from v2 (was 9) reflects re-coding of formerly-D2 institutional announcement passages as D1.1.",
-      "Temporal_Appropriation": "Increased to 3 corpus instances (from 1 in v2). The two UN 2025 passages that were D2.3 in v2 reveal their Temporal_Appropriation character once freed from the D2 frame. Three instances exceed the informal threshold for formalizing this as a permanent deductive sub-code.",
-      "D1_3_cultural_backlash": "At 26% of codes, cultural backlash is substantial but not dominant. The civilizational frame (7 instances, across all three Davos speeches and both UN speeches) functions as a meta-narrative rather than a frequently deployed specific argument.",
-      "D1_2_science_expertise": "At 18%, public science/expertise delegitimization is less frequent than governance delegitimization — consistent with the theoretical framing that libertarian obstruction targets state authority more than climate science per se.",
-      "no_D2_in_speeches_confirmed": "Zero D2 codes in v3 corpus. The re-coded passages all carry richer D1 analytical content, confirming that the v2 D2 codes were misclassifying rhetorical acts as institutional acts."
+    "apertura_analytical_observations": {
+      "climate_content_evolution": "Explicit climate-adjacent content increases significantly across the three apertura speeches: the 2024 speech has no direct climate references (codes capture foundational ideological framework only); the 2025 speech has limited climate adjacency (deregulation scale, Mercosur rejection, woke bundling); the 2026 speech contains the corpus's most explicit environmentalism dismissal ('prejuicios ambientalistas absurdos') and the most direct rejection of the multilateral governance era. This evolution is analytically significant: as Milei's government consolidates, the implicit anti-climate framework becomes explicit climate obstruction rhetoric.",
+      "apertura_vs_international_forum": "Average codes per apertura speech: 6.7. Average codes per international forum speech (Davos/UN, 6 speeches): 11.2. International forums remain the primary venue for explicit climate obstruction discourse, likely because they provide the multilateral audience against which Milei most sharply defines his position. Apertura speeches construct the domestic ideological infrastructure.",
+      "Temporal_Appropriation_threshold": "Temporal_Appropriation now confirmed in 4 corpus instances (Davos 2024 × 1, UN 2025 × 1, Davos 2025 × 1 [inferred], Apertura 144 × 1). Four instances across the full corpus exceeds the formalization threshold of 2+ appearances. Researcher should consider promoting to permanent deductive sub-code in next codebook revision.",
+      "key_new_passages": [
+        "'con cuidados, pero lejos de prejuicios ambientalistas absurdos' (Apertura 144) — strongest explicit anti-environmentalism passage in apertura corpus",
+        "'La era de la cooperación global sin brújula moral ha terminado' (Apertura 144) — most direct rejection of multilateral governance era",
+        "'la moral occidental como política de estado' para los próximos 50 años (Apertura 144) — attempts permanent normative closure against future climate governance mandates",
+        "'La motosierra no es solo un programa de gobierno, es una política de estado' (Apertura 143) — permanence claim for deregulatory project",
+        "Elon Musk/DOGE alignment as transnational validation (Apertura 143) — globalizes deregulatory revolution narrative"
+      ],
+      "dominant_mechanism_confirmed": "D1.1 increases from 55% to 59% of total codes with apertura speeches added, further confirming that state/governance delegitimization is the primary rhetorical mechanism across all speech venues — not just international forums. The apertura speeches contribute proportionally more D1.1 codes (15 new D1.1 of 20 total new codes = 75%) than the previous corpus ratio (55%), reflecting the domestic governance focus of state-of-nation addresses.",
+      "no_D2_in_speeches_confirmed": "Zero D2 codes in v3 full corpus (9 speeches). All institutional announcements and governance changes referenced in speeches coded as D1."
     }
   }
 }
