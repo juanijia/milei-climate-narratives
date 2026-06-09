@@ -12,6 +12,10 @@
 | 2026-05-21 | Argentina's President Javier Milei Has a Plan for His Country — Honestly with Bari Weiss | https://www.youtube.com/watch?v=RjycDtrCDuI | OK (no climate content) | 2024-06-06-milei-fp-bari-weiss-interview.md |
 | 2026-05-21 | Discurso en la 80° sesión de la Asamblea General de la ONU, Nueva York | https://www.casarosada.gob.ar/informacion/discursos/51081-discurso-del-presidente-de-la-nacion-javier-milei-en-la-80-sesion-de-la-asamblea-general-de-la-onu-nueva-york | OK | 2025-09-24-milei-onu-80-asamblea-general.md |
 
+| 2026-06-08 | 2024-03-01-apertura-142 | Palabras del Presidente Milei al inaugurar el 142° período de sesiones ordinarias de la Asamblea Legislativa | https://www.casarosada.gob.ar/informacion/discursos/50380-el-presidente-inaugura-el-142-periodo-de-sesiones-ordinarias-del-congreso | — | — | OK | 2024-03-01-apertura-sesiones-ordinarias-142.md |
+| 2026-06-08 | 2025-03-01-apertura-143 | Discurso del Presidente Milei en la Apertura del 143° período de Sesiones Ordinarias del Congreso | https://www.casarosada.gob.ar/informacion/discursos/50873-discurso-del-presidente-milei-en-apertura-del-143-periodo-de-sesiones-ordinarias-del-congreso | — | — | OK | 2025-03-01-apertura-sesiones-ordinarias-143.md |
+| 2026-06-08 | 2026-03-01-apertura-144 | Discurso del Presidente Milei en la apertura del 144° período de Sesiones Ordinarias del Congreso | https://www.casarosada.gob.ar/informacion/discursos/51181-discurso-del-presidente-de-la-nacion-javier-milei-en-la-apertura-del-144-periodo-de-sesiones-ordinarias-del-congreso-de-la-nacion | — | — | OK | 2026-03-01-apertura-sesiones-ordinarias-144.md |
+
 ## Notes
 - WEF primary URL (es.weforum.org) returned HTTP 403 — used official Casa Rosada transcript as primary source instead.
 - American Rhetoric URL (americanrhetoric.com) also returned 403 — not logged as alt since it is an English translation, not the Spanish original.
