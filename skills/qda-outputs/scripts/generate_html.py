@@ -357,11 +357,14 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <div id="tab-viz" class="tab">
   <div class="dim-bars" id="dim-summary"></div>
   <div class="viz-grid">
-    <div class="panel"><h2>Code Frequency — All Corpus</h2><p class="sub">Passages per sub-code</p><div class="chart-wrap"><canvas id="chart-freq"></canvas></div></div>
-    <div class="panel"><h2>D1 Sub-dimension per Speech</h2><p class="sub">D1.1 / D1.2 / D1.3 / Inductive breakdown</p><div class="chart-wrap"><canvas id="chart-d1"></canvas></div></div>
+    <div class="panel"><h2>Sub-code Frequency — Full Corpus</h2><p class="sub">Annotations per sub-code, coloured by dimension</p><div class="chart-wrap"><canvas id="chart-freq"></canvas></div></div>
+    <div class="panel"><h2>D1.1 Sub-code Composition</h2><p class="sub">Share of the 7 governance/state sub-codes (D1.1 only)</p><div class="chart-wrap"><canvas id="chart-d11-donut"></canvas></div></div>
   </div>
-  <div class="panel"><h2>Code Timeline</h2><p class="sub">Codes per speech — chronological evolution</p><div class="timeline-grid" id="timeline"></div></div>
-  <div class="panel"><h2>Dimension Breakdown per Speech</h2><p class="sub">Stacked bar</p><div class="chart-wrap-tall"><canvas id="chart-stacked"></canvas></div></div>
+  <div class="viz-grid">
+    <div class="panel"><h2>Rhetorical Register by Venue</h2><p class="sub">D1.1 / D1.2 / D1.3 distribution across venue types — reveals how rhetoric shifts by audience</p><div class="chart-wrap"><canvas id="chart-venue"></canvas></div></div>
+    <div class="panel"><h2>D1 Composition per Speech (normalised %)</h2><p class="sub">100% stacked — share of D1.1 / D1.2 / D1.3 / IND in each speech</p><div class="chart-wrap"><canvas id="chart-normalized"></canvas></div></div>
+  </div>
+  <div class="panel"><h2>Code Timeline</h2><p class="sub">Codes appearing in each speech — chronological repertoire</p><div class="timeline-grid" id="timeline"></div></div>
 </div>
 
 <script>
@@ -449,22 +452,110 @@ function buildViz(){
   const coded=allCoded(),total=coded.length;
   const cnts={D1_1:0,D1_2:0,D1_3:0,IND:0};
   coded.forEach(c=>{if(c.dim==='D1.1')cnts.D1_1++;else if(c.dim==='D1.2')cnts.D1_2++;else if(c.dim==='D1.3')cnts.D1_3++;else cnts.IND++;});
+
+  // ── KPI summary ──────────────────────────────────────────────────────────
   document.getElementById('dim-summary').innerHTML=[
     {l:'Total Coded',n:total,c:'var(--text)',p:'100%'},
     {l:'D1.1 — State/Gov',n:cnts.D1_1,c:'#3B82F6',p:pct(cnts.D1_1,total)},
-    {l:'D1.2 — Science',n:cnts.D1_2,c:'#F59E0B',p:pct(cnts.D1_2,total)},
-    {l:'D1.3 — Cultural',n:cnts.D1_3,c:'#EF4444',p:pct(cnts.D1_3,total)},
+    {l:'D1.2 — Science/Experts',n:cnts.D1_2,c:'#F59E0B',p:pct(cnts.D1_2,total)},
+    {l:'D1.3 — Cultural Backlash',n:cnts.D1_3,c:'#EF4444',p:pct(cnts.D1_3,total)},
     {l:'Inductive',n:cnts.IND,c:'#9CA3AF',p:pct(cnts.IND,total)},
   ].map(i=>`<div class="dim-bar-item"><div class="db-label">${i.l}</div><div class="db-n" style="color:${i.c}">${i.n}</div><div class="db-pct">${i.p}</div></div>`).join('');
+
+  // ── Chart 1: Sub-code frequency horizontal bar ───────────────────────────
   const freq=totalFreq(),sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
   if(charts.freq)charts.freq.destroy();
-  charts.freq=new Chart(document.getElementById('chart-freq'),{type:'bar',data:{labels:sorted.map(([k])=>{const[d,s]=k.split('>');return d+'·'+s.replace(/_/g,' ').substring(0,14);}),datasets:[{data:sorted.map(([,n])=>n),backgroundColor:sorted.map(([k])=>(DIM_COLOR[k.split('>')[0]]||'#888')+'cc'),borderColor:sorted.map(([k])=>DIM_COLOR[k.split('>')[0]]||'#888'),borderWidth:1}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},y:{grid:{color:'#2e3349'},ticks:{color:'#aab',font:{size:10}}}}}});
-  const bySpeech=codesBySpeech(),dims=['D1.1','D1.2','D1.3','IND'],dNames={'D1.1':'D1.1 Gov/State','D1.2':'D1.2 Science','D1.3':'D1.3 Cultural','IND':'Inductive'};
-  if(charts.d1)charts.d1.destroy();
-  charts.d1=new Chart(document.getElementById('chart-d1'),{type:'bar',data:{labels:CORPUS.map(s=>s.date.substring(0,7)),datasets:dims.map(dim=>({label:dNames[dim],data:CORPUS.map(sp=>Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((a,[,n])=>a+n,0)),backgroundColor:DIM_COLOR[dim]+'99',borderColor:DIM_COLOR[dim],borderWidth:1}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#aab'}}},scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},y:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'},title:{display:true,text:'Coded passages',color:'#8892aa'}}}}});
-  document.getElementById('timeline').innerHTML=CORPUS.map(sp=>{const codes=sp.segments.flatMap(s=>s.type==='coded'?s.codes:[]);const uniq=[...new Map(codes.map(c=>[c.dim+'>'+c.sub,c])).values()];return`<div class="tl-col"><h4>${sp.date.substring(0,7)}<br>${sp.title}</h4>${uniq.map(c=>`<div class="tl-dot" style="background:${DIM_COLOR[c.dim]}88;border-left:2px solid ${DIM_COLOR[c.dim]}">${c.sub.replace(/_/g,' ')}</div>`).join('')}</div>`;}).join('');
-  if(charts.stacked)charts.stacked.destroy();
-  charts.stacked=new Chart(document.getElementById('chart-stacked'),{type:'bar',data:{labels:CORPUS.map(s=>s.date.substring(0,7)+' '+s.title.substring(0,12)),datasets:dims.map(dim=>({label:dNames[dim],data:CORPUS.map(sp=>Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((a,[,n])=>a+n,0)),backgroundColor:DIM_COLOR[dim]+'bb',borderColor:DIM_COLOR[dim],borderWidth:1}))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#aab',font:{size:11}}}},scales:{x:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:10}}},y:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa'},title:{display:true,text:'Coded passages',color:'#8892aa'}}}}});
+  charts.freq=new Chart(document.getElementById('chart-freq'),{
+    type:'bar',
+    data:{
+      labels:sorted.map(([k])=>{const[d,s]=k.split('>');return d+'·'+s.replace(/_/g,' ').substring(0,14);}),
+      datasets:[{data:sorted.map(([,n])=>n),
+        backgroundColor:sorted.map(([k])=>(DIM_COLOR[k.split('>')[0]]||'#888')+'cc'),
+        borderColor:sorted.map(([k])=>DIM_COLOR[k.split('>')[0]]||'#888'),borderWidth:1}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' n = '+ctx.raw}}},
+      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},
+              y:{grid:{color:'#2e3349'},ticks:{color:'#aab',font:{size:10}}}}}});
+
+  // ── Chart 2: D1.1 sub-code composition donut ─────────────────────────────
+  const d11subs=Object.entries(freq)
+    .filter(([k])=>k.startsWith('D1.1'))
+    .sort((a,b)=>b[1]-a[1]);
+  const donutColors=['#1d4ed8','#2563eb','#3b82f6','#60a5fa','#93c5fd','#bfdbfe','#dbeafe'];
+  if(charts.donut)charts.donut.destroy();
+  charts.donut=new Chart(document.getElementById('chart-d11-donut'),{
+    type:'doughnut',
+    data:{
+      labels:d11subs.map(([k])=>k.split('>')[1].replace(/_/g,' ')),
+      datasets:[{data:d11subs.map(([,n])=>n),
+        backgroundColor:donutColors.slice(0,d11subs.length),
+        borderColor:'#1a1d27',borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',
+      plugins:{legend:{position:'right',labels:{color:'#aab',font:{size:10},boxWidth:12,padding:8}},
+               tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw/cnts.D1_1*100)}% of D1.1)`}}}}});
+
+  // ── Chart 3: Venue-type comparison grouped bar ───────────────────────────
+  // Group speeches by venue type
+  const venueGroups={
+    'Davos':    CORPUS.filter(sp=>sp.venue==='Davos'),
+    'UN GA':    CORPUS.filter(sp=>sp.venue==='New York'),
+    'Apertura': CORPUS.filter(sp=>sp.venue==='Buenos Aires'&&sp.type==='speech'),
+    'Debate':   CORPUS.filter(sp=>sp.type==='debate'),
+  };
+  const bySpeech=codesBySpeech();
+  const dims=['D1.1','D1.2','D1.3','IND'];
+  const dNames={'D1.1':'D1.1 Gov/State','D1.2':'D1.2 Science','D1.3':'D1.3 Cultural','IND':'Inductive'};
+  const venueLabels=Object.keys(venueGroups).filter(v=>venueGroups[v].length>0);
+  if(charts.venue)charts.venue.destroy();
+  charts.venue=new Chart(document.getElementById('chart-venue'),{
+    type:'bar',
+    data:{
+      labels:venueLabels,
+      datasets:dims.map(dim=>({
+        label:dNames[dim],
+        data:venueLabels.map(v=>{
+          const speeches=venueGroups[v];
+          const tot=speeches.reduce((a,sp)=>a+Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((s,[,n])=>s+n,0),0);
+          const allTot=speeches.reduce((a,sp)=>a+Object.values(bySpeech[sp.id]||{}).reduce((s,n)=>s+n,0),0);
+          return allTot>0?Math.round(tot/allTot*100):0;
+        }),
+        backgroundColor:DIM_COLOR[dim]+'bb',borderColor:DIM_COLOR[dim],borderWidth:1}))},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#aab'}},
+               tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}},
+      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},
+              y:{grid:{color:'#2e3349'},max:100,ticks:{color:'#8892aa',callback:v=>v+'%'},
+                 title:{display:true,text:'% of annotations in venue',color:'#8892aa'}}}}});
+
+  // ── Chart 4: Normalised 100% stacked per speech ───────────────────────────
+  if(charts.norm)charts.norm.destroy();
+  charts.norm=new Chart(document.getElementById('chart-normalized'),{
+    type:'bar',
+    data:{
+      labels:CORPUS.map(s=>s.date.substring(0,7)),
+      datasets:dims.map(dim=>({
+        label:dNames[dim],
+        data:CORPUS.map(sp=>{
+          const spTot=Object.values(bySpeech[sp.id]||{}).reduce((a,n)=>a+n,0);
+          const dimTot=Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((a,[,n])=>a+n,0);
+          return spTot>0?Math.round(dimTot/spTot*100):0;
+        }),
+        backgroundColor:DIM_COLOR[dim]+'bb',borderColor:DIM_COLOR[dim],borderWidth:1}))},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#aab',font:{size:10}}},
+               tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}},
+      scales:{x:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:9}}},
+              y:{stacked:true,max:100,grid:{color:'#2e3349'},
+                 ticks:{color:'#8892aa',callback:v=>v+'%'},
+                 title:{display:true,text:'% share of annotations',color:'#8892aa'}}}}});
+
+  // ── Timeline ──────────────────────────────────────────────────────────────
+  document.getElementById('timeline').innerHTML=CORPUS.map(sp=>{
+    const codes=sp.segments.flatMap(s=>s.type==='coded'?s.codes:[]);
+    const uniq=[...new Map(codes.map(c=>[c.dim+'>'+c.sub,c])).values()];
+    return`<div class="tl-col"><h4>${sp.date.substring(0,7)}<br>${sp.title}</h4>${
+      uniq.map(c=>`<div class="tl-dot" style="background:${DIM_COLOR[c.dim]}88;border-left:2px solid ${DIM_COLOR[c.dim]}">${c.sub.replace(/_/g,' ')}</div>`).join('')}</div>`;
+  }).join('');
 }
 
 function pct(n,t){return Math.round(n/t*100)+'%';}
@@ -506,6 +597,81 @@ def main():
 if __name__ == '__main__':
     main()
 ")]
+    if not coded_files:
+        print(f"ERROR: No coded speech .md files found in {CODED_DIR}")
+        sys.exit(1)
+
+    print(f"Found {len(coded_files)} coded speech files:")
+    corpus_js = build_corpus_js(coded_files)
+
+    html = build_html(corpus_js)
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH.write_text(html, encoding='utf-8')
+    print(f"\n✓ Saved: {OUTPUT_PATH}")
+    print(f"  File size: {len(html):,} chars")
+
+
+if __name__ == '__main__':
+    main()
+gins:{legend:{labels:{color:'#aab'}},
+               tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}},
+      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},
+              y:{grid:{color:'#2e3349'},max:100,ticks:{color:'#8892aa',callback:v=>v+'%'},
+                 title:{display:true,text:'% of annotations in venue',color:'#8892aa'}}}}});
+
+  // ── Chart 4: Normalised 100% stacked per speech ───────────────────────────
+  if(charts.norm)charts.norm.destroy();
+  charts.norm=new Chart(document.getElementById('chart-normalized'),{
+    type:'bar',
+    data:{
+      labels:CORPUS.map(s=>s.date.substring(0,7)),
+      datasets:dims.map(dim=>({
+        label:dNames[dim],
+        data:CORPUS.map(sp=>{
+          const spTot=Object.values(bySpeech[sp.id]||{}).reduce((a,n)=>a+n,0);
+          const dimTot=Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((a,[,n])=>a+n,0);
+          return spTot>0?Math.round(dimTot/spTot*100):0;
+        }),
+        backgroundColor:DIM_COLOR[dim]+'bb',borderColor:DIM_COLOR[dim],borderWidth:1}))},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#aab',font:{size:10}}},
+               tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}},
+      scales:{x:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:9}}},
+              y:{stacked:true,max:100,grid:{color:'#2e3349'},
+                 ticks:{color:'#8892aa',callback:v=>v+'%'},
+                 title:{display:true,text:'% share of annotations',color:'#8892aa'}}}}});
+
+  // ── Timeline ──────────────────────────────────────────────────────────────
+  document.getElementById('timeline').innerHTML=CORPUS.map(sp=>{
+    const codes=sp.segments.flatMap(s=>s.type==='coded'?s.codes:[]);
+    const uniq=[...new Map(codes.map(c=>[c.dim+'>'+c.sub,c])).values()];
+    return`<div class="tl-col"><h4>${sp.date.substring(0,7)}<br>${sp.title}</h4>${
+      uniq.map(c=>`<div class="tl-dot" style="background:${DIM_COLOR[c.dim]}88;border-left:2px solid ${DIM_COLOR[c.dim]}">${c.sub.replace(/_/g,' ')}</div>`).join('')}</div>`;
+  }).join('');
+}
+
+function pct(n,t){return Math.round(n/t*100)+'%';}
+function hRgba(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${a})`;}
+
+buildNav();
+</script>
+</body>
+</html>"""
+
+
+def build_html(corpus_js):
+    return HTML_TEMPLATE.replace('%%CORPUS_JS%%', corpus_js)
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+def main():
+    if not CODED_DIR.exists():
+        print(f"ERROR: Coded speeches directory not found: {CODED_DIR}")
+        sys.exit(1)
+
+    coded_files = sorted(CODED_DIR.glob("*.md"))
+    coded_files = [f for f in coded_files if not f.name.startswith("frequency_tally")]
     if not coded_files:
         print(f"ERROR: No coded speech .md files found in {CODED_DIR}")
         sys.exit(1)
