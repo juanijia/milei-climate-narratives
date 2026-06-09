@@ -258,27 +258,16 @@ As you code, attend to these research questions from the v3 methodology:
 Note patterns relevant to these questions in your per-speech memos and the coding summary.
 They feed directly into `analysis/results/v3/final_analysis_report_v3.md`.
 
-## Final Report
+## After Coding: Generate Outputs
 
-After coding the full corpus, generate:
+Once the full corpus is coded (all files in `analysis/coded_speeches/v3/` are complete
+and `frequency_tally_v3.json` is up to date), hand off to the **qda-outputs** skill:
+
 ```
-analysis/results/v3/final_analysis_report_v3.md
+Use the qda-outputs skill to generate the Excel workbook, HTML explorer, and
+final analysis report.
 ```
 
-Structure:
-```markdown
-# Final Analysis Report v3: Milei's Climate Narratives
-
-## Executive Summary
-## Corpus Overview (N speeches, date range, source types)
-## Key Methodological Change from V2
-## Findings: Dimension 1 — Discursive Delegitimization
-### D1.1 — State Intervention and Sustainability Governance
-### D1.2 — Public Science and Expertise
-### D1.3 — Woke / Cultural Backlash
-## Inductive Categories
-## Rhetorical Evolution Across the Corpus (2023–2026)
-## Key Quotes and Exemplary Passages
-## Notes for Triangulation with Dimension 2 (Corpus B)
-## Conclusions and Next Steps
-```
+The qda-outputs skill runs two scripts (`generate_xlsx.py` and `generate_html.py`)
+and then writes the final report with analytical insights from the corpus findings.
+Do not generate those deliverables here.
