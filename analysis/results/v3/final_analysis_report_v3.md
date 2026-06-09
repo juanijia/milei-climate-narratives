@@ -1,6 +1,5 @@
 # Final Analysis Report v3: Milei's Climate Narratives
-**Version:** 3.0 | **Date:** 2026-06-08 | **Coded by:** Claude (discourse-coder-v3)
-
+**Version:** 3.0 | **Date:** 2026-06-08 |
 ---
 
 ## Executive Summary
