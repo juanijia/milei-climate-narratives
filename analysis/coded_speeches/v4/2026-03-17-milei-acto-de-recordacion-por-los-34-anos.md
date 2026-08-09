@@ -1,0 +1,52 @@
+---
+title: "Discurso del Presidente Javier Milei en el homenaje a las víctimas por el 34° aniversario del Atentado a la Embajada de Israel en Buenos Aires"
+date: 2026-03-17
+source_url: "https://www.casarosada.gob.ar/informacion/discursos/51197-palabras-del-presidente-de-la-nacion-javier-milei-en-el-acto-de-recordacion-por-los-34-anos-del-atentado-a-la-embajada-de-israel-en-argentina-caba"
+source_type: speech
+language: es
+youtube_transcript: false
+summary_en: "Commemorative address on the 34th anniversary of the Israeli Embassy bombing, focused on antisemitism, Iranian-backed terrorism, and Argentina's Israel alliance. Entirely foreign-policy/commemorative content, outside D1's domestic-governance scope. No climate content."
+coded_version: v4
+coded_date: 2026-07-19
+coding_dimension: D1 only (speeches corpus)
+note: "SCOPE NOTE: this speech is entirely commemorative/foreign-policy content (Israeli Embassy and AMIA bombings, Iranian-sponsored terrorism, antisemitism) — consistent with the corpus's established pattern of zero-coding foreign-policy/antisemitism-commemoration speeches (e.g., 2026-01-28 Holocaust Day, 2026-03-10 Algemeiner Gala, 2025-11-26 DAIA). The single passing reference to 'la moral como política de Estado' is a brief framework citation, not applied to any domestic D1.1/D1.2/D1.3-codeable content."
+---
+Señor Embajador de Israel; autoridades nacionales; miembros del cuerpo diplomático; representantes de la comunidad judía argentina y a todos los presentes: nuevamente, como cada 17 de marzo, desde aquel trágico día, en 34 años nos toca hacer memoria respecto al atentado a la Embajada de Israel, un cobarde ataque producto del terrorismo iraní, que se cobró la vida de 29 personas y dejó un saldo de 242 heridos, pero - sobre todo - dejó una herida imborrable sobre el suelo argentino y la comunidad judía. No se intentó destruir solamente un edificio, no, se atentó contra los cimientos morales de nuestra sociedad porque Israel es una Nación que encarnan los valores fundamentales de la libertad y la resiliencia. Nos encontramos a sólo dos semanas de Pésaj, festividad que conmemora la salida de la esclavitud hacia la libertad y el nacimiento del pueblo judío. No es casualidad, pues - desde su origen - Israel lleva en su esencia el valor de la libertad y con él el compromiso de enfrentar al terrorismo que intenta esclavizar a las sociedades mediante atentados como este.
+
+Hoy, Argentina es socia de Israel en la defensa de estos valores de libertad y combate al terrorismo, y así intentaron, mediante el miedo y las amenazas, alejarnos de una nación hermana que comparte los mismos valores que la nuestra, valores que forman parte indisoluble de la tradición occidental, la cual toma sus raíces en la herencia judeocristiana. Tanto el atentado a la Embajada, como el de la AMIA, intentaron cercenar, mediante el terror, la claridad moral de nuestro pueblo. Claridad moral sin la cual se pierde el respeto por la dignidad de la persona, la libertad y el respeto por la vida.
+
+En los últimos años se han producido avances importantes en el camino del esclarecimiento de estos crímenes. La justicia argentina ha reconocido el carácter de crimen de lesa humanidad de ambos atentados y ha señalado la responsabilidad de la República Islámica de Irán y de Hezbolá en la ejecución de estos hechos atroces.
+
+La declaración de inconstitucionalidad del Memorándum con Irán representó otro paso necesario para restablecer el rumbo correcto en la investigación; sin embargo, aún queda trabajo por delante.
+
+Nuestro país impulsa nuevas herramientas jurídicas para avanzar en el juzgamiento de los responsables de estos crímenes, incluso cuando pretendan eludir la acción de la justicia. Al mismo tiempo, el Estado argentino ha fortalecido sus instrumentos para prevenir y combatir el terrorismo y su financiamiento. En este marco se inscriben las designaciones realizadas, a través de registros públicos de personas y entidades vinculadas a actos de terrorismo.
+
+Frente al terrorismo no puede haber tregua: es una amenaza que exige decisión política, constancia institucional y un compromiso que no se agota en el tiempo. Y es así que hechos como este cobran particular relevancia, en los tiempos que corren.
+
+El 7 de octubre de 2023, la organización terrorista Hamás - aliada con el régimen iraní - llevó a cabo la mayor matanza de judíos, desde el Holocausto. Este ataque terrorista nos recordó con brutal claridad que esa amenaza sigue presente.
+
+Israel enfrenta todavía los riesgos y las consecuencias de esa agresión. Cambian los símbolos y las consignas, pero la causa permanece intacta: es una ideología que cada nuevo día demuestra su desprecio por la vida y que busca destruir los fundamentos mismos de la libertad. Frente a esa realidad, Argentina mantiene una posición clara: Israel es un aliado estratégico, de nuestro país. Nos unen valores compartidos y la convicción de que la libertad, la democracia y el respeto por la vida deben ser defendidos sin ambigüedades.
+
+Ese compromiso adquiere un significado especial, en estos días: mañana Argentina asumirá la Presidencia de la Alianza Internacional para la Memoria del Holocausto. Nuestro país alberga la comunidad judía más grande, de América Latina y una de las más importantes del mundo, fuera de Israel; esa presencia enriquece y engrandece profundamente nuestra identidad nacional. Del mismo modo, Argentina fue uno de los primeros países en reconocer al Estado de Israel, tras su declaración de independencia. También, en julio del año pasado, firmamos un memorándum estratégico con Israel para la defensa de la libertad y la democracia y el combate contra el terrorismo y el antisemitismo. Mientras otros gobiernos firmaron Memorándum con Irán; nosotros lo firmamos con una democracia liberal, que comparte nuestros valores éticos y morales.
+
+Por eso, observamos con preocupación cómo - a la par de que Israel libra una guerra en siete frentes por su supervivencia - el antisemitismo y los ataques a las comunidades judías en el mundo no han hecho más que intensificarse. Por eso, quiero aprovechar esta oportunidad para reafirmar nuestro compromiso inquebrantable con el combate a este flagelo del antisemitismo. Y esto no lo hacemos con miras a un cálculo político-electoral; lo hacemos porque estamos convencidos de que es lo correcto. Porque tanto - en política interior como exterior - tenemos un norte claro: la moral como política de Estado. Entendemos que el respeto a los valores de Occidente es la base de todo buen gobierno y que conduce a la mayor de las prosperidades. Por eso debe ser la primera prioridad a la hora de tomar decisiones. La base de estos valores es oponer la verdad a las mentiras, sin importar cuán fuerte suenen o cuántas veces se repitan estas últimas.
+
+En ese sentido, tenemos más que claro que el virus del antisemitismo es el extremo opuesto de nuestros principios que defendemos, porque está fundado en los peores valores que pueden inundar a una sociedad, como son la envidia, el resentimiento y el odio al diferente. Y aunque el antisemitismo crezca en popularidad, esto no lo vuelve remotamente verdadero ni racional. Más lamentable aún es que este auge de valores abiertamente hostiles a Occidente implicó, ante la indiferencia o la ineptitud de las organizaciones internacionales, que el antisemitismo se cuele en las instituciones e infecte a gran parte de la opinión pública. Y esto - al punto de que quienes se creen bien pensantes - hacen ecos de opiniones francamente deleznables, por el solo hecho de estar dirigida a judíos. Y es precisamente, tras esta pantalla, que el odio antisemita florece, se expande y actúa.
+
+Por eso, la batalla contra el antisemitismo no es simplemente un problema de las comunidades judías, sino que es una batalla existencial por defender los valores que nos hacen lo que somos, valores que nunca antes se han visto amenazados por el avance del extremismo y del odio en todas sus formas. Por eso debemos estar más atentos que nunca: no podemos bajar la guardia un segundo. Debemos combatir el antisemitismo en todos los frentes, oponiéndole la verdad al prejuicio en todos los rincones de nuestra sociedad, porque esa es la forma de defender lo que somos, defender los principios que nos fundaron como nación. Y también creemos que el principal alimento del antisemitismo es la miseria y el fracaso de una sociedad, ante los cuales se buscan chivos expiatorios. Tenemos en claro que combatir la pobreza es clave en esta lucha: debemos hacer de Argentina un país grande, con una economía pujante y una sociedad próspera, para mostrar la superioridad de nuestros valores y evitar que las mayorías se engañen con mentiras facilistas. Y por todo esto dejamos también en claro en dónde nos paramos en este momento histórico, en el que Estados Unidos e Israel han decidido ponerle fin al régimen iraní, una tiranía que no sólo mantiene cautiva a su propia población, sino que se ha dedicado a sembrar el terror durante décadas alrededor del mundo.
+
+Como he dicho en otras ocasiones: el precio de la libertad es la eterna vigilancia. En este contexto de lucha entre la luz y las tinieblas, las víctimas del odio antisemita nos lo reclaman más que nunca. Por ese motivo, recordamos hoy a las víctimas, honramos a quienes perdieron la vida en estos atentados y acompañamos a sus familias, que durante más de tres décadas han sostenido con dignidad una búsqueda incansable de justicia. Como Presidente de la Nación, quiero reafirmar que Argentina hace propio ese reclamo y mantiene intacto su compromiso con la verdad.
+
+Que Dios los bendiga a todos, que las fuerzas del cielo nos acompañen y muchas gracias.
+
+---
+
+## Coding Summary (v4)
+
+- **Dominant codes:** none.
+- **Sub-dimension balance:** D1.1 (0), D1.2 (0), D1.3 (0). A genuine zero-code speech — entirely commemorative and foreign-policy content.
+- **New inductive categories added:** none.
+- **Notable rhetorical moves:** none within D1 scope.
+- **Overcoding decisions:** N/A.
+- **V3 recoding notes:** N/A — first-pass v4 coding.
+- **Flagged for follow-up:** none — no climate content.

@@ -1,0 +1,27 @@
+---
+title: "Discurso del Presidente Javier Milei en su visita al Centro de Monitoreo de VISA Argentina"
+date: 2026-03-04
+source_url: "https://www.casarosada.gob.ar/informacion/discursos/51184-discurso-del-presidente-javier-milei-en-su-visita-al-centro-de-monitoreo-de-visa-argentina"
+source_type: speech
+language: es
+youtube_transcript: false
+summary_en: ""
+---
+
+Buenas tardes a todos, ante todo muchas gracias a la gente de Prisma, Newpay, Texpert y Visa por la invitación, y gracias también a todos los presentes. Siempre es un placer para mí hablar de nuevas inversiones en nuestro país. Me gusta aprovechar cada ocasión para celebrarlas por lo que representan, pequeños pasos pero importantes hacia el país libre que soñamos y que estamos construyendo. En esta ocasión se trata de la decisión de Prisma, Newpay y Texpert por parte de Visa, esto forma parte de una decisión estratégica que apunta a fortalecer la infraestructura de pagos digitales en el país, incorporar tecnologías avanzadas como tokenización y autenticación biométrica y acelerar la adopción de soluciones innovadoras para consumidores y comercios.
+
+En pocas palabras, estamos hablando de algo que, de manera directa o indirecta, le va a mejorar la vida a los argentinos. Esto es así porque la inversión fomenta la competencia, resultando en mejores servicios. En última instancia,en un beneficio para todos los consumidores. En este caso tendrá un efecto positivo en la economía permitiendo que el dinero fluya mejor entre las personas. Esto es fundamental para que una economía crezca. Cuanto más eficiente y barato es el traspaso de dinero de unas manos a otras más agentes pueden beneficiarse realizando transacciones y prestándose dinero unos a otros.
+
+Desregular y abrir la economía barata el traspaso del dinero, mientras que regular y cercenar el comercio lo encarece al añadir la incertidumbre intertemporal. Celebramos que Visa haya apostado por Argentina, como ya han hecho otras grandes empresas desde que asumimos el gobierno implementamos las primeras medidas a favor del Libre Mercado. Porque está claro que semejante inversión se da en un contexto favorable para la iniciativa privada, que ha formado parte fundamental de nuestra agenda de gobierno desde el primer día.
+
+El trabajo incansable del Ministro de Desregulación, sumado al Ministerio de Economía y tantas otras áreas de nuestro Gobierno, han apuntado a crear las condiciones necesarias para el fortalecimiento de la actividad privada. Nuestro objetivo es volver a ser, como nuestra época dorada, un país con reglas claras.
+
+Y un respeto implacable por la propiedad privada. De hecho, suena como abstracto la propiedad privada, pero cada vez que bajamos impuestos cada vez que bajamos la inflación y cada vez que desregulamos, les estamos devolviendo la propiedad privada, es una forma de restaurar la propiedad privada. Los impuestos es más fácil porque es el robo directo, es como el ladrón estacionario el Estado, por eso lo estamos corriendo.
+
+Y la desregulación también es una forma de devolver la propiedad privada. El ejemplo más fácil es supongan que ustedes tienen un edificio que viven de alquilar los distintos departamentos. Si viene, por ejemplo, alguna bestia que decide regular y poner una ley que controla los alquileres, es una forma de expropiarlos. Por eso cuando ustedes desregulan y cuando quitan impuestos están devolviéndole al sector privado, que es el verdadero creador del orden y riqueza, la propiedad privada. Y eso es fundamental para que funcione el sistema de precios y el sistema de precio es a la economía lo que el sistema nervioso al cuerpo humano, entonces en la medida que ustedes restauran la propiedad privada, la economía florece y eso es lo que trabajamos incansablemente día a día.
+
+Esta es la única manera de promover el desarrollo. Está bueno, salí del discurso y calzó perfecto. El domingo la interacción con la tribuna se me hacía más complicada. El sector privado, único generador de riqueza, es el mayor proveedor de soluciones que elevan el bienestar general de la población. El capitalismo de libre empresa ha sido el invento más revolucionario jamás creado por el hombre y sigue siendo una fuente inagotable de bondades. Estas van desde las máquinas de vapor hasta la revolución financiera causada por los microcréditos que han permitido impulsar innumerables proyectos productivos. En este caso el crédito se convierte en una poderosa herramienta de ascenso social, permitiendo a las personas acceder a financiamiento sin necesidad de cumplir con los avales de entidades bancarias tradicionales.
+
+Gracias a esto les ha sido posible emprender y generar ingresos para mejorar su nivel de vida y el de su familia. Tal cual expresé en mi discurso del domingo por la noche en el Honorable Congreso de la Nación, la versión oficial, no la blue, avisó, estamos decididos a transformar a la Argentina de acuerdo a los ideales éticos y morales que supieron hacernos grandes. Tan solo este año presentaremos 90 proyectos dedicados a crear la arquitectura jurídica de la Argentina libre que esperemos que sea por 50 a 100 años y volvamos a ser grandes nuevamente.
+
+Por eso, invito a más empresas a apostar por nuestro país. Seguimos sentando las bases de una nueva Argentina, y quienes inviertan hoy tienen la posibilidad de ser pioneros en este cambio de época, aprovechando al máximo el potencial que los argentinos tenemos para ofrecer. Que Dios los bendiga a todos. Que las fuerzas del cielo nos acompañen y ¡viva la libertad, carajo!

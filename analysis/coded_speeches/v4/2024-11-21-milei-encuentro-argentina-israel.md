@@ -1,0 +1,47 @@
+---
+title: "Palabras del Presidente Javier Milei en el Encuentro Empresarial Argentina–Israel"
+date: 2024-11-21
+source_url: "https://www.casarosada.gob.ar/informacion/discursos/50787-palabras-del-presidente-de-la-nacion-javier-milei-en-el-encuentro-empresarial-argentina-israel"
+source_type: speech
+language: es
+youtube_transcript: false
+summary_en: "Address at the Argentina–Israel business forum (receiving the 'Israel Leadership Award'). Milei praises free-market innovation, cites Wiagro (a firm reducing global food waste) as Israel Innovation Award winner, frames Israel as a model of 'making water from stones', and announces a bilateral memorandum with Israel against terrorism. Economic/geopolitical; no substantive climate content."
+coded_version: v4
+coded_date: 2026-07-19
+coding_dimension: D1 only (speeches corpus)
+---
+Hoy más que nunca me voy a ajustar al discurso, porque me siento tan en casa que… Bueno, gracias. Buenas noches a todos, quiero agradecerle a la embajada de Israel en Argentina y a la cámara de comercio argentino israelí por la entrega de esta honorable distinción en un verdadero orgullo para mí ser reconocido como “Israel Leadership Award”. Creo que a esta altura ya hemos demostrado no sólo la afinidad natural que este gobierno tiene con el pueblo de Israel, sino también la convicción imperturbable de acompañar, asistir y trabajar en conjunto con el estado de Israel, allí donde podamos, ya que para nosotros Israel es junto a Estados Unidos nuestros socios geopolíticos más importantes. Y creo que hoy he dado una muestra en la misma línea.  
+
+Les aseguro que esta administración continuará trabajando de forma incansable para fortalecer las relaciones bilaterales entre nuestras naciones. También quiero agradecerles por haberme invitado a este evento que une a los empresarios más importantes de ambos países para reconocerlos, promocionar los avances de sus proyectos y contribuir a que se profundicen nuestras relaciones comerciales. En este sentido, quiero destacar Wiagro, empresa ganadora de Israel Innovation Award.  
+
+Un galardón más que merecido por sus avances en el desarrollo de la tecnología que contribuye a reducir el desperdicio de alimentos a nivel global. No hay sistema que propicie más el desarrollo de bienes y servicios complejos como el capitalismo de libre empresa, porque a través del sistema de precios libres, alinea financistas con productores, con compradores para que a través del intercambio voluntario todos salgan ganando. O bien, porque producen, porque compran un producto que necesitan a un buen precio o bien porque producen y venden un producto necesitado por otra por una ganancia. Como ya dije hace unos días en el G20, el libre mercado ya sacó de la pobreza extrema al 90% de la población global y duplicó la expectativa de vida en los seres humanos.  
+
+Esto fue gracias a que el intercambio libre promueve la inventiva, que está en la base del progreso tecnológico. Porque como dice el coloso Federico Sturzenegger frente a cada nueva necesidad o nuevo problema aparece un mercado. Cuando la realidad está en un proceso constante de cambio la innovación no solo deja de ser deseable, sino que pasa a ser una obligación, porque no poder adaptarse a una realidad en movimiento y aferrarse a dogmas que no se condicen con esa realidad es indefectiblemente el camino de la miseria. Hay que ser firme en las convicciones, pero inteligente para traducir esas convicciones a una realidad cambiante. Porque si uno no Innova la realidad lo lleva puesto. Y este es un concepto que entiende muy bien el pueblo de Israel, lo cual para mí es una gran fuente de inspiración. Porque Israel no es como cualquier otro país: es un pueblo que ha hecho riqueza de la escasez. Lograron literalmente hacer agua de las piedras en medio del desierto.  
+
+No sólo por las condiciones naturales de su tierra, sino sobre todo desgraciadamente por la amenaza constante de querer ser destruido por los enemigos del mundo libre. Recuerden que tan solo dos días después de haber nacido como estado nación ya les habían declarado la guerra. Aun así, esto no ha interrumpido todo el progreso que han alcanzado desde su creación y hoy están a la vanguardia y la innovación tecnológica. Y no me quiero poner a hablar digamos desde más historia, porque ustedes ya saben que eso me entusiasma demasiado y me van a sacar mañana tarde. Entonces, digo por eso no quiero dejar de salir del discurso, porque si no me pongo inestable. Inestable en el sentido de que lo usamos en economía, digamos o sea por favor, porque ya me veo que van a decir cualquier otra cosa. Divergente, quise decir.
+
+Por eso creo que Argentina tiene mucho que aprender de Israel. Durante mucho tiempo hemos despilfarrado los dones naturales que Dios nos ha dado, rehusándonos a explotar nuestras ventajas comparativas. Esto tuvo, como todos sabemos, consecuencias económicas deplorables para el país, pero curiosamente la misma incertidumbre y penuria económica constante que la casta política nos impuso durante décadas, forjó un pueblo sobreviviente, acostumbrado a hacer más con menos para sobrellevar la adversidad.  
+
+`[CODE: D1.1 > Anti_Casta]` — *Memo: "La misma incertidumbre y penuria económica constante que la casta política nos impuso durante décadas" is a brief, passing instance of the standard casta-blame framing, attributing decades of Argentine economic hardship to the political class as a causal agent.*
+
+Estoy tentado a citar la Torá. Porque ustedes vieron que muchas veces estas dificultades sirven para un propósito y a partir de eso generar algo mejor. Entonces, después de más de 123 años siendo castigado los argentinos, tenemos que aprender algo ahí también, no. Y eso es lo que nos ha hecho resilientes, y si hay un ejemplo de un pueblo resiliente, es el pueblo judío. Así es que, en ese sentido, también tenemos mucho para para aprender y para aprender de todas estas experiencias. Tomando el ejemplo de Israel, nosotros venimos a realizar el potencial de nuestra propia sociedad, promoviendo la actividad privada, la creatividad y la invención, esta administración no va a permitir que pase otra camada de talento argentino sin aprovechar.  
+
+Para finalizar, tenemos la vocación de afianzar la amistad que históricamente ha habido entre Israel y Argentina y por eso estamos llevando las relaciones bilaterales entre nuestras naciones a un nivel que nunca antes se había logrado. Porque esta unión surge de lo más profundo que dos naciones pueden compartir, por un lado, los valores de la libertad y democracia, por el otro la lucha contra el terrorismo y las dictaduras. Es por eso que hoy quiero compartirles una primicia. Estamos avanzando en un memorando un histórico con el gobierno israelí, una alianza bilateral entre dos naciones hermanas, un memorando en defensa de la libertad y la democracia, en combate del terrorismo y las dictaduras.  
+
+Mientras los kirchneristas hacían un memorándum con Irán, nosotros hacemos uno con Israel. Ellos firmaban pactos espurios de silencio y complicidad en el delito, nosotros sancionamos alianzas con nuestros semejantes en defensa de la justicia y la libertad. Es nuestro deseo que esta alianza entre Argentina e Israel se convierta en un modelo para que otras naciones del mundo libre también elijan la vida y la libertad, condenando firme y abiertamente al terrorismo. Porque no nos olvidamos y nunca nos vamos a olvidar de los atentados inhumanos con los que el terrorismo castigó al pueblo argentino hace 30 años y tampoco nos olvidamos de la barbarie cometida por el grupo terrorista Hamas el 7 de octubre.  
+
+Ni tampoco nos olvidamos que aún retienen cobarde e injustamente a 101 secuestrados civiles inocentes, entre los cuales hay ocho compatriotas argentinos. Exigimos su liberación inmediata y sin condición alguna.
+
+Por lo tanto, quiero agradecerles por estos breves minutos, reiterarles el compromiso implacable de esta administración con Israel y decirles que cuentan en este presidente con un aliado que estará en la trinchera sin especulaciones ni intereses más que la defensa de la causa de occidente, la vida, la libertad y la propiedad privada. Que Dios bendiga a los argentinos y a los israelíes. Que las fuerzas del cielo nos acompañen y ¡Viva la libertad, carajo!
+
+---
+
+## Coding Summary (v4)
+
+- **Dominant codes:** `D1.1 > Anti_Casta`.
+- **Sub-dimension balance:** D1.1 (1), D1.2 (0), D1.3 (0). A low-density, largely celebratory business-award speech; most content praises Israeli innovation and free-market principles without a delegitimization target.
+- **New inductive categories added:** none.
+- **Notable rhetorical moves:** None beyond the single passing Anti_Casta reference — genuinely low density given the speech's laudatory, diplomatic register.
+- **Overcoding decisions:** The Iran-memorandum contrast with Kirchnerismo was considered for an Anti_Casta code but left uncoded, since it is a specific historical foreign-policy critique (a past administration's Iran deal) rather than the generic casta/political-class framing the sub-code targets.
+- **V3 recoding notes:** N/A — first-pass v4 coding.
+- **Flagged for follow-up:** none — no climate content; "despilfarrado los dones naturales... rehusándonos a explotar nuestras ventajas comparativas" is a resource-underutilization lament consistent with the corpus's broader pro-extraction framing (cf. G20 Session II, Tech Forum) but too brief and non-specific here to warrant its own code.

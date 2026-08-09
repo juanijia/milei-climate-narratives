@@ -18,17 +18,20 @@ milei-climate-narratives/
 │   ├── methodology/     # For your methodology PDFs
 │   └── references/      # For academic references (PDFs)
 ├── data/
-│   ├── sources/         # For the spreadsheet of HTML sources
+│   ├── sources/         # For the spreadsheet or database of HTML sources
 │   ├── raw_speeches/    # Scraped/downloaded raw speech texts
-│   └── processed/       # Cleaned and segmented speeches ready for coding
 ├── analysis/
+|   |── coded_speeches/  # Coded speeches from applying the coding book and methodological skills
 │   ├── coding_book.md   # Document defining categories for inductive coding
-│   └── results/         # Output of the narrative analysis
+│   └── results/         # Output of the narrative analysis (spreadsheet and HTML viewer)
 └── workflows/           # Agent instructions and defined workflows
     ├── 1_data_collector.md
     ├── 2_methodology_assistant.md
     └── 3_narrative_analyst.md
 ```
+
+## Versions
+After several iterations, there has been sequential versions of the coding process and its necessary coding book, methodology summary, and results. Each is reflected with v#. Workflows should always be consistent.
 
 ## Agent Team Workflow
 

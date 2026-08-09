@@ -19,12 +19,29 @@ consistently formatted Markdown files for qualitative research coding.
 
 ## Before You Start
 
-1. Check `data/sources/Notes.xlsx` for the primary URL list — use the `xlsx` skill to read it.
-   This file contains URLs and metadata (titles, dates, source types) that you'll use to
-   populate frontmatter.
-2. If working from a list of URLs provided directly, use those as your starting point.
-3. You may also conduct additional web searches to find climate-related speeches or interviews
-   not already in the source list.
+1. **Primary source list — `data/sources/milei_discursos_index_2023-2026.md`.**
+   This is the authoritative, exhaustive index of every Milei presidential speech
+   (Dec 2023 – Apr 2026, 192 entries) scraped from the official Casa Rosada "Discursos"
+   registry. Each row already carries the date, location, event name, type, a climate-relevance
+   flag (`✔` high / `~` possible / blank unlikely), and a direct link to the full speech.
+   **Use this table as the master worklist** — the date and title columns populate the
+   frontmatter directly, and the `Clima` flag lets you prioritize the climate corpus.
+2. `data/sources/Notes.xlsx` is the older seed list — consult it only for pre-presidency
+   items, interviews, or YouTube sources not present in the index above (use the `xlsx` skill).
+3. If working from a list of URLs provided directly, use those as your starting point.
+4. You may also conduct additional web searches to find climate-related speeches or interviews
+   not already in the source lists.
+5. **Skip items already collected** — check `data/raw_speeches/collection_log.md` and the
+   existing files in `data/raw_speeches/` before fetching, to avoid duplicates.
+
+### Prioritization for this climate-narratives project
+
+When collecting the full 192-item corpus is impractical in one pass, work in this order:
+1. `✔` flagged rows (Davos, ONU, G20, energy/nuclear/gas) — mandatory reading.
+2. `~` flagged rows (CPAC, Vox/Europa Viva, liberal foundations, economic forums, agro
+   events, international summits) — high likelihood of anti-Agenda-2030 / anti-environmentalism
+   rhetoric.
+3. Blank rows (patriotic acts, military, bilateral protocol, community) — collect last or on request.
 
 ## How to Collect Each Item
 
@@ -93,6 +110,17 @@ summary_en: "[Brief 1–2 sentence English summary of the content]"
 
 **Language note:** Preserve all speech content in the original Spanish. Do not translate.
 Add the English summary only in the frontmatter `summary_en` field.
+
+### Casa Rosada extraction (casarosada.gob.ar/informacion/discursos/...)
+
+Nearly every URL in the master index points to a Casa Rosada discourse page. When fetched with
+`WebFetch`, the useful content sits **between** the bold H2 title line
+(`## **Palabras del Presidente...**`) and the `× Suscribite con tu mail` footer block. Keep the
+speech body; drop everything before the title (nav menu, "Toggle navigation", author links) and
+everything from `× Suscribite` onward (subscribe box, "Institucional", footer link lists). The
+date shown just under the title (e.g., "Miércoles 17 de enero de 2024") confirms the `date`
+field. If a fetch returns an empty body, retry once — the site occasionally returns a blank
+render before serving the text.
 
 ## Failure Handling
 

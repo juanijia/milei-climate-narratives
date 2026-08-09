@@ -1,0 +1,54 @@
+---
+title: "Discurso del Presidente de la Nación, Javier Milei, en el acto en conmemoración al 213° aniversario del Combate de San Lorenzo, en Santa Fe"
+date: 2026-02-07
+source_url: "https://www.casarosada.gob.ar/informacion/discursos/51164-discurso-del-presidente-de-la-nacion-javier-milei-en-el-acto-en-conmemoracion-al-213-aniversario-del-combate-de-san-lorenzo-en-santa-fe"
+source_type: speech
+language: es
+youtube_transcript: false
+summary_en: "Commemoration of the Battle of San Lorenzo anniversary, centered on the ceremonial return of General San Martín's sable corvo to the Granaderos a Caballo regiment, with an extended historical account of the sword's custody disputes (including its theft by Juventud Peronista in the 1960s) and a brief closing critique of historical political clientelism. Historical/military commemoration; almost entirely outside D1 scope. No climate content."
+coded_version: v4
+coded_date: 2026-07-19
+coding_dimension: D1 only (speeches corpus)
+note: "SCOPE NOTE: this speech is a historical/military commemoration (Battle of San Lorenzo anniversary, sable corvo custody history) — content outside D1's analytical scope. One brief passage with a clear Anti_Casta target was coded below."
+---
+Buenas tardes a todos. Hoy estamos aquí para conmemorar el aniversario número 213 del combate que dio inicio a nuestra campaña libertadora. En este mismo campo, nuestros granaderos derramaron su sangre por una patria que se estaba gestando en el corazón de nuestros próceres y fueron victoriosos. Hoy recordamos esta hazaña y honramos a sus protagonistas y protectores de la llama de la libertad, que son el Regimiento de Granaderos a Caballo.
+
+La gesta sanmartiniana fue una verdadera revolución. La visión y el liderazgo de nuestros próceres liberaron a las colonias de un Estado tiránico, un Estado que no estaba preocupado por el crecimiento y la prosperidad de los habitantes del Nuevo Mundo, sino que solo buscaba defender sus privilegios. El mundo antes de la Revolución era un mundo estancado, atrasado e injusto; era un mundo invertido. La Revolución rompió con el pasado de opresión y puso a las Provincias Unidas de pie por primera vez en su historia, enderezó lo que estaba invertido y nos permitió caminar, nos permitió convertirnos en poco menos de un siglo en una nación que sería potencia y superaría en gloria al imperio del que se desprendió.
+
+Esta actitud libertadora, en pos de corregir el mundo, romper las cadenas de la opresión y conquistar la libertad, debe guiarnos hoy y siempre en las decisiones que tomamos como Nación. Por eso, hoy también consagramos en este acto el retorno del sable corvo del General San Martín al Regimiento de Granaderos. Se trata de la espada que trajo libertad a tierras que solo conocían el sometimiento, una espada que nos recuerda que la libertad es inclaudicable y que, si uno lleva adelante los sacrificios que ella demanda, se pueden alcanzar cimas inmensas. Por eso, el sable corvo del General San Martín no es un objeto histórico más, no es una pieza neutra de exhibición, ni un simple vestigio del pasado: es probablemente el símbolo material más poderoso de la Nación Argentina. Es una reliquia sagrada, una prueba viviente del espíritu que encarna el gran proyecto argentino; es un objeto que porta una historia, una promesa y una misión para todos aquellos que creen en él: llevarle libertad al gran sur del Nuevo Mundo y, desde allí, iluminar a la humanidad toda.
+
+Por eso es necesario hacer un poco de historia del sable, porque nunca falta la crítica infundada de quienes se creen los amos y señores de nuestro pasado, y pido por favor que tomen referencia exacta de los hechos y de los datos en cuanto a fechas. En 1826 regresaban a Buenos Aires los últimos 78 granaderos pertenecientes al Ejército de los Andes que, desde 1817, habían iniciado la gesta libertadora de medio continente. El Regimiento fue disuelto por el Presidente Rivadavia en 1826 y su personal distribuido entre los diferentes cuerpos del Ejército. Pasaron 54 años. El 28 de marzo de 1880 llegaban a Buenos Aires, a bordo del vapor Villarino, los restos del General San Martín. Los últimos siete granaderos a caballo que aún vivían, viejos ya, por su propia cuenta y determinación se reunieron, vestidos con los restos de sus antiguos uniformes, y marcharon a caballo al puerto a recibir a su jefe. Escoltaron el féretro hasta la Catedral y allí montaron guardia a la entrada del mausoleo durante toda la noche. Al amanecer se despidieron y se perdieron en la historia.
+
+Pasaron otros 23 años y, el 29 de mayo de 1903, el Presidente Roca, a instancia de un sanlorencino, su Ministro Pablo Riccheri, firma el decreto que determinó la recreación del Regimiento de Granaderos a Caballo sobre la base del mejor regimiento de caballería de línea, usando como uniforme de parada el histórico que diseñara el General San Martín. Cuatro años más tarde, el Presidente Figueroa Alcorta lo designa escolta presidencial.
+
+Luego de ser donado al Estado nacional a fines del siglo XIX —por eso es importante las fechas—, en 1897 todavía no estaban recreados los granaderos nuevamente por la decisión de Rivadavia de 1826. Máximo Terrero, esposo de Manuelita Rosas, por gestión iniciada en 1896 por Adolfo Carranza, primer Director del Museo Histórico Nacional, el sable fue expuesto durante la primera mitad del siglo XX en el Museo Histórico Nacional.
+
+Pero fue robado, no una, sino dos veces por la Juventud Peronista, en 1963 y 1965, durante un gobierno democrático, en lo que no puede ser llamado de otra manera que un acto de terrorismo contra el patrimonio nacional. Tras haber sido hallado y devuelto al Ejército en 1967 mediante un decreto, el sable quedó finalmente bajo la custodia definitiva del Regimiento de Granaderos a Caballo.
+
+Allí permaneció casi 50 años hasta el año 2015, cuando por orden de la ex Presidenta fue trasladado nuevamente al Museo Histórico Nacional. No deberá sorprender que quienes habían robado el sable en los 60 fueron invitados a la inauguración de la sala donde sería exhibido.
+
+Por eso, no es de extrañar que hoy este mismo sector pone el grito en el cielo por lo que en realidad es un acto de justicia histórica. Pero los argentinos no nos vamos a dejar manipular: ellos nos llaman colonizados y vende patrias, pero hicieron todo lo posible para empobrecernos y perder el respeto del mundo. Nos dicen "cipayo", pero desfinanciaron y desprestigiaron a nuestras Fuerzas Armadas, dejándonos indefensos. Nos acusan de unitarios, pero exprimieron al interior productivo durante décadas para subsidiar al Gran Buenos Aires y a los clientes del Estado.
+
+`[CODE: D1.1 > Anti_Casta]` — *Memo: a brief but clear instance of the corpus's established clientelism critique — decades of interior-province productive activity are described as having been "exprimido" (squeezed) to subsidize Greater Buenos Aires and "los clientes del Estado" (the State's clients), within an otherwise historical/commemorative address.*
+
+Durante años la política se dedicó a deslegitimar el rol de la defensa, del mando y de la soberanía como pilares fundamentales de nuestra Nación. Nuestra tarea es poner las cosas en su lugar. Hoy entendemos que el sable corvo es más que un objeto histórico: es una reliquia nacional que tiene incrustada en ella el alma de nuestra Nación y que porta en ella también el espíritu de la independencia y la certeza de que somos un país soberano. Mientras el sable esté resguardado, sabremos que somos argentinos y sabremos también que nuestra misión de llevarle libertad al continente sigue más viva que nunca.
+
+Honrar a San Martín es lograr que nuestra Nación se sienta verdaderamente libre y grande, como él lo hubiera deseado, y ese es un compromiso histórico que nuestra administración asume como prioritario e inclaudicable. Hoy la Argentina está también contribuyendo a enderezar un mundo torcido, y el sable corvo nos lo recuerda con su brillo y presencia. Por eso, ¿quién mejor para custodiar este legado que el Cuerpo de Granaderos a Caballo? Sus legítimos protectores por derecho y por historia. Una institución creada por el propio general San Martín, que lo acompañó en su campaña libertadora y que dio su vida por él y por nuestra independencia, como el recordado héroe granadero Juan Bautista Cabral, sacrificio con el que se ganó la inmortalidad.
+
+Por eso, mediante este acto, el Estado nacional le devuelve al Regimiento de Granaderos el honor de custodiar el sable corvo del General San Martín, saldando una deuda histórica con la institución en el marco de un nuevo aniversario del combate de San Lorenzo.
+
+Finalizada esta ceremonia, el sable viajará escoltado por sus legítimos custodios y volverá al lugar que nunca debería haber abandonado. Es importante aclarar que el retorno del sable a su justo lugar no limitará en ningún sentido su acceso: estará expuesto al público en la sede del Regimiento de Granaderos a Caballo, para que todos los argentinos puedan visitar y presenciar esta reliquia que porta parte de nuestra alma.
+
+Muchas gracias a todos. Que Dios bendiga a los Granaderos a Caballo. Que Dios bendiga a todos los argentinos, que las fuerzas del cielo nos acompañen. Y viva la Patria, viva la Patria, viva la Patria.
+
+---
+
+## Coding Summary (v4)
+
+- **Dominant codes:** `D1.1 > Anti_Casta` (interior-provinces-subsidize-Buenos-Aires-clientelism critique).
+- **Sub-dimension balance:** D1.1 (1), D1.2 (0), D1.3 (0). A near-zero-density speech — a historical/military commemoration almost entirely outside D1's scope, with one brief clientelism-critique passage.
+- **New inductive categories added:** none.
+- **Notable rhetorical moves:** none beyond established repertoire.
+- **Overcoding decisions:** the "desfinanciaron y desprestigiaron a nuestras Fuerzas Armadas" passage was left uncoded as both a near-duplicate of established defense-policy critique (2025-12-06/12-18) and as falling under the defense-policy scope exclusion.
+- **V3 recoding notes:** N/A — first-pass v4 coding.
+- **Flagged for follow-up:** none — no climate content.
