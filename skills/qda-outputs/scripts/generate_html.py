@@ -15,8 +15,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from corpus_metadata import (
-    build_metadata_index, venue_type_categories, short_label, color_for_tipo,
-    print_warnings,
+    build_metadata_index, venue_group_categories, short_group_label,
+    VENUE_GROUP_PALETTE, print_warnings,
 )
 from corpus_data import build_corpus, print_code_warnings
 
@@ -81,7 +81,8 @@ def build_corpus_js(files):
         corpus_parts.append(
             f'  {{id:"{js_str(stem)}",date:"{f["date"]}",'
             f'title:"{js_str(f["speech"])}",'
-            f'venue:"{js_str(f["venue"])}",type:"speech",scope:"{f["scope"]}",eventType:"{js_str(f["event_type"])}",\n'
+            f'venue:"{js_str(f["venue"])}",type:"speech",scope:"{f["scope"]}",'
+            f'eventType:"{js_str(f["event_type"])}",venueGroup:"{js_str(f.get("venue_group", "Unclassified"))}",\n'
             f'    segments:[\n{segs_str}\n    ]}}'
         )
 
@@ -169,9 +170,9 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   .heatmap-wrap{overflow-x:auto;}
   table.heatmap{border-collapse:collapse;font-size:11px;min-width:600px;}
   table.heatmap th{font-size:10px;font-weight:700;color:var(--text-muted);padding:6px 10px;text-align:center;white-space:nowrap;}
-  table.heatmap th.row-h{text-align:left;max-width:160px;}
+  table.heatmap th.row-h{text-align:left;max-width:220px;}
   table.heatmap td{width:44px;height:32px;text-align:center;border:1px solid var(--border);font-size:12px;font-weight:700;}
-  table.heatmap td.row-label{text-align:left;padding:0 10px;font-size:11px;color:var(--text-muted);white-space:nowrap;width:160px;}
+  table.heatmap td.row-label{text-align:left;padding:0 10px;font-size:11px;color:var(--text-muted);white-space:nowrap;width:220px;}
   .co-occur-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
   .co-item{background:var(--surface2);border-radius:6px;padding:10px 12px;}
   .co-item .count{font-size:22px;font-weight:800;}
@@ -222,8 +223,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <button class="gf-chip on" style="--chip-c:#0f766e" data-scope="National" onclick="toggleGlobalScope(this)">&#127963; National</button>
   <button class="gf-chip on" style="--chip-c:#1d4ed8" data-scope="International" onclick="toggleGlobalScope(this)">&#127760; International</button>
   <div class="gf-sep"></div>
-  <span class="gf-label">Venue type:</span>
-  <span id="vt-chip-container"></span>
+  <span class="gf-label">Venue group:</span>
+  <span id="vg-chip-container"></span>
 </div>
 
 <div id="tab-browse" class="tab active">
@@ -263,25 +264,21 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
 <div id="tab-patterns" class="tab">
   <div class="panel"><h2>Code Frequency Ranking</h2><p class="sub">Coded passages per sub-code across the full corpus</p><div class="rank-list" id="rank-list"></div></div>
-  <div class="panel"><h2>Speech × Code Heatmap</h2><p class="sub">Coded passages per speech × sub-code. Darker = more occurrences.</p><div class="heatmap-wrap"><table class="heatmap" id="heatmap"></table></div></div>
+  <div class="panel"><h2>Venue Group × Code Heatmap</h2><p class="sub">Coded passages per venue group × sub-code. Darker = more occurrences — shows where each rhetorical move concentrates.</p><div class="heatmap-wrap"><table class="heatmap" id="heatmap"></table></div></div>
   <div class="panel"><h2>Code Co-occurrence</h2><p class="sub">Pairs of codes appearing in the same passage — indicates rhetorical bundling</p><div class="co-occur-grid" id="co-occur"></div></div>
 </div>
 
 <div id="tab-viz" class="tab">
   <div class="dim-bars" id="dim-summary"></div>
   <div class="viz-grid">
-    <div class="panel"><h2>Sub-code Frequency — Full Corpus</h2><p class="sub">Annotations per sub-code, coloured by dimension</p><div class="chart-wrap"><canvas id="chart-freq"></canvas></div></div>
     <div class="panel"><h2>D1.1 Sub-code Composition</h2><p class="sub">Share of the 6 governance/state sub-codes (D1.1 only)</p><div class="chart-wrap"><canvas id="chart-d11-donut"></canvas></div></div>
+    <div class="panel"><h2>Dimension Composition by Quarter</h2><p class="sub">100% stacked — D1.1 / D1.2 / D1.3 / IND share per quarter, tracks how the rhetorical register shifts over time</p><div class="chart-wrap"><canvas id="chart-quarterly"></canvas></div></div>
   </div>
   <div class="viz-grid">
-    <div class="panel"><h2>Rhetorical Register by Venue Type (%)</h2><p class="sub">D1.1 / D1.2 / D1.3 share (%) across 4 venue type categories — how rhetoric shifts by institutional context</p><div class="chart-wrap"><canvas id="chart-venue"></canvas></div></div>
-    <div class="panel"><h2>D1 Composition per Speech (normalised %)</h2><p class="sub">100% stacked — share of D1.1 / D1.2 / D1.3 / IND in each speech</p><div class="chart-wrap"><canvas id="chart-normalized"></canvas></div></div>
+    <div class="panel"><h2>Rhetorical Register by Venue Group (%)</h2><p class="sub">D1.1 / D1.2 / D1.3 share (%) across venue groups — how rhetoric shifts by institutional context</p><div class="chart-wrap"><canvas id="chart-venue"></canvas></div></div>
+    <div class="panel"><h2>Venue Group — Annotation Counts</h2><p class="sub">Absolute counts per dimension across venue groups</p><div class="chart-wrap"><canvas id="chart-vtype"></canvas></div></div>
   </div>
-  <div class="viz-grid">
-    <div class="panel"><h2>National vs International — Annotation Counts</h2><p class="sub">Total D1.1 / D1.2 / D1.3 / IND annotations: speeches delivered domestically vs abroad</p><div class="chart-wrap"><canvas id="chart-scope"></canvas></div></div>
-    <div class="panel"><h2>Venue Type — Annotation Counts</h2><p class="sub">Absolute counts per dimension across the 4 event-type categories</p><div class="chart-wrap"><canvas id="chart-vtype"></canvas></div></div>
-  </div>
-  <div class="panel"><h2>Code Timeline</h2><p class="sub">Codes appearing in each speech — chronological repertoire</p><div class="timeline-grid" id="timeline"></div></div>
+  <div class="panel"><h2>National vs International — Annotation Counts</h2><p class="sub">Total D1.1 / D1.2 / D1.3 / IND annotations: speeches delivered domestically vs abroad</p><div class="chart-wrap"><canvas id="chart-scope"></canvas></div></div>
 </div>
 
 <script>
@@ -290,30 +287,33 @@ const DIM_BG={"D1.1":"rgba(59,130,246,0.18)","D1.2":"rgba(245,158,11,0.18)","D1.
 
 %%CORPUS_JS%%
 
-%%VENUE_TYPES_JS%%
+%%VENUE_GROUPS_JS%%
 
 function allCoded(){return filteredCorpus().flatMap(sp=>sp.segments.filter(s=>s.type==='coded').flatMap(s=>s.codes.map(c=>({speechId:sp.id,...c}))));}
 function codesBySpeech(){const m={};filteredCorpus().forEach(sp=>{m[sp.id]={};sp.segments.forEach(s=>{if(s.type==='coded')s.codes.forEach(c=>{const k=c.dim+'>'+c.sub;m[sp.id][k]=(m[sp.id][k]||0)+1;});});});return m;}
+function codesByVenueGroup(){const m={};filteredCorpus().forEach(sp=>{const g=sp.venueGroup;if(!m[g])m[g]={};sp.segments.forEach(s=>{if(s.type==='coded')s.codes.forEach(c=>{const k=c.dim+'>'+c.sub;m[g][k]=(m[g][k]||0)+1;});});});return m;}
 function totalFreq(){const f={};allCoded().forEach(c=>{const k=c.dim+'>'+c.sub;f[k]=(f[k]||0)+1;});return f;}
 function coOccurrences(){const pairs={};filteredCorpus().forEach(sp=>sp.segments.forEach(s=>{if(s.type==='coded'&&s.codes.length>1){for(let i=0;i<s.codes.length;i++)for(let j=i+1;j<s.codes.length;j++){const a=s.codes[i].dim+'>'+s.codes[i].sub,b=s.codes[j].dim+'>'+s.codes[j].sub;const key=[a,b].sort().join(' + ');if(!pairs[key])pairs[key]={count:0,speeches:new Set()};pairs[key].count++;pairs[key].speeches.add(sp.title);}}}));return pairs;}
 
 let activeSpeech=null,activeFilters=new Set(["D1.1","D1.2","D1.3","IND"]),currentView='excerpts';
 let scopeFilter=new Set(["National","International"]);
-// venueTypeFilter starts with every venue type present in the corpus "on" — VENUE_TYPES
-// is injected above and reflects whatever `tipo` values actually appear, so this scales
-// automatically as new event types enter the corpus (no hardcoded list to maintain).
-let venueTypeFilter=new Set(VENUE_TYPES.map(v=>v.key));
-function filteredCorpus(){return CORPUS.filter(sp=>scopeFilter.has(sp.scope)&&venueTypeFilter.has(sp.eventType));}
+// venueGroupFilter starts with every venue group present in the corpus "on" — VENUE_GROUPS
+// is injected above (corpus_metadata.venue_group_categories) and reflects the 6-category
+// grouping of the master CSV's `tipo` values, so this scales automatically without a
+// hardcoded list to maintain, and stays legible as a filter/chart axis (vs. the raw
+// 23 `tipo` values previously used here).
+let venueGroupFilter=new Set(VENUE_GROUPS.map(v=>v.key));
+function filteredCorpus(){return CORPUS.filter(sp=>scopeFilter.has(sp.scope)&&venueGroupFilter.has(sp.venueGroup));}
 
-function initVenueTypeChips(){
-  const c=document.getElementById('vt-chip-container');
-  c.innerHTML=VENUE_TYPES.map(vt=>`<button class="gf-chip on" style="--chip-c:#${vt.color}" data-vt="${escAttr(vt.key)}" onclick="toggleGlobalVenueType(this)">${escAttr(vt.short)}</button>`).join('');
+function initVenueGroupChips(){
+  const c=document.getElementById('vg-chip-container');
+  c.innerHTML=VENUE_GROUPS.map(vg=>`<button class="gf-chip on" style="--chip-c:#${vg.color}" data-vg="${escAttr(vg.key)}" onclick="toggleGlobalVenueGroup(this)">${escAttr(vg.short)}</button>`).join('');
 }
 function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function switchTab(name,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');btn.classList.add('active');if(name==='patterns')buildPatterns();if(name==='viz')buildViz();}
 function toggleGlobalScope(btn){const sc=btn.dataset.scope;if(scopeFilter.has(sc)){if(scopeFilter.size===1)return;scopeFilter.delete(sc);btn.classList.remove('on');}else{scopeFilter.add(sc);btn.classList.add('on');}rebuildAll();}
-function toggleGlobalVenueType(btn){const vt=btn.dataset.vt;if(venueTypeFilter.has(vt)){if(venueTypeFilter.size===1)return;venueTypeFilter.delete(vt);btn.classList.remove('on');}else{venueTypeFilter.add(vt);btn.classList.add('on');}rebuildAll();}
+function toggleGlobalVenueGroup(btn){const vg=btn.dataset.vg;if(venueGroupFilter.has(vg)){if(venueGroupFilter.size===1)return;venueGroupFilter.delete(vg);btn.classList.remove('on');}else{venueGroupFilter.add(vg);btn.classList.add('on');}rebuildAll();}
 function rebuildAll(){buildNav();const at=document.querySelector('.tab.active');if(at){const id=at.id;if(id==='tab-patterns')buildPatterns();else if(id==='tab-viz')buildViz();}}
 function setView(v){currentView=v;document.getElementById('btn-excerpts').classList.toggle('active',v==='excerpts');document.getElementById('btn-full').classList.toggle('active',v==='full');const r=document.getElementById('reader-content');r.classList.toggle('view-excerpts',v==='excerpts');r.classList.toggle('view-full',v==='full');if(activeSpeech!==null)applyFilters();}
 function toggleFilter(btn){const dim=btn.dataset.dim;if(activeFilters.has(dim)){activeFilters.delete(dim);btn.classList.remove('on');}else{activeFilters.add(dim);btn.classList.add('on');}if(activeSpeech!==null)applyFilters();}
@@ -383,11 +383,12 @@ function clearMemo(){document.getElementById('memo-body').innerHTML='<p class="m
 function buildPatterns(){
   const freq=totalFreq(),sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]),max=sorted[0]?.[1]||1;
   document.getElementById('rank-list').innerHTML=sorted.map(([k,n])=>{const[d,s]=k.split('>');const c=DIM_COLOR[d]||'#888';return`<div class="rank-row"><div class="rank-label">${d}·${s.replace(/_/g,' ')}</div><div class="rank-bar-wrap"><div class="rank-bar" style="width:${Math.round(n/max*100)}%;background:${c}">${n}</div></div><div class="rank-n" style="color:${c}">${n}</div></div>`;}).join('');
-  const allCodes=Object.keys(freq).sort(),bySpeech=codesBySpeech();
-  let h='<thead><tr><th class="row-h">Speech</th>';
+  const allCodes=Object.keys(freq).sort(),byGroup=codesByVenueGroup();
+  const groupsPresent=VENUE_GROUPS.map(v=>v.key).filter(g=>venueGroupFilter.has(g)&&byGroup[g]);
+  let h='<thead><tr><th class="row-h">Venue Group</th>';
   allCodes.forEach(k=>{const[d,s]=k.split('>');h+=`<th style="color:${DIM_COLOR[d]}" title="${k}">${s.replace(/_/g,' ').substring(0,12)}</th>`;});
   h+='</tr></thead><tbody>';
-  filteredCorpus().forEach(sp=>{h+=`<tr><td class="row-label">${sp.date.substring(0,7)} ${sp.title.substring(0,18)}</td>`;allCodes.forEach(k=>{const n=bySpeech[sp.id]?.[k]||0,[d]=k.split('>');const c=DIM_COLOR[d]||'#888',a=n===0?0:.15+(n/5)*.6,bg=n===0?'transparent':hRgba(c,a);h+=`<td style="background:${bg};color:${n>0?c:'var(--border)'}">${n||''}</td>`;});h+='</tr>';});
+  groupsPresent.forEach(g=>{h+=`<tr><td class="row-label">${g}</td>`;allCodes.forEach(k=>{const n=byGroup[g]?.[k]||0,[d]=k.split('>');const c=DIM_COLOR[d]||'#888',a=n===0?0:.1+Math.min(n,20)/20*.7,bg=n===0?'transparent':hRgba(c,a);h+=`<td style="background:${bg};color:${n>0?c:'var(--border)'}">${n||''}</td>`;});h+='</tr>';});
   h+='</tbody>';document.getElementById('heatmap').innerHTML=h;
   const pairs=coOccurrences(),top=Object.entries(pairs).sort((a,b)=>b[1].count-a[1].count).slice(0,12);
   document.getElementById('co-occur').innerHTML=top.map(([pair,data])=>{const[a,b]=pair.split(' + ');const da=a.split('>')[0],db=b.split('>')[0];return`<div class="co-item"><div style="font-size:10px;margin-bottom:4px"><span style="color:${DIM_COLOR[da]}">${a.replace('>','·').replace(/_/g,' ')}</span><span style="color:var(--text-muted)"> + </span><span style="color:${DIM_COLOR[db]}">${b.replace('>','·').replace(/_/g,' ')}</span></div><div class="count" style="color:${DIM_COLOR[da]}">${data.count}</div><div class="speeches">${[...data.speeches].join(', ')}</div></div>`;}).join('');
@@ -408,22 +409,10 @@ function buildViz(){
     {l:'Inductive',n:cnts.IND,c:'#9CA3AF',p:pct(cnts.IND,total)},
   ].map(i=>`<div class="dim-bar-item"><div class="db-label">${i.l}</div><div class="db-n" style="color:${i.c}">${i.n}</div><div class="db-pct">${i.p}</div></div>`).join('');
 
-  // ── Chart 1: Sub-code frequency horizontal bar ───────────────────────────
-  const freq=totalFreq(),sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
-  if(charts.freq)charts.freq.destroy();
-  charts.freq=new Chart(document.getElementById('chart-freq'),{
-    type:'bar',
-    data:{
-      labels:sorted.map(([k])=>{const[d,s]=k.split('>');return d+'·'+s.replace(/_/g,' ').substring(0,14);}),
-      datasets:[{data:sorted.map(([,n])=>n),
-        backgroundColor:sorted.map(([k])=>(DIM_COLOR[k.split('>')[0]]||'#888')+'cc'),
-        borderColor:sorted.map(([k])=>DIM_COLOR[k.split('>')[0]]||'#888'),borderWidth:1}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' n = '+ctx.raw}}},
-      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},
-              y:{grid:{color:'#2e3349'},ticks:{color:'#aab',font:{size:10}}}}}});
-
   // ── Chart 2: D1.1 sub-code composition donut ─────────────────────────────
+  // (Chart 1, a corpus-wide sub-code frequency bar, was removed 2026-08-08 — it
+  // duplicated the Pattern Analysis tab's "Code Frequency Ranking" panel exactly.)
+  const freq=totalFreq();
   const d11subs=Object.entries(freq)
     .filter(([k])=>k.startsWith('D1.1'))
     .sort((a,b)=>b[1]-a[1]);
@@ -440,18 +429,19 @@ function buildViz(){
       plugins:{legend:{position:'right',labels:{color:'#aab',font:{size:10},boxWidth:12,padding:8}},
                tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw/cnts.D1_1*100)}% of D1.1)`}}}}});
 
-  // ── Chart 3: Venue-type comparison grouped bar ───────────────────────────
-  // Categories come from VENUE_TYPES (injected from the actual corpus — see
-  // corpus_metadata.venue_type_categories), not a hardcoded list, so this scales as
-  // new event types enter the corpus.
-  const ET_ORDER=VENUE_TYPES.map(v=>v.key);
-  const ET_SHORT=Object.fromEntries(VENUE_TYPES.map(v=>[v.key,v.short]));
-  const ET_MAP={};
-  filteredCorpus().forEach(sp=>{if(!ET_MAP[sp.eventType])ET_MAP[sp.eventType]=[];ET_MAP[sp.eventType].push(sp);});
+  // ── Chart 3: Venue-group comparison grouped bar (% share) ────────────────
+  // Categories come from VENUE_GROUPS (injected from the actual corpus — see
+  // corpus_metadata.venue_group_categories: 6 analytically coherent groups,
+  // replacing the previous 23-raw-`tipo` version which was unreadable as a
+  // chart axis).
+  const VG_ORDER=VENUE_GROUPS.map(v=>v.key).filter(g=>venueGroupFilter.has(g));
+  const VG_SHORT=Object.fromEntries(VENUE_GROUPS.map(v=>[v.key,v.short]));
+  const VG_MAP={};
+  filteredCorpus().forEach(sp=>{if(!VG_MAP[sp.venueGroup])VG_MAP[sp.venueGroup]=[];VG_MAP[sp.venueGroup].push(sp);});
   const bySpeech=codesBySpeech();
   const dims=['D1.1','D1.2','D1.3','IND'];
   const dNames={'D1.1':'D1.1 Gov/State','D1.2':'D1.2 Science','D1.3':'D1.3 Cultural','IND':'Inductive'};
-  const venueLabels=ET_ORDER.map(et=>ET_SHORT[et]);
+  const venueLabels=VG_ORDER.map(vg=>VG_SHORT[vg]);
   if(charts.venue)charts.venue.destroy();
   charts.venue=new Chart(document.getElementById('chart-venue'),{
     type:'bar',
@@ -459,8 +449,8 @@ function buildViz(){
       labels:venueLabels,
       datasets:dims.map(dim=>({
         label:dNames[dim],
-        data:ET_ORDER.map(et=>{
-          const speeches=ET_MAP[et]||[];
+        data:VG_ORDER.map(vg=>{
+          const speeches=VG_MAP[vg]||[];
           const tot=speeches.reduce((a,sp)=>a+Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((s,[,n])=>s+n,0),0);
           const allTot=speeches.reduce((a,sp)=>a+Object.values(bySpeech[sp.id]||{}).reduce((s,n)=>s+n,0),0);
           return allTot>0?Math.round(tot/allTot*100):0;
@@ -469,28 +459,42 @@ function buildViz(){
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{labels:{color:'#aab'}},
                tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}},
-      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},
+      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:10}}},
               y:{grid:{color:'#2e3349'},max:100,ticks:{color:'#8892aa',callback:v=>v+'%'},
-                 title:{display:true,text:'% of annotations in venue',color:'#8892aa'}}}}});
+                 title:{display:true,text:'% of annotations in venue group',color:'#8892aa'}}}}});
 
-  // ── Chart 4: Normalised 100% stacked per speech ───────────────────────────
-  if(charts.norm)charts.norm.destroy();
-  charts.norm=new Chart(document.getElementById('chart-normalized'),{
+  // ── Chart 4: Dimension composition by quarter ─────────────────────────────
+  // Replaces the old per-speech 100%-stacked chart (194 bars was unreadable).
+  // Binning by quarter keeps it legible while still answering the underlying
+  // question — how the D1.1/D1.2/D1.3 mix evolves over the corpus's timespan
+  // (directly the codebook's own "rhetoric evolution 2023–2026" question).
+  const qMap={};
+  filteredCorpus().forEach(sp=>{
+    if(!sp.date)return;
+    const parts=sp.date.split('-');if(parts.length<2)return;
+    const y=parts[0],m=parseInt(parts[1],10);
+    const key=y+'-Q'+(Math.floor((m-1)/3)+1);
+    if(!qMap[key])qMap[key]={};
+    sp.segments.forEach(s=>{if(s.type==='coded')s.codes.forEach(c=>{qMap[key][c.dim]=(qMap[key][c.dim]||0)+1;});});
+  });
+  const qKeys=Object.keys(qMap).sort();
+  if(charts.quarterly)charts.quarterly.destroy();
+  charts.quarterly=new Chart(document.getElementById('chart-quarterly'),{
     type:'bar',
     data:{
-      labels:filteredCorpus().map(s=>s.date.substring(0,7)),
+      labels:qKeys,
       datasets:dims.map(dim=>({
         label:dNames[dim],
-        data:filteredCorpus().map(sp=>{
-          const spTot=Object.values(bySpeech[sp.id]||{}).reduce((a,n)=>a+n,0);
-          const dimTot=Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((a,[,n])=>a+n,0);
-          return spTot>0?Math.round(dimTot/spTot*100):0;
+        data:qKeys.map(qk=>{
+          const tot=Object.values(qMap[qk]||{}).reduce((a,n)=>a+n,0);
+          const dTot=(qMap[qk]||{})[dim]||0;
+          return tot>0?Math.round(dTot/tot*100):0;
         }),
         backgroundColor:DIM_COLOR[dim]+'bb',borderColor:DIM_COLOR[dim],borderWidth:1}))},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{labels:{color:'#aab',font:{size:10}}},
                tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}},
-      scales:{x:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:9}}},
+      scales:{x:{stacked:true,grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:10}}},
               y:{stacked:true,max:100,grid:{color:'#2e3349'},
                  ticks:{color:'#8892aa',callback:v=>v+'%'},
                  title:{display:true,text:'% share of annotations',color:'#8892aa'}}}}});
@@ -512,59 +516,51 @@ function buildViz(){
       scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},
               y:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'},title:{display:true,text:'Annotation count',color:'#8892aa'}}}}});
 
-  // ── Chart 6: Venue type absolute counts ─────────────────────────────────
-  const vtShort2=ET_SHORT;
-  const vtKeys=ET_ORDER;
+  // ── Chart 6: Venue group absolute counts ─────────────────────────────────
   if(charts.vtype)charts.vtype.destroy();
   charts.vtype=new Chart(document.getElementById('chart-vtype'),{
     type:'bar',
     data:{
-      labels:vtKeys.map(vt=>vtShort2[vt]),
+      labels:venueLabels,
       datasets:dims.map(dim=>({label:dNames[dim],
-        data:vtKeys.map(vt=>{const speeches=ET_MAP[vt]||[];
+        data:VG_ORDER.map(vg=>{const speeches=VG_MAP[vg]||[];
           return speeches.reduce((a,sp)=>a+Object.entries(bySpeech[sp.id]||{}).filter(([k])=>k.startsWith(dim)).reduce((s,[,n])=>s+n,0),0);}),
         backgroundColor:DIM_COLOR[dim]+'bb',borderColor:DIM_COLOR[dim],borderWidth:1}))},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{labels:{color:'#aab'}},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}`}}},
-      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'}},
+      scales:{x:{grid:{color:'#2e3349'},ticks:{color:'#8892aa',font:{size:10}}},
               y:{grid:{color:'#2e3349'},ticks:{color:'#8892aa'},title:{display:true,text:'Annotation count',color:'#8892aa'}}}}});
-
-  // ── Timeline ──────────────────────────────────────────────────────────────
-  document.getElementById('timeline').innerHTML=filteredCorpus().map(sp=>{
-    const codes=sp.segments.flatMap(s=>s.type==='coded'?s.codes:[]);
-    const uniq=[...new Map(codes.map(c=>[c.dim+'>'+c.sub,c])).values()];
-    return`<div class="tl-col"><h4>${sp.date.substring(0,7)}<br>${sp.title}</h4>${
-      uniq.map(c=>`<div class="tl-dot" style="background:${DIM_COLOR[c.dim]}88;border-left:2px solid ${DIM_COLOR[c.dim]}">${c.sub.replace(/_/g,' ')}</div>`).join('')}</div>`;
-  }).join('');
 }
 
 function pct(n,t){return Math.round(n/t*100)+'%';}
 function hRgba(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return`rgba(${r},${g},${b},${a})`;}
 
-initVenueTypeChips();
+initVenueGroupChips();
 buildNav();
 </script>
 </body>
 </html>"""
 
 
-def build_venue_types_js(meta_index):
-    """Build the injected `const VENUE_TYPES = [...]` array from whatever tipo values
-    actually appear in the corpus, each with a short display label and a chip color."""
-    categories = venue_type_categories(meta_index)
+def build_venue_groups_js(meta_index):
+    """Build the injected `const VENUE_GROUPS = [...]` array from the 6 venue-group
+    categories actually present in the corpus (corpus_metadata.venue_group_categories),
+    each with a short display label and a chip color. Replaces the old 23-raw-`tipo`
+    version (2026-08-08 formatting review) — too granular to filter or chart legibly."""
+    categories = venue_group_categories(meta_index)
     parts = []
-    for t in categories:
+    for g in categories:
         parts.append(
             '{key:"%s",short:"%s",color:"%s"}' % (
-                js_str(t), js_str(short_label(t)), color_for_tipo(t, categories),
+                js_str(g), js_str(short_group_label(g)), VENUE_GROUP_PALETTE.get(g, "6b7280"),
             )
         )
-    return 'const VENUE_TYPES = [' + ','.join(parts) + '];'
+    return 'const VENUE_GROUPS = [' + ','.join(parts) + '];'
 
 
-def build_html(corpus_js, venue_types_js):
+def build_html(corpus_js, venue_groups_js):
     html = HTML_TEMPLATE.replace('%%CORPUS_JS%%', corpus_js)
-    return html.replace('%%VENUE_TYPES_JS%%', venue_types_js)
+    return html.replace('%%VENUE_GROUPS_JS%%', venue_groups_js)
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -589,9 +585,9 @@ def main():
     print_code_warnings(code_warnings)
 
     corpus_js = build_corpus_js(files)
-    venue_types_js = build_venue_types_js(meta_index)
+    venue_groups_js = build_venue_groups_js(meta_index)
 
-    html = build_html(corpus_js, venue_types_js)
+    html = build_html(corpus_js, venue_groups_js)
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(html, encoding='utf-8')
     print(f"\n✓ Saved: {OUTPUT_PATH}")

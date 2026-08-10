@@ -127,10 +127,25 @@ VENUE_GROUP_PALETTE = {
 }
 
 
+VENUE_GROUP_SHORT_LABELS = {
+    "Economic & Business Forums": "Econ. & Business",
+    "State & Institutional Acts": "State & Inst.",
+    "Awards, Academic & Think Tanks": "Awards & Academic",
+    "International & Diplomatic": "Int'l & Diplomatic",
+    "Ideological & Political Events": "Ideological & Political",
+    "Commemorative & Community": "Commemorative",
+    "Unclassified": "Unclassified",
+}
+
+
 def group_for_tipo(tipo):
     if not tipo:
         return "Unclassified"
     return TIPO_GROUP.get(tipo.strip().lower(), "Unclassified")
+
+
+def short_group_label(group):
+    return VENUE_GROUP_SHORT_LABELS.get(group, group)
 
 
 def short_label(tipo):
