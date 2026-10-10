@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real change in national budget execution by function, Argentina 2025 vs 2023</title>
+<style>
+.viz-root{color-scheme:light;--surface-1:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#7a7975;--grid:#e3e2dd;--series-1:#2a78d6;--series-2:#eb6834;--focal-rule:#0b0b0b;}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .viz-root{color-scheme:dark;--surface-1:#1a1a19;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#96958c;--grid:#33322f;--series-1:#3987e5;--series-2:#d95926;--focal-rule:#fff;}}
+:root[data-theme="dark"] .viz-root{color-scheme:dark;--surface-1:#1a1a19;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#96958c;--grid:#33322f;--series-1:#3987e5;--series-2:#d95926;--focal-rule:#fff;}
+body{margin:0;background:var(--surface-1,#fcfcfb);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.viz-root{background:var(--surface-1);color:var(--text-primary);padding:28px 22px 34px;max-width:1000px;margin:0 auto}
+h1{font-size:18px;line-height:1.3;margin:0 0 4px;font-weight:600}
+.sub{font-size:13px;color:var(--text-secondary);margin:0 0 2px;max-width:75ch;line-height:1.5}
+.note{font-size:11.5px;color:var(--text-muted);margin:10px 0 0;max-width:80ch;line-height:1.5}
+.controls{display:flex;gap:14px;align-items:center;margin:18px 0 6px;flex-wrap:wrap}
+button{font:inherit;font-size:12px;padding:5px 11px;border:1px solid var(--grid);background:transparent;color:var(--text-secondary);border-radius:6px;cursor:pointer}
+button[aria-pressed="true"]{color:var(--text-primary);border-color:var(--text-secondary);font-weight:600}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--text-secondary);align-items:center;margin-left:auto}
+.sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.row{display:grid;grid-template-columns:220px 1fr 62px;align-items:center;gap:10px;height:23px;font-size:12px}
+.row .nm{text-align:right;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row.focal .nm{color:var(--text-primary);font-weight:700}
+.track{position:relative;height:23px}
+.bar{position:absolute;top:5px;height:13px;border-radius:4px}
+.bar.neg{border-top-left-radius:4px;border-bottom-left-radius:4px}
+.val{text-align:right;color:var(--text-secondary);font-variant-numeric:tabular-nums}
+.row.focal .val{color:var(--text-primary);font-weight:700}
+.zero{position:absolute;top:0;bottom:0;width:1px;background:var(--grid)}
+.totline{position:absolute;top:0;bottom:0;border-left:2px dashed var(--text-secondary);opacity:.75}
+.totlab{font-size:11px;color:var(--text-secondary);position:absolute;transform:translateX(-50%);white-space:nowrap}
+.axis{display:grid;grid-template-columns:220px 1fr 62px;gap:10px;font-size:11px;color:var(--text-muted);margin-top:6px}
+.axwrap{position:relative;height:16px}
+.tick{position:absolute;transform:translateX(-50%)}
+table{border-collapse:collapse;font-size:12px;margin-top:18px;width:100%}
+th,td{padding:4px 8px;text-align:right;border-bottom:1px solid var(--grid);color:var(--text-secondary)}
+th{color:var(--text-primary);font-weight:600}td:first-child,th:first-child{text-align:left}
+tr.focal td{color:var(--text-primary);font-weight:700}
+#tt{position:fixed;pointer-events:none;background:var(--surface-1);border:1px solid var(--grid);border-radius:7px;padding:8px 10px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.14);opacity:0;transition:opacity .1s;z-index:9;max-width:280px;line-height:1.5;color:var(--text-primary)}
+#tt b{font-weight:650}
+#tt .k{color:var(--text-secondary)}
+.hidden{display:none}
+</style></head><body><div class="viz-root">
+<h1>Environmental spending was cut more than twice as deeply as the national budget as a whole</h1>
+<p class="sub">Real change in executed national budget (<i>cr&eacute;dito devengado</i>), 2025 vs 2023, by budget function. Administraci&oacute;n Nacional, deflated by INDEC CPI annual average. 2023 is the last year with a Budget Law approved by Congress.</p>
+<div class="controls">
+  <button id="b-real" aria-pressed="true">Real terms (CPI)</button>
+  <button id="b-pib" aria-pressed="false">GDP share</button>
+  <button id="b-tbl" aria-pressed="false">Table view</button>
+  <span class="legend"><span><span class="sw" style="background:var(--series-1)"></span>Decrease</span><span><span class="sw" style="background:var(--series-2)"></span>Increase</span></span>
+</div>
+<div id="chart"></div>
+<div id="table" class="hidden"></div>
+<p class="note" id="note"></p>
+<div id="tt" role="tooltip"></div>
+</div>
+<script>
+const DATA=[{"f": "Vivienda y Urbanismo", "d23": 335090.8, "d25": 30661.6, "real": -98.0, "pib": -97.9, "s23": 0.881, "s25": 0.025, "rri": -69.5, "real24": -81.7, "r26a": -98.9, "r26b": -99.0}, {"f": "Agua Potable y Alcantarillado", "d23": 423228.4, "d25": 165199.1, "real": -91.4, "pib": -91.1, "s23": 1.113, "s25": 0.134, "rri": -63.0, "real24": -74.8, "r26a": -89.3, "r26b": -90.5}, {"f": "Industria", "d23": 121036.3, "d25": 103163.6, "real": -81.2, "pib": -80.5, "s23": 0.318, "s25": 0.084, "rri": -52.8, "real24": -74.5, "r26a": -74.6, "r26b": -77.3}, {"f": "Comercio, Turismo y Otros Servicios", "d23": 81244.3, "d25": 70170.5, "real": -81.0, "pib": -80.3, "s23": 0.214, "s25": 0.057, "rri": -52.5, "real24": -81.2, "r26a": -79.2, "r26b": -81.4}, {"f": "Comunicaciones", "d23": 188322.0, "d25": 168988.3, "real": -80.2, "pib": -79.5, "s23": 0.495, "s25": 0.137, "rri": -51.8, "real24": -35.5, "r26a": -83.0, "r26b": -84.8}, {"f": "Promoción y Asistencia Social", "d23": 2477261.1, "d25": 2912422.7, "real": -74.1, "pib": -73.1, "s23": 6.515, "s25": 2.358, "rri": -45.7, "real24": -63.1, "r26a": -70.1, "r26b": -73.3}, {"f": "Ecología y Desarrollo Sostenible", "d23": 119254.8, "d25": 191370.3, "real": -64.7, "pib": -63.3, "s23": 0.314, "s25": 0.155, "rri": -36.2, "real24": -52.1, "r26a": -67.9, "r26b": -71.4}, {"f": "Agricultura, Ganadería y Pesca", "d23": 194791.2, "d25": 330120.2, "real": -62.7, "pib": -61.3, "s23": 0.512, "s25": 0.267, "rri": -34.2, "real24": -58.9, "r26a": -66.5, "r26b": -70.0}, {"f": "Dirección Superior Ejecutiva", "d23": 179799.3, "d25": 305694.2, "real": -62.5, "pib": -61.1, "s23": 0.473, "s25": 0.247, "rri": -34.1, "real24": -55.0, "r26a": -62.6, "r26b": -66.6}, {"f": "Energía, Combustibles y Minería", "d23": 3204959.1, "d25": 5770586.6, "real": -60.3, "pib": -58.8, "s23": 8.428, "s25": 4.671, "rri": -31.9, "real24": -35.5, "r26a": -63.3, "r26b": -67.2}, {"f": "Transporte", "d23": 1696742.9, "d25": 3193736.5, "real": -58.5, "pib": -57.0, "s23": 4.462, "s25": 2.585, "rri": -30.1, "real24": -50.9, "r26a": -58.5, "r26b": -62.9}, {"f": "Relaciones Interiores", "d23": 947480.3, "d25": 2017293.9, "real": -53.1, "pib": -51.3, "s23": 2.492, "s25": 1.633, "rri": -24.7, "real24": -72.5, "r26a": -62.4, "r26b": -66.4}, {"f": "Educación y Cultura", "d23": 2757049.6, "d25": 6614878.5, "real": -47.2, "pib": -45.2, "s23": 7.251, "s25": 5.355, "rri": -18.7, "real24": -43.2, "r26a": -39.7, "r26b": -46.2}, {"f": "Ciencia, Tecnología e Innovación", "d23": 577409.1, "d25": 1469367.4, "real": -43.9, "pib": -41.8, "s23": 1.518, "s25": 1.189, "rri": -15.5, "real24": -32.9, "r26a": -44.5, "r26b": -50.4}, {"f": "Información y Estadística Básicas", "d23": 15109.1, "d25": 40064.0, "real": -41.6, "pib": -39.4, "s23": 0.04, "s25": 0.032, "rri": -13.2, "real24": -29.3, "r26a": -41.4, "r26b": -47.7}, {"f": "Legislativa", "d23": 166555.8, "d25": 452289.6, "real": -40.2, "pib": -37.9, "s23": 0.438, "s25": 0.366, "rri": -11.7, "real24": -29.3, "r26a": -34.0, "r26b": -41.1}, {"f": "Servicio de la Deuda Pública", "d23": 3472800.8, "d25": 10354070.8, "real": -34.3, "pib": -31.8, "s23": 9.133, "s25": 8.382, "rri": -5.9, "real24": -15.2, "r26a": -24.7, "r26b": -32.7}, {"f": "Administración Fiscal", "d23": 23390.4, "d25": 73028.9, "real": -31.2, "pib": -28.6, "s23": 0.062, "s25": 0.059, "rri": -2.8, "real24": -31.5, "r26a": 12.0, "r26b": 0.0}, {"f": "Seguros y Finanzas", "d23": 41228.6, "d25": 132153.9, "real": -29.4, "pib": -26.7, "s23": 0.108, "s25": 0.107, "rri": -1.0, "real24": 21.7, "r26a": -34.9, "r26b": -41.9}, {"f": "Control de la Gestión Pública", "d23": 29516.4, "d25": 98601.3, "real": -26.4, "pib": -23.6, "s23": 0.078, "s25": 0.08, "rri": 2.0, "real24": -17.1, "r26a": -10.0, "r26b": -19.6}, {"f": "Seguridad Interior", "d23": 862899.8, "d25": 2888636.4, "real": -26.3, "pib": -23.5, "s23": 2.269, "s25": 2.338, "rri": 2.2, "real24": -22.7, "r26a": -27.6, "r26b": -35.3}, {"f": "Defensa", "d23": 636076.0, "d25": 2370003.6, "real": -17.9, "pib": -14.8, "s23": 1.673, "s25": 1.919, "rri": 10.5, "real24": -12.4, "r26a": -21.0, "r26b": -29.4}, {"f": "Judicial", "d23": 755451.5, "d25": 2829565.5, "real": -17.5, "pib": -14.4, "s23": 1.987, "s25": 2.291, "rri": 10.9, "real24": -14.9, "r26a": -2.3, "r26b": -12.7}, {"f": "Sistema Penal", "d23": 147412.0, "d25": 557608.7, "real": -16.7, "pib": -13.5, "s23": 0.388, "s25": 0.451, "rri": 11.8, "real24": -23.1, "r26a": -14.6, "r26b": -23.7}, {"f": "Relaciones Exteriores", "d23": 231757.6, "d25": 912378.3, "real": -13.3, "pib": -10.0, "s23": 0.609, "s25": 0.739, "rri": 15.2, "real24": -11.8, "r26a": -23.6, "r26b": -31.7}, {"f": "Seguridad Social", "d23": 16792800.8, "d25": 71171545.0, "real": -6.6, "pib": -3.1, "s23": 44.162, "s25": 57.613, "rri": 21.8, "real24": -13.2, "r26a": -6.8, "r26b": -16.7}, {"f": "Inteligencia", "d23": 64453.9, "d25": 279840.3, "real": -4.4, "pib": -0.7, "s23": 0.17, "s25": 0.227, "rri": 24.1, "real24": -14.0, "r26a": -2.8, "r26b": -13.1}, {"f": "Salud", "d23": 1364709.8, "d25": 6927733.5, "real": 11.8, "pib": 16.0, "s23": 3.589, "s25": 5.608, "rri": 40.3, "real24": 0.9, "r26a": 19.9, "r26b": 7.1}, {"f": "Trabajo", "d23": 117657.4, "d25": 1102782.0, "real": 106.5, "pib": 114.3, "s23": 0.309, "s25": 0.893, "rri": 134.9, "real24": 121.1, "r26a": 61.4, "r26b": 44.2}];
+const FOCAL=new Set(["Ecolog\u00eda y Desarrollo Sostenible","Ciencia, Tecnolog\u00eda e Innovaci\u00f3n"]);
+const TOTAL={real:-28.4,pib:-25.7};
+let mode="real", showTbl=false;
+const el=id=>document.getElementById(id);
+const tt=el("tt");
+const fmt=v=>(v>0?"+":"")+v.toFixed(1)+"%";
+function render(){
+  const rows=[...DATA].sort((a,b)=>a[mode]-b[mode]);
+  const vals=rows.map(r=>r[mode]).concat([TOTAL[mode]]);
+  const lo=Math.min(-100,Math.min(...vals)), hi=Math.max(10,Math.max(...vals));
+  const x=v=>(v-lo)/(hi-lo)*100;
+  const z=x(0), t=x(TOTAL[mode]);
+  let h='<div style="position:relative">';
+  h+=`<div style="position:absolute;left:230px;right:72px;top:0;bottom:0;pointer-events:none">
+      <div class="zero" style="left:${z}%"></div>
+      <div class="totline" style="left:${t}%"></div></div>`;
+  for(const r of rows){
+    const v=r[mode], f=FOCAL.has(r.f);
+    const a=Math.min(x(v),z), w=Math.abs(x(v)-z);
+    h+=`<div class="row${f?" focal":""}" data-f="${encodeURIComponent(r.f)}">
+      <div class="nm" title="${r.f}">${r.f}</div>
+      <div class="track"><div class="bar" style="left:${a}%;width:${w}%;background:var(--series-${v<0?1:2})"></div></div>
+      <div class="val">${fmt(v)}</div></div>`;
+  }
+  h+='</div>';
+  h+=`<div class="axis"><div></div><div class="axwrap">`;
+  for(let v=-100;v<=Math.ceil(hi/25)*25;v+=25){ if(v<lo-1) continue;
+    h+=`<span class="tick" style="left:${x(v)}%">${v}%</span>`;}
+  h+=`<span class="totlab" style="left:${t}%;top:-2px"></span></div><div></div></div>`;
+  h+=`<p class="note">Dashed line = whole-budget change (${fmt(TOTAL[mode])}). Bars to its left were cut <b>more</b> than the state overall.</p>`;
+  el("chart").innerHTML=h;
+  el("note").innerHTML='Source: Presupuesto Abierto, <i>Presupuesto de gastos y su ejecución detallada &mdash; agrupación anual</i> (2023 and 2025 files), Administración Nacional, <i>crédito devengado</i>; deflated by INDEC CPI (national, general level, Dec-2016=100), annual average. Function labels follow the MCPSPN. Our 2023 figures reproduce FARN (2026) exactly; 2025 differs by +0.5% because the published dataset was revised after FARN’s cutoff. GDP denominators: INDEC national accounts, GDP at market prices in current pesos (VAB a precios básicos + impuestos netos), annual.';
+  // table
+  let tb='<table><thead><tr><th>Function</th><th>2023 (M$)</th><th>2025 (M$)</th><th>Real ch.</th><th>GDP-share ch.</th><th>% of budget 2023</th><th>% of budget 2025</th><th>vs total (pp)</th></tr></thead><tbody>';
+  for(const r of rows) tb+=`<tr class="${FOCAL.has(r.f)?"focal":""}"><td>${r.f}</td><td>${r.d23.toLocaleString()}</td><td>${r.d25.toLocaleString()}</td><td>${fmt(r.real)}</td><td>${fmt(r.pib)}</td><td>${r.s23}</td><td>${r.s25}</td><td>${(r.rri>0?"+":"")+r.rri}</td></tr>`;
+  tb+='</tbody></table>';
+  el("table").innerHTML=tb;
+}
+document.addEventListener("mousemove",e=>{
+  const row=e.target.closest(".row");
+  if(!row){tt.style.opacity=0;return;}
+  const r=DATA.find(d=>d.f===decodeURIComponent(row.dataset.f));
+  tt.innerHTML=`<b>${r.f}</b><br><span class="k">Real change 2025/2023:</span> <b>${fmt(r.real)}</b><br>
+   <span class="k">GDP-share change:</span> ${fmt(r.pib)}<br>
+   <span class="k">vs whole budget:</span> <b>${(r.rri>0?"+":"")+r.rri.toFixed(1)} pp</b><br>
+   <span class="k">Share of budget:</span> ${r.s23}% &rarr; ${r.s25}%<br>
+   <span class="k">2024 (real, vs 2023):</span> ${fmt(r.real24)}<br>
+   <span class="k">2026 budget (real, vs 2023):</span> ${fmt(r.r26a)} to ${fmt(r.r26b)}`;
+  tt.style.opacity=1;
+  const pad=14; let L=e.clientX+pad, T=e.clientY+pad;
+  if(L+290>innerWidth) L=e.clientX-290; if(T+150>innerHeight) T=e.clientY-150;
+  tt.style.left=L+"px"; tt.style.top=T+"px";
+});
+el("b-real").onclick=()=>{mode="real";el("b-real").ariaPressed="true";el("b-pib").ariaPressed="false";render();};
+el("b-pib").onclick=()=>{mode="pib";el("b-pib").ariaPressed="true";el("b-real").ariaPressed="false";render();};
+el("b-tbl").onclick=()=>{showTbl=!showTbl;el("b-tbl").ariaPressed=String(showTbl);
+  el("table").classList.toggle("hidden",!showTbl); el("chart").classList.toggle("hidden",showTbl);};
+render();
+</script></body></html>

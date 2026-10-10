@@ -17,3 +17,7 @@ _draft_*
 
 # OS
 .DS_Store
+
+# D2 budget raw CSVs (>100MB; rebuilt from the credito-anual-*.zip files) and Office lock files
+analysis/D2_budget/raw/*.csv
+~$*

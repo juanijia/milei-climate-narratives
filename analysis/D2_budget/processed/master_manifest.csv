@@ -1,0 +1,5 @@
+ejercicio,source_url,vintage_on_disk,portal_vintage_now,stale_vs_portal,portal_row_count,rows_loaded,columns,zip_sha256,total_credito_presupuestado,total_credito_vigente,total_credito_devengado,built_utc
+2023,https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/2023/credito-anual-2023.zip,30 jun 2024,30 jun 2024,False,131710,131709,56,f20c23d6f7a27680,28954031.32,40411433.32,38025489.07,2026-08-31 22:04
+2024,https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/2024/credito-anual-2024.zip,1 jul 2025,1 jul 2025,False,119414,119413,56,85443ede542ff5e7,40250029.22,96086046.4,90197486.82,2026-08-31 22:04
+2025,https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/2025/credito-anual-2025.zip,5 jul 2026,5 jul 2026,False,113218,113217,56,7fdbcc86346dcd43,94573214.04,128573459.63,123533955.01,2026-08-31 22:04
+2026,https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/2026/credito-anual-2026.zip,28 ago 2026,28 ago 2026,False,81414,81413,56,e3fc70cacd7fc585,148069293.53,150078916.57,101018322.63,2026-08-31 22:04

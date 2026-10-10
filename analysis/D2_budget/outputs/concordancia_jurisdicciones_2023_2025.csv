@@ -1,0 +1,28 @@
+jurisdiccion_id,jurisdiccion_desc_2023,jurisdiccion_desc_2025,status
+1,Poder Legislativo Nacional,Poder Legislativo Nacional,unchanged
+5,Poder Judicial de la Nación,Poder Judicial de la Nación,unchanged
+10,Ministerio Público,Ministerio Público,unchanged
+20,Presidencia de la Nación,Presidencia de la Nación,unchanged
+25,Jefatura de Gabinete de Ministros,Jefatura de Gabinete de Ministros,unchanged
+30,Ministerio del Interior,,ABSORBED / DISSOLVED
+35,"Ministerio de Relaciones Exteriores, Comercio Internacional y Culto","Ministerio de Relaciones Exteriores, Comercio Internacional y Culto",unchanged
+40,Ministerio de Justicia y Derechos Humanos,Ministerio de Justicia,renamed
+41,Ministerio de Seguridad,Ministerio de Seguridad Nacional,renamed
+45,Ministerio de Defensa,Ministerio de Defensa,unchanged
+50,Ministerio de Economía,Ministerio de Economía,unchanged
+53,Ministerio de Turismo y Deportes,,ABSORBED / DISSOLVED
+57,Ministerio de Transporte,,ABSORBED / DISSOLVED
+64,Ministerio de Obras Públicas,,ABSORBED / DISSOLVED
+65,Ministerio de Desarrollo Territorial y Hábitat,,ABSORBED / DISSOLVED
+70,Ministerio de Educación,,ABSORBED / DISSOLVED
+71,"Ministerio de Ciencia, Tecnología e Innovación",,ABSORBED / DISSOLVED
+72,Ministerio de Cultura,,ABSORBED / DISSOLVED
+75,"Ministerio de Trabajo, Empleo y Seguridad Social",,ABSORBED / DISSOLVED
+80,Ministerio de Salud,Ministerio de Salud,unchanged
+81,Ministerio de Ambiente y Desarrollo Sostenible,,ABSORBED / DISSOLVED
+85,Ministerio de Desarrollo Social,,ABSORBED / DISSOLVED
+86,"Ministerio de las Mujeres, Géneros y Diversidad",,ABSORBED / DISSOLVED
+88,,Ministerio de Capital Humano,NEW
+89,,Ministerio de Desregulación y Transformación del Estado,NEW
+90,Servicio de la Deuda Pública,Servicio de la Deuda Pública,unchanged
+91,Obligaciones a Cargo del Tesoro,Obligaciones a Cargo del Tesoro,unchanged
