@@ -42,11 +42,11 @@ description: Phase 3 workflow for performing narrative and thematic analysis —
 
 6. **Code the batch**: Perform first-pass v4 coding on each of the 5 files using `skills/discourse-coder-v4/SKILL.md`. Save to `analysis/coded_speeches/v4/<same_filename>.md`.
 
-7. **Update tracking after the batch**: Run `python skills/qda-outputs/scripts/update_frequency_tally.py` to regenerate `analysis/coded_speeches/v4/frequency_tally_v4.json` directly from the coded files (it is no longer hand-edited — see the Frequency Tracking section of `skills/discourse-coder-v4/SKILL.md`), and mark the corresponding rows `coded = ok` in the master CSV.
+7. **Update tracking after the batch**: Run `python skills/qda-outputs/scripts/update_frequency_tally.py` to regenerate `analysis/coded_speeches/v4/frequency_tally_v4.json` directly from the coded files (it is no longer hand-edited — see the Frequency Tracking section of `skills/discourse-coder-v4/SKILL.md`), and mark the corresponding rows `coded = ok` in the master CSV. Then run `build_code_counts_csv.py` to refresh `milei_corpus_v4_code_counts.csv`. Once a workbook exists, later manual corrections are made in the xlsx and pushed back with `sync_xlsx_to_md.py` (see CLAUDE.md, "Single Source of Truth").
 
 8. **Repeat** for the next batch of 5 until the corpus is exhausted.
 
 9. **Generate outputs**: Once the full corpus is coded, use the **qda-outputs** skill to produce:
-   - `analysis/results/v4/qda_v4_coded_corpus.xlsx`
+   - `analysis/results/v4/qda_v4_coded_corpus_261011.xlsx` (master; see CLAUDE.md "Single Source of Truth")
    - `analysis/results/v4/qda_explorer_v4.html`
    - `analysis/results/v4/final_analysis_report_v4.md`

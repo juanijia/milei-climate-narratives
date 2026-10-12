@@ -33,7 +33,7 @@ Acá quiero hacer una cita de ese economista fabuloso que es Thomas Sowell, él 
 
 [...] propongo que lean la teoría general, tiene algunos aspectos, por ejemplo del prólogo de la edición en alemán donde el señor Keynes hace una oda al nazismo o en los capítulos donde trata la inversión de donde directamente se pone a favor de la planificación centralizada [...] algunos hasta lo tratan a Keynes como si fuera liberal [...]
 
-`[CODE: D1.2 > Attack_on_Experts_and_Technocrats]` — *Memo: HIGH PRIORITY — a striking and specific claim that Keynes's General Theory contains, in its German-edition preface, "una oda al nazismo," used to delegitimize the entire Keynesian economic tradition by association with fascism and to reframe the Overton window ("lo corrido que está el arco") as having shifted so far left that even Keynes now passes for a liberal. This is among the corpus's most extreme instances of discrediting a canonical academic figure via a totalitarianism association rather than substantive economic critique.*
+
 
 [... left uncoded: micro/macro-equilibrium theory recap, Hazlitt "buen economista/mal economista" citation (near-duplicate of 2025-12-03) ...]
 

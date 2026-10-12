@@ -8,7 +8,7 @@ This file is the primary reference for any AI agent working on this project. Rea
 
 **Research goal:** Analyze Javier Milei's speeches and public discourses to map how his rhetoric constructs narratives that obstruct climate policy in Argentina. The analysis uses an **abductive (inductive-deductive) approach**: starting from theoretically derived seed categories and allowing novel patterns to emerge from the data.
 
-**Academic context:** This is a qualitative political discourse analysis embedded in the broader literature on right-wing climate obstruction, particularly in the Global South. Key references are in `docs/references/`. The research abstract is in `docs/abstract/Abstract.md` and the paper draft is in `docs/Draft/draft_20260718.md` (a manually maintained Word version, `Borrador Manuscrito.docx`, also lives there).
+**Academic context:** This is a qualitative political discourse analysis embedded in the broader literature on right-wing climate obstruction, particularly in the Global South. Key references are in `docs/references/`. The research abstract is in `docs/abstract/Abstract.md` and the paper draft is in `docs/Draft/0923_Paper version_gb.md` (current draft; older versions in `docs/Draft/OLD/`) (a manually maintained Word version, `Borrador Manuscrito.docx`, also lives there).
 
 **Researchers:** Germán Bersalli, Elizabeth Mohle, Juan Ignacio Arroyo.
 
@@ -45,7 +45,7 @@ milei-climate-narratives/
 │   │   └── v4/                      ← COMPLETE — all 193 speech events coded (196 files incl. 3 non-counted duplicate transcripts)
 │   └── results/
 │       ├── v3/final_analysis_report_v3.md
-│       ├── v4/                      ← qda_v4_coded_corpus.xlsx, qda_explorer_v4.html, final_analysis_report_v4.md, milei_corpus_v4_code_counts.csv — ALL COMPLETE (2026-07-19)
+│       ├── v4/                      ← qda_v4_coded_corpus.xlsx, qda_explorer_v4.html, final_analysis_report_v4.md, milei_corpus_v4_code_counts.csv — ALL COMPLETE (2026-07-19); `qda_v4_coded_corpus_261011.xlsx` is the MASTER workbook, older variants are in `OLD/`
 │       └── qda_explorer_v2.html, qda_v2_coded_corpus_v2.xlsx, qda_v3_coded_corpus*.xlsx  ← earlier-version outputs, kept for provenance
 ├── workflows/                       ← Agent instruction files (read before starting each phase)
 │   ├── 1_methodologist.md
@@ -69,7 +69,7 @@ milei-climate-narratives/
 | Phase 2 — Data Collection | Data Collector | ✅ Complete — 192/192 speeches collected in `data/raw_speeches/`, indexed in the master corpus database |
 | Phase 3 — Narrative Analysis | Narrative Analyst | ✅ Complete — coding book **v4**, all 193 speech events coded, all 193 master-CSV rows `coded=ok`, `qda-outputs` deliverables generated (2026-07-19) |
 
-**Next step:** Phase 3 is done. Remaining work is (a) formal D2 (State Capability Erosion) documentation collection — see `final_analysis_report_v4.md`'s "Notes for Triangulation with Dimension 2" for the priority list, anchored on the 2025-11-13 periglaciares/glacier-law passage — and (b) incorporating `final_analysis_report_v4.md`'s findings into the paper draft (`docs/Draft/draft_20260718.md`). If new Milei speeches are delivered going forward, code them into `analysis/coded_speeches/v4/` following the same protocol and re-run `qda-outputs` to refresh the three deliverables.
+**Next step:** Phase 3 is done. Remaining work is (a) formal D2 (State Capability Erosion) documentation collection — see `final_analysis_report_v4.md`'s "Notes for Triangulation with Dimension 2" for the priority list, anchored on the 2025-11-13 periglaciares/glacier-law passage — and (b) incorporating `final_analysis_report_v4.md`'s findings into the paper draft (`docs/Draft/0923_Paper version_gb.md` (current draft; older versions in `docs/Draft/OLD/`)). If new Milei speeches are delivered going forward, code them into `analysis/coded_speeches/v4/` following the same protocol and re-run `qda-outputs` to refresh the three deliverables.
 
 ### Always check for the latest version before starting Phase 3 work
 
@@ -192,9 +192,25 @@ summary_en: "[Brief 1-2 sentence summary in English]"
 4. Update `analysis/coded_speeches/v4/frequency_tally_v4.json` and mark the corresponding CSV rows `coded = ok`.
 5. Repeat until the corpus is exhausted, then generate `analysis/results/v4/final_analysis_report_v4.md` via the `qda-outputs` skill.
 
-**Status: all 5 steps complete as of 2026-07-19.** All 193 speech events are coded, all master-CSV rows are `coded=ok`, and all three `qda-outputs` deliverables (`qda_v4_coded_corpus.xlsx`, `qda_explorer_v4.html`, `final_analysis_report_v4.md`) have been generated from the complete corpus (538 total D1 code annotations; see the final report's Executive Summary for headline findings). A quantitative per-speech code-count CSV (`analysis/results/v4/milei_corpus_v4_code_counts.csv` — the master corpus database plus one column per sub-code/sub-dimension) was also produced for statistical analysis. Note: `skills/qda-outputs/scripts/generate_xlsx.py` had a latent bug that broke once the corpus exceeded 24 speeches (single-letter Excel column assumption); this was fixed in this pass (now uses `column_index_from_string`) and should not need revisiting.
+**Status: all 5 steps complete as of 2026-07-19.** All 193 speech events are coded, all master-CSV rows are `coded=ok`, and all three `qda-outputs` deliverables (`qda_v4_coded_corpus_261011.xlsx`, `qda_explorer_v4.html`, `final_analysis_report_v4.md`) have been generated from the complete corpus (597 total D1 code annotations (was 538 before the 2026-08 recode, 613 before the 2026-10-11 definition review that removed 16 passages; the xlsx is authoritative); see the final report's Executive Summary for headline findings). A quantitative per-speech code-count CSV (`analysis/results/v4/milei_corpus_v4_code_counts.csv` — the master corpus database plus one column per sub-code/sub-dimension) was also produced for statistical analysis. Note: `skills/qda-outputs/scripts/generate_xlsx.py` had a latent bug that broke once the corpus exceeded 24 speeches (single-letter Excel column assumption); this was fixed in this pass (now uses `column_index_from_string`) and should not need revisiting.
 
 ---
+
+## Single Source of Truth for Coded Passages (rule since 2026-10)
+
+**Master = the `Coded Passages` sheet of `analysis/results/v4/qda_v4_coded_corpus_261011.xlsx`** (597 passages / code annotations after the 2026-10-11 review, 193 speeches). This is the file shared with collaborators on Google Drive (it also holds their note columns N–Q — `german`, `eli`, `juani`, `Highlights…` — and a pivot table, all ignored by the scripts). Old variants live in `analysis/results/v4/OLD/` and must not be used. If a newer export of the Drive file replaces it, save it under the same name (or update `XLSX` in `sync_xlsx_to_md.py` and `MASTER_PATH` in `generate_xlsx.py`). All other coded artifacts are *derived* and must never be edited by hand:
+
+| Derived artifact | Refreshed by |
+|---|---|
+| `analysis/coded_speeches/v4/*.md` (`[CODE: ...]` lines + memos) | `sync_xlsx_to_md.py` |
+| `analysis/coded_speeches/v4/frequency_tally_v4.json` | `update_frequency_tally.py` (run automatically by sync) |
+| `analysis/results/v4/milei_corpus_v4_code_counts.csv` | `build_code_counts_csv.py` (run automatically by sync) |
+| `quant_analysis/*.csv` / charts / memo | re-run `quant_analysis.ipynb` after the CSV changes; memo numbers are hand-written, update them |
+| `qda_explorer_v4.html` (+ `index.html`) | `generate_html.py` |
+
+**Procedure after editing the xlsx:** use the project skill `skills/sync-coded-passages/SKILL.md` (dry-run diff → confirm → `--apply`, which rewrites the `.md` files, verifies the round trip, and refreshes the tally, the code-counts CSV and the HTML explorer). Editable columns: B Dimension, C Sub-dimension and E Sub-code (same text), D Dimension (Full), G Memo; never F (passage). Quant notebook/report numbers are refreshed separately.
+
+`generate_xlsx.py` now **refuses to write over the master workbook** (it would erase notes, comments and the pivot); it only builds a fresh comparison copy with `--out <other_path>.xlsx`. For *new* coding (new speeches), code in the `.md` as before, the xlsx master must be updated accordingly (e.g. add the new rows by regenerating a comparison workbook with `generate_xlsx.py --out` and pasting them in), and from then on the xlsx is the master.
 
 ## The Codebook — Summary
 

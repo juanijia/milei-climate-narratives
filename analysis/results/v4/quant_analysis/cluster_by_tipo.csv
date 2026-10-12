@@ -1,0 +1,21 @@
+tipo,cluster_0,cluster_1,cluster_2,cluster_3,n
+acto institucional,8,0,0,0,8
+bilateral / diplomatico,0,1,0,1,2
+bolsa / camara de comercio,2,1,1,2,6
+cadena nacional,4,0,0,1,5
+clase magistral / universidad,3,0,0,0,3
+comunitario / religioso,1,0,0,1,2
+consejo empresarial,3,0,0,1,4
+cumbre internacional,0,4,0,1,5
+debate presidencial,0,0,1,0,1
+empresa,3,0,1,0,4
+evento economico / cultural,1,0,0,0,1
+evento empresarial,0,0,0,1,1
+evento ideologico/politico,4,1,0,8,13
+foro economico,11,0,1,3,15
+foro economico / empresarial,0,0,0,3,3
+foro economico / financiero,1,0,0,0,1
+fundacion / think tank,6,0,1,2,9
+organismo internacional,1,0,0,0,1
+premio / reconocimiento,3,0,0,2,5
+sectorial,2,0,1,0,3

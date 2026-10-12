@@ -293,3 +293,7 @@ Once the full corpus is coded and `frequency_tally_v4.json` is up to date, use t
 The skill runs `skills/qda-outputs/scripts/generate_xlsx.py` and
 `skills/qda-outputs/scripts/generate_html.py` against the v4 corpus, then writes the
 final analysis report.
+
+## Definition updates (2026-10-11)
+
+Full definitions are in `analysis/coding_book_v4.md`. `Anti_Socialism_Anti_Collectivism` and `Civilizational_Defense` no longer require a climate or environmental reference in the passage (Option A scope). `Pseudo_Science_or_Ideological_Science` covers claims that any body of knowledge, or the institutions producing it (including economics, think tanks, the Club of Rome), is ideologically captured or epistemically unsound; it targets knowledge production, not a specific finding and not people as a class. `Attack_on_Experts_and_Technocrats` targets people or professional authority as a class (credentials, competence, honesty, motives, track record). A purely economic disagreement or a taunt aimed at an argument is not an expert attack and should not be coded as one.

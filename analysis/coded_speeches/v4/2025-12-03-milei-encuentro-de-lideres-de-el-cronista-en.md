@@ -17,7 +17,7 @@ Buenas tardes a todos, aparte vengo a dar una conferencia contento, ganó La Dol
 
 Hay uno que es conocido porque mandó a la quiebra una empresa muy importante con sus errores de tipo de cambio. Entonces, que quieran licuar con el hambre de los argentinos sus errores de pronósticos [...] Hay en uno de los libros de Von Bohm-Bawerk [...] es como el caso de que supongan que ustedes tienen un médico y el médico está empecinado con un diagnóstico y se dedica a buscar la forma de romper ese diagnóstico por todos lados hasta que el diagnóstico sea el que él quiere. Bueno, la pregunta es ¿ustedes irían a atenderse a ese médico? Porque los va a matar, literalmente.
 
-`[CODE: D1.2 > Attack_on_Experts_and_Technocrats]` — *Memo: FLAGSHIP opening broadside. A named-but-unidentified analyst's prior professional failure ("mandó a la quiebra una empresa") is used to impugn all exchange-rate critics as self-interestedly trying to "cover their losses with the hunger of Argentines," followed by a malpractice-doctor analogy in which economists who cling to a predetermined diagnosis are equated with doctors who will "literalmente" kill their patients — one of the corpus's most explicit life-or-death framings of expert disagreement.*
+
 
 [... left uncoded: extended equilibrium-general/partial-equilibrium methodological critique, Hayek "fatal arrogancia" epistemology exposition ...]
 
@@ -29,7 +29,7 @@ Hay uno que es conocido porque mandó a la quiebra una empresa muy importante co
 
 Entonces, vendría acá el conjunto de los piromaníacos fanáticos de devaluar y que, en el fondo, tienen que lavar culpas con sus clientes [...] estos chantas que se ponen a hablar del tipo de cambio real no tienen ni idea [...] las barbaridades que decían los neandertales [...] Tenemos que reportarle a 47,5 millones de argentinos, no a tres o cuatro atorrantes del círculo rojo que han vivido de empobrecer a la Argentina.
 
-`[CODE: D1.2 > Attack_on_Experts_and_Technocrats]` — *Memo: a cluster of escalating dehumanizing labels for devaluation-advocating analysts across the speech — "piromaníacos fanáticos" (pyromaniac fanatics), "chantas" (frauds/con artists), "neandertales" (Neanderthals), and "atorrantes del círculo rojo" (bums of the elite financial commentariat) — collectively recasting an entire professional community of critics as either fraudulent, primitive, or parasitic on ordinary Argentines rather than as holding a legitimate, if mistaken, technical position.*
+
 
 [... left uncoded: money-demand/nominal-scale monetary-theory exposition, Hume-Cantillon effect pedagogy, deflation/Bagus citation ...]
 

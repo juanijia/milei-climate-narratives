@@ -1,215 +1,250 @@
-# Final Analysis Report v4: Milei's Climate Narratives
-**Version:** 4.0 | **Date:** 2026-07-19 | **Coded by:** Claude (discourse-coder-v4)
+# Final Analysis Report v4 — Updated (2026-10-11): Milei's Climate Narratives
+
+**Version:** 4.0 (definition-review pass) | **Date:** 2026-10-11 | **Coded by:** Claude (discourse-coder-v4) with researcher review, under codebook v4 (definitions revised 2026-10-11) | **Supersedes for reporting purposes (earlier versions kept):** `final_analysis_report_v4_20260809.md` and `final_analysis_report_v4_20260719.md` (the 2026-07-19 report, formerly `final_analysis_report_v4.md`)
+
+**Relationship to the article draft:** This report presents the current state of the Corpus A (presidential speeches) analysis described in Section 4 ("Empirical Research Design") of the article draft and is the results base for its Findings section. It uses the same terminology and coding scheme (Dimension 1 — Discursive Delegitimization; sub-dimensions D1.1/D1.2/D1.3; the fourteen sub-codes).
+
+---
+
+## What changed since the 2026-08-09 report
+
+On 2026-10-11, a researcher review of the coded workbook found that three sub-code definitions were written around climate/environmentalism while the passages actually coded under them were broader, and that some passages coded as expert attacks were economic disagreements rather than attacks on experts. The review changed the corpus in two ways, both documented in `analysis/technical_memory.md` and `analysis/methodology_summary_v4.md`:
+
+1. **Three definitions were broadened to match the coding** (`analysis/coding_book_v4.md`):
+   - `Anti_Socialism_Anti_Collectivism` and `Civilizational_Defense` no longer require a climate or environmental reference; a climate link is an included case, justified by the Option A scope rule (general anti-collectivist and civilizational rhetoric is the discursive infrastructure later applied to climate governance).
+   - `Pseudo_Science_or_Ideological_Science` now covers claims that *any* body of knowledge, or the institutions that produce it, is ideologically captured or epistemically unsound. The target is the knowledge production (theory, method, institution), not a specific finding and not people as a class.
+   - A boundary was added: `Attack_on_Experts_and_Technocrats` targets people or professional authority as a class (credentials, competence, honesty, motives, track record); a purely economic disagreement is not an expert attack.
+2. **Sixteen passages were removed** (workbook IDs #65, 80, 137, 170, 180, 186, 219, 226, 240, 373, 376, 480, 501, 503, 510, 586): thirteen Attack on Experts, two Pseudo-Science, one Anti-State, one Delegitimization of Regulation. Passage #585 was reviewed and kept by decision.
+
+Effects: **total code instances fall from 613 to 597 (−16, −2.6%)**; Attack on Experts 32 → 20; Pseudo-Science 10 → 8; Anti-State 93 → 92; Delegitimization of Regulation 85 → 84. D1.1 377 → 375, D1.2 66 → 52, D1.3 unchanged at 170. No speech was left without codes by the removals; zero-code speeches remain 23. The corpus's three climate-signature sub-codes are unaffected (still 55).
+
+Other points, stated rather than silently absorbed:
+- **A claim in the 2026-08-09 report is corrected.** That report said explicit climate-science denial appeared "in only two speeches" (the 2023 debate and 2025 Davos). The coded data show `Climate_Skepticism_or_Dismissal` (7 codes) in **seven** speeches: the 2023 debate, CPAC 2024, the 2024 book presentation, the 2024 agricultural exhibition, the Fundación Faro dinner (Nov. 2024), Davos 2025 and CPAC Washington 2025. It is still the corpus's second-rarest sub-code, but it is not confined to two speeches.
+- **The broadened definitions weaken the explicit climate link of three codes.** They should be reported as capturing the discursive infrastructure of climate rejection under the Option A rule, not climate talk itself. The climate-signature split below gives the climate-explicit view.
+- **The quantitative pipeline was refreshed** (`analysis/results/v4/quant_analysis/`, memo dated 2026-10-11, n=597), resolving the August caveat that those outputs predated the correction.
+- Sections not tied to the removed passages (flagship quotes, triangulation with D2, inductive categories) are carried over from the 2026-08-09 report. None of the removed passages belongs to a flagship speech.
+- Source of truth: all figures were recomputed from the master workbook `qda_v4_coded_corpus_261011.xlsx` and the synced coded `.md` files (parser `skills/qda-outputs/scripts/corpus_data.py`); a sync dry run reports 0 differences.
 
 ---
 
 ## Executive Summary
 
-Across the complete corpus of 193 speeches and public discourses delivered by Javier Milei as President of Argentina (8 October 2023 – 29 April 2026), the discursive-delegitimization framework (Dimension 1) identified 538 codeable passages, 61% of which target the legitimacy of state intervention and sustainability governance in the abstract (D1.1) rather than climate science itself (D1.2, 12%) or invoke cultural-backlash framing (D1.3, 27%). This is the corpus's central finding: Milei's climate obstruction is overwhelmingly *institutional and economic-theoretical* rather than scientific-denialist in character — he spends far more rhetorical energy declaring that "market failures do not exist" and that regulatory bodies are captured by a privileged "casta" than he does disputing the physical reality of climate change. Explicit climate-science denial appears in only two speeches across two and a half years (the 2023 presidential debate and Davos 2025's "five cycles" passage); by contrast, the anti-state, anti-casta, and anti-regulatory discursive infrastructure built up over 193 speeches recurs constantly and — per the codebook's Option A scope rule — constitutes the load-bearing apparatus that climate-specific attacks plug into whenever they do appear. The rhetoric evolves across the period: 2023–2024 features occasional direct climate-science skepticism and abstract market-failure theory aimed at international forums; 2025–2026 shifts toward named, concrete targets — an explicit "Agenda Verde" blamed for European demographic collapse, "ambientalistas idiotas extremos" blocking mining output, and, most consequentially, a named forthcoming law to weaken Argentina's glacier-protection buffer zones. That last example (2025-11-13) is the corpus's clearest documented bridge from discourse (D1) to concrete policy action (D2), and should anchor any triangulation with the project's formal-documentation corpus.
+Across the complete corpus of 193 speeches and public discourses delivered by Javier Milei as presidential candidate and President of Argentina (8 October 2023 – 29 April 2026), the discursive-delegitimization framework (Dimension 1) identifies 597 codeable passages. The central finding holds: 62.8% of codes target the legitimacy of state intervention and sustainability governance in the abstract (D1.1), 28.5% invoke cultural-backlash framing (D1.3), and only 8.7% attack public science and expertise (D1.2). Milei's climate obstruction is overwhelmingly institutional and economic-theoretical rather than scientific-denialist: explicit climate-science dismissal (`Climate_Skepticism_or_Dismissal`) is the second-rarest sub-code (7 instances, one each in seven speeches), while the anti-state, anti-"casta", and anti-regulatory infrastructure (`Anti_Casta`, 116 instances, is the most frequent sub-code) recurs constantly and is the load-bearing apparatus that climate-specific attacks plug into when they do appear. The three explicit climate-signature sub-codes (55 instances) split between speeches pre-flagged as high climate-relevance (42%) and speeches that were not (58%), direct quantitative support for the "Option A" scope decision. The single densest speech is still the 14 March 2026 Madrid Economic Forum address (21 codes), which contains no explicit climate content. The definition review tightened D1.2 in particular: with economic disputes no longer counted as expert attacks, science-and-expertise attacks are 8.7% of the corpus, and their share falls from 12.0% in 2024 to 4.2% in 2026.
 
 ---
 
 ## Corpus Overview
 
-- **Speeches coded:** 193 (196 physical files; 3 are non-authoritative English-transcript duplicates of an already-coded Spanish original and are excluded from all counts below — see Methodological Notes)
+- **Speech events analyzed:** 193 (matching the master corpus database; all rows `coded = ok`)
 - **Date range:** 2023-10-08 (second presidential debate) – 2026-04-29 (Expo EFI 2026 closing)
-- **Speeches with ≥1 D1 code:** 160 of 193 (83%)
-- **Genuine zero-code speeches:** 33 of 193 (17%) — predominantly commemorative, foreign-policy/diplomatic, ceremonial, or bilateral small-talk content (Holocaust remembrance, military ceremonies, sports send-offs, condolence/tribute speeches)
-- **Total coded passages / code annotations:** 538 (passages can carry multiple stacked codes; 34 pairwise stacked-code instances identified)
-- **Active inductive categories:** 0 (none formalized in v4; see "Inductive Categories" below for candidate patterns considered and declined)
-- **Venue types:** 23 categories spanning international forums (Davos, UN General Assembly, G20, Mercosur summits), domestic state-of-the-nation addresses (Apertura de Sesiones Ordinarias), cadenas nacionales, business chambers and stock exchanges, universities and think tanks, awards ceremonies, and bilateral meetings
-- **Coding dimension:** D1 (Discursive Delegitimization) only, applied to speeches. D2 (State Capability Erosion) is a separate protocol for formal documentation (decrees, budgets, reorganization orders), not yet collected as of this report.
-- **Scope rule (v4, "Option A"):** the master corpus database's `clima` heuristic (✔ / ~ / blank) is a *speech-selection* filter only, used to prioritize which speeches to code first — not a passage-level coding filter. Once a speech is selected, general anti-casta, anti-state, anti-regulation, market-primacy, anti-expert, and anti-collectivist rhetoric is coded on its own terms wherever it appears, without requiring an explicit climate/environmental mention in the passage. This is why speeches with no explicit climate content (e.g., education, economic-history, or fiscal-policy speeches) still contribute substantial code counts: per the codebook, this rhetoric constitutes the discursive infrastructure of climate obstruction even when climate itself is never named.
+- **Speeches with ≥1 D1 code:** 170 of 193 (88%)
+- **Genuine zero-code speeches:** 23 of 193 (12%), concentrated in `acto institucional` (5), `acto conmemorativo` (5), `bilateral/diplomatico` (4), and `cumbre internacional` (3)
+- **Total coded passages / code annotations:** 597 (mean 3.09/speech, median 2, max 21)
+- **Passages carrying two or more stacked codes:** 35 (5.9% of code annotations; 556 distinct passages)
+- **Active/formalized inductive categories:** 0
+- **Coding dimension:** D1 (Discursive Delegitimization) only, applied to speeches (Corpus A). D2 (State Capability Erosion / Corpus B) is a separate protocol.
 
-### Methodological Notes
+**Table 1. Corpus and coding results at a glance**
 
-Three pairs of coded files record the same underlying speech event in two languages (an official Spanish original and an AI-generated English transcript from an international host, e.g. the World Economic Forum). Per the corpus's duplicate-transcript protocol, only one file per event counts toward the master CSV and all frequency statistics: the 2024-09-24 UN General Assembly address counts under its English CFR transcript (the more complete source used for the original annotation pass); the 2025-01-23 and 2026-01-21/22 Davos addresses count under their Spanish originals. During this reporting pass, a verification check found that the English-transcript duplicates for the two Davos pairs had retained live, machine-parseable code tags from a pre-reconciliation coding pass despite explanatory notes stating they should not count — this silently double-counted 26 code instances in the frequency tally. This has been corrected: the stray tags were de-formatted to plain text (preserved for provenance, no longer parsed), and the tally, Excel workbook, and HTML explorer were regenerated. All statistics in this report reflect the corrected corpus.
+| Metric | 2026-07-19 | 2026-08-09 | 2026-10-11 (this report) |
+| ----- | ----- | ----- | ----- |
+| Speech events | 193 | 193 | 193 |
+| Speeches with ≥1 code | 160 (83%) | 170 (88%) | 170 (88%) |
+| Zero-code speeches | 33 (17%) | 23 (12%) | 23 (12%) |
+| Total code instances | 538 | 613 | 597 |
+| Stacked-code passages | 34 | 36 | 35 |
+| D1.1 share | 61.2% (329) | 61.5% (377) | 62.8% (375) |
+| D1.2 share | 11.7% (63) | 10.8% (66) | 8.7% (52) |
+| D1.3 share | 27.1% (146) | 27.7% (170) | 28.5% (170) |
+| Climate-signature codes | 55 | 55 | 55 (unchanged) |
 
 ---
 
 ## Dimension 1 — Discursive Delegitimization: Key Findings
 
-Aggregate D1 distribution: **D1.1 = 329 codes (61.2%)**, **D1.2 = 63 codes (11.7%)**, **D1.3 = 146 codes (27.1%)**.
+**Table 2. Sub-code frequencies, ranked**
 
-### D1.1 — Delegitimization of State Intervention and Sustainability Governance (61.2%)
+| Rank | Sub-code | Sub-dimension | Count | Share of D1 |
+| ----- | ----- | ----- | ----- | ----- |
+| 1 | Anti_Casta | D1.1 | 116 | 19.4% |
+| 2 | Anti_Socialism_Anti_Collectivism | D1.3 | 102 | 17.1% |
+| 3 | Anti_State_Anti_Bureaucratic | D1.1 | 92 | 15.4% |
+| 4 | Delegitimization_of_Regulation | D1.1 | 84 | 14.1% |
+| 5 | Woke_Bundling | D1.3 | 41 | 6.9% |
+| 6 | Market_Primacy | D1.1 | 35 | 5.9% |
+| 7 | Civilizational_Defense | D1.3 | 27 | 4.5% |
+| 8 | Sustainability_as_Ideological_or_Harmful | D1.1 | 24 | 4.0% |
+| 8 | Rejection_of_Multilateral_Governance | D1.1 | 24 | 4.0% |
+| 10 | Attack_on_Experts_and_Technocrats | D1.2 | 20 | 3.4% |
+| 11 | Attack_on_Universities_and_Research_Institutions | D1.2 | 14 | 2.3% |
+| 12 | Pseudo_Science_or_Ideological_Science | D1.2 | 8 | 1.3% |
+| 13 | Climate_Skepticism_or_Dismissal | D1.2 | 7 | 1.2% |
+| 14 | Selective_Empiricism | D1.2 | 3 | 0.5% |
 
-By a wide margin the dominant sub-dimension, and within it the ranking is telling:
+### D1.1 — Delegitimization of State Intervention and Sustainability Governance (62.8%, 375 codes)
 
-| Sub-code | Count | Share of D1.1 |
-|---|---|---|
-| Anti_Casta | 99 | 30.1% |
-| Anti_State_Anti_Bureaucratic | 84 | 25.5% |
-| Delegitimization_of_Regulation | 69 | 21.0% |
-| Market_Primacy | 29 | 8.8% |
-| Sustainability_as_Ideological_or_Harmful | 24 | 7.3% |
-| Rejection_of_Multilateral_Governance | 24 | 7.3% |
+The dominant sub-dimension by a wide margin. `Anti_Casta` (116) is the most frequent sub-code in the corpus, ahead of `Anti_Socialism_Anti_Collectivism` (102). The three generic D1.1 sub-codes `Anti_Casta`, `Anti_State_Anti_Bureaucratic` (92) and `Delegitimization_of_Regulation` (84) account for 292 of 597 codes (48.9%). Climate and environmental institutions are never singled out for special condemnation in this register; they are swept into a pre-existing, much larger anti-institutional frame that recurs in nearly every speech genre. `Delegitimization_of_Regulation`'s flagship claim, that "market failures do not exist" ("los fallos de mercado... no existen"), recurs verbatim or near-verbatim across at least five speeches (Davos 2024, 2025, 2026; Apertura 144°, 2026; Madrid Economic Forum, 2026), each time eliminating the standard economic justification for environmental regulation (externalities) at the level of first principles, without engaging climate science.
 
-`Anti_Casta` and `Anti_State_Anti_Bureaucratic` together account for over half of all D1.1 codes and nearly a third of the entire D1 corpus. This is the discourse's real center of gravity: a generalized, constantly-repeated narrative that state institutions — regardless of which policy domain they administer — are captured by a self-serving political class ("la casta") or are inherently parasitic bureaucratic drag. Climate and environmental agencies are never singled out for special condemnation; they are swept into this pre-existing, much larger anti-institutional frame. `Delegitimization_of_Regulation` (69, 21%) and `Market_Primacy` (29, 9%) supply the theoretical apparatus: the flagship claim, delivered almost verbatim across three consecutive Davos addresses (2024, 2025, 2026) and the 2026 Apertura, is that "market failures do not exist" ("los fallos de mercado no existen" / "el fallo del mercado es un oxímoron") — a claim that, if accepted, eliminates the standard economic justification for *any* environmental regulation (externalities, the paradigm case of market failure in environmental economics) at the level of first principles, without needing to argue about climate science at all.
+`Sustainability_as_Ideological_or_Harmful` (24) and `Rejection_of_Multilateral_Governance` (24) carry the corpus's *named* climate-obstruction content: the UN "Zero Emission" critique, the Club of Rome dismissal, the "Agenda Verde"/demographic-collapse claim, and the periglaciares/glacier-law passage. Their counts are unchanged by the review.
 
-`Sustainability_as_Ideological_or_Harmful` (24, 7.3%) and `Rejection_of_Multilateral_Governance` (24, 7.3%) are the sub-codes that most directly carry the corpus's *named* climate-obstruction content: the UN's "Zero Emission"/Malthusian critique (2024), the Club of Rome dismissal (2024), the "Agenda Verde"-and-demographic-collapse claim (2026), and the periglaciares/glacier-law passage (2025) all fall here. Though their raw counts are modest relative to Anti_Casta and Anti_State_Anti_Bureaucratic, they are disproportionately consequential: this is where the abstract anti-statist apparatus gets pointed at specific, named environmental institutions, agreements, and — in one case — pending legislation.
+### D1.2 — Delegitimization of Public Science and Expertise (8.7%, 52 codes)
 
-### D1.2 — Delegitimization of Public Science and Expertise (11.7%)
+The smallest sub-dimension, and smaller after the review (10.8% → 8.7%). It consists of `Attack_on_Experts_and_Technocrats` (20, 38.5% of D1.2), `Attack_on_Universities_and_Research_Institutions` (14, 26.9%), `Pseudo_Science_or_Ideological_Science` (8, 15.4%), `Climate_Skepticism_or_Dismissal` (7, 13.5%) and `Selective_Empiricism` (3, 5.8%). Direct climate-science dismissal accounts for 7 codes, one in each of seven speeches (2023 debate, CPAC 2024, book presentation 2024, agricultural exhibition 2024, Fundación Faro dinner 2024, Davos 2025, CPAC Washington 2025). `Attack_on_Experts_and_Technocrats` mostly targets economists, consultants and forecasters, not climate scientists; after the review it retains attacks on the standing of those groups (credentials, competence, honesty, track record) and no longer includes economic disagreements as such. `Pseudo_Science_or_Ideological_Science` is a small code (8 instances in 7 speeches: Davos 2024 ×2, Premio Juan de Mariana 2024, Tech Forum 2024, Davos 2025, a 2025 book presentation, the Faro year-end dinner 2025, Madrid Economic Forum 2026). Its broadened definition covers claims that economics, think tanks or international bodies produce ideologically captured knowledge, not only climate science.
 
-The smallest sub-dimension by a wide margin, which is itself a significant finding:
+### D1.3 — Cultural Backlash (28.5%, 170 codes)
 
-| Sub-code | Count | Share of D1.2 |
-|---|---|---|
-| Attack_on_Experts_and_Technocrats | 31 | 49.2% |
-| Attack_on_Universities_and_Research_Institutions | 14 | 22.2% |
-| Pseudo_Science_or_Ideological_Science | 8 | 12.7% |
-| Climate_Skepticism_or_Dismissal | 7 | 11.1% |
-| Selective_Empiricism | 3 | 4.8% |
-
-Only 7 codes across the entire 2.5-year, 193-speech corpus constitute direct climate-science denial (`Climate_Skepticism_or_Dismissal`), concentrated in just two speeches: the 2023 presidential debate ("vagos socialistas que escriben papers de cuarta" dismissing climate scientists as producing worthless, ideologically-motivated research) and the 2025 Davos "five cycles" passage (the corpus's only substantive empirical argument against anthropogenic attribution). `Attack_on_Experts_and_Technocrats` (31) is nearly the whole rest of D1.2, and it mostly targets economists, not climate scientists — "petardistas tribuneros," "econochantas," professional forecasters who doubted the fiscal-adjustment program. This confirms the report's central thesis: Milei's obstruction pattern is a distinctively *libertarian* one (target the state's authority to regulate, deny that markets can fail) rather than the more familiar populist-right pattern of leading with denial of the underlying science. Where science *is* attacked, universities and "expert" institutions are framed as ideologically captured production sites (`Attack_on_Universities_and_Research_Institutions`, `Pseudo_Science_or_Ideological_Science`) rather than as simply wrong.
-
-### D1.3 — Cultural Backlash (27.1%)
-
-| Sub-code | Count | Share of D1.3 |
-|---|---|---|
-| Anti_Socialism_Anti_Collectivism | 86 | 58.9% |
-| Woke_Bundling | 41 | 28.1% |
-| Civilizational_Defense | 19 | 13.0% |
-
-D1.3 functions as a meta-narrative that pre-loads specific arguments with civilizational stakes rather than making an independent case. `Anti_Socialism_Anti_Collectivism` (86) is the corpus's second-most-frequent sub-code overall, appearing constantly across nearly every register — from the theoretical (the post-Marxism thesis explaining how "class struggle" relocated into feminism, gender ideology, and environmentalism after 1989) to the visceral ("el cáncer de la humanidad es el socialismo... satánico"). `Woke_Bundling` (41) is the mechanism by which climate governance gets contaminated by association: at both the 2024 UN address and the 2025 Davos speech, "Zero Emission"/environmentalist policy is placed in the same breath as reproductive-rights policy via a shared Malthusian population-control genealogy, maximizing delegitimization for audiences hostile to either cause independently. `Civilizational_Defense` (19) is comparatively rare but escalates sharply in intensity across the period — from a generic "the West is in danger" framing (Davos 2024) to explicit theological grounding by 2026 (the "golden calf" idolatry framing of the WEF-led governance consensus at Davos 2025; the "¿para qué nos dio el Creador el planeta?" dominion argument at Bolsa de Córdoba 2026).
-
----
-
-## Inductive Categories
-
-**No inductive categories were formalized in v4** — the tally's `Inductive` section is empty across the full 193-speech corpus. This is itself notable: earlier project phases (v1–v3) had flagged candidates such as `Temporal_Appropriation` (co-opting sustainability's own intergenerational-responsibility vocabulary against sustainability governance) and `Reported_Denial`; both were formally eliminated from the v4 codebook after being found either too rare to warrant a standalone code or better captured by an existing deductive sub-code (see `coding_book_v4.md`'s retired-categories list). No replacement inductive pattern reached the ≥2-corroborated-instance formalization threshold during the v4 pass.
-
-Two candidate patterns were noted in individual coding summaries but **not** promoted, and are recorded here for the methodologist's future reference:
-
-- **Theological/dominion framing** (flagged at 2026-04-20 Bar-Ilan and 2026-03-16 Bolsa de Córdoba): capitalism, resource extraction, and anti-socialism increasingly grounded in explicit Judeo-Christian dominion theology rather than secular libertarian argument by 2026. This may be better understood as an intensification of the existing `Civilizational_Defense` sub-code than a distinct category, but its increasing frequency in the final coded quarter of the corpus is worth monitoring if new 2026 speeches are added.
-- **Primitivism-as-regulation metaphor** (flagged at 2025-11-13): regulatory caution of any kind — environmental ("primitivo"), economic ("Picapiedras"/Flintstones), or technological ("tirapiedras cavernícolas" opposing AI) — repeatedly cast as literal prehistoric backwardness relative to Milei's growth agenda. A stylistic recurring motif rather than a distinct delegitimization *target*, and so was left uncoded as a freestanding category, but it cross-cuts D1.1 and D1.2 in a way the current codebook doesn't capture structurally.
+Unchanged in count by the review (its share rises only because the corpus total fell). `Anti_Socialism_Anti_Collectivism` (102) is the second most frequent sub-code overall and, under its broadened definition, is applied to anti-collectivist rhetoric whether or not climate is mentioned (in a keyword check, only 13 of 102 passages mention climate or the environment in the passage or its memo). `Woke_Bundling` (41) is the mechanism by which climate governance is contaminated by association with reproductive-rights and gender-ideology framing. `Civilizational_Defense` (27) positions Western civilization as under existential threat; it too is not conditional on a climate reference.
 
 ---
 
 ## Rhetorical Evolution Across the Corpus (2023–2026)
 
-The corpus shows a clear arc from *diffuse, escalating* rhetoric in the discourse's early register toward *concrete, named, policy-adjacent* attacks as Milei's government consolidates — even as raw code density per speech gradually declines.
+**Table 3. Density and composition by year**
 
-**Density and composition by year:**
+| Year | Speeches | D1.1 | D1.2 | D1.3 | Total codes | Avg./speech | D1.1 share | D1.2 share | D1.3 share |
+| ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| 2023 | 5 | 13 | 2 | 3 | 18 | 3.60 | 72.2% | 11.1% | 16.7% |
+| 2024 | 88 | 170 | 34 | 79 | 283 | 3.22 | 60.1% | 12.0% | 27.9% |
+| 2025 | 71 | 133 | 12 | 56 | 201 | 2.83 | 66.2% | 6.0% | 27.9% |
+| 2026 | 29 | 59 | 4 | 32 | 95 | 3.28 | 62.1% | 4.2% | 33.7% |
 
-| Year | Speeches coded | D1.1 share | D1.2 share | D1.3 share | Total codes | Avg./speech |
-|---|---|---|---|---|---|---|
-| 2023 | 5 | 72.2% | 11.1% | 16.7% | 18 | 3.60 |
-| 2024 | 88 | 58.9% | 15.2% | 25.9% | 282 | 3.20 |
-| 2025 | 71 | 63.3% | 7.4% | 29.3% | 188 | 2.65 |
-| 2026 | 29 | 62.0% | 8.0% | 30.0% | 50 | 1.72 |
+**Raw code density does not decline steadily across the presidency.** It oscillates between 2.83 and 3.60 codes per speech (2023 is five speeches around the transition), with partial-year 2026 matching 2024. Per 1,000 words (pooled), the quarterly rate falls from 2.39 in 2023Q4 and 1.31 in 2024Q1 to a plateau of roughly 0.5–1.0 thereafter (see `quant_analysis_memo.md`). The July report's "steady decline" claim should not be reused.
 
-Average code density per speech declines steadily (3.60 → 1.72) as the corpus expands to include hundreds of short, routine appearances (ribbon-cuttings, factory visits, award acceptances) that a candidate-era or newly-inaugurated president simply didn't have occasion to give. But this decline is a *volume* effect, not a *retreat*: D1.2 (science/expertise attacks) nearly halves as a share of D1 between 2024 and 2025 (15.2% → 7.4%) and never recovers, while D1.3 (cultural backlash) climbs steadily every year (16.7% → 30.0%). Read together with D1.1's consistent ~60-63% dominance, the trend is unambiguous: **explicit anti-science rhetoric recedes while anti-state and civilizational framing intensify** as Milei transitions from insurgent candidate to governing president with a working legislative majority — he has less need to relitigate whether climate science is real and more occasion to use consolidated institutional power to act against specific environmental rules.
+**D1.2 recedes as a share of the discourse** (12.0% in 2024, 6.0% in 2025, 4.2% in 2026), and the decline is steeper after the review than in the August report (14.7% → 7.7% → 5.2%), because the removed passages were concentrated in the 2024 expert-attack content. **D1.3 climbs** (16.7% → 27.9% → 27.9% → 33.7%) while D1.1 remains the dominant baseline (60–72% every year). The defensible version of the evolution finding is therefore compositional: a roughly stable volume of rhetoric shifts away from the empirical/scientific register (D1.2) toward the civilizational register (D1.3), while the anti-statist/institutional core (D1.1) stays constant. Milei increasingly grounds regulatory and anti-collectivist arguments in property-rights philosophy (Hoppe, Huerta de Soto) rather than empirical or scientific claims.
 
-**International forums vs. domestic state-of-the-nation addresses:** the corpus's five flagship international-forum speeches (Davos 2024/2025/2026, UN 2024/2025) average roughly 10.8 codes each; the three Apertura de Sesiones Ordinarias addresses (142°/2024, 143°/2025, 144°/2026) average 6.3 each but show a clear escalation — 3 → 7 → 9 codes — as the domestic "apertura" register catches up to the international one over time. International forums remain the primary venue for the corpus's most explicit, named climate-obstruction content (Davos's market-failure theorem, the UN's "Zero Emission" attack, Davos 2025's five-cycles denial); the apertura speeches instead build the domestic ideological infrastructure — anti-casta, anti-bureaucratic, deregulatory frameworks — that is later applied by name to environmental policy in other venues (Bolsa de Córdoba, the periglaciares announcement).
+**Milestone speeches (unchanged by the review):**
 
-**Milestone speeches, chronologically:**
-
-- **2023 (Debate Presidencial, Oct):** the corpus's only outright, ad hominem climate-science denial — climate scientists as "vagos socialistas que escriben papers de cuarta" — alongside an early `Sustainability_as_Ideological_or_Harmful` framing of climate funding as academic rent-extraction.
-- **2024 (Davos, Jan):** the theoretical high-water mark — "el fallo del mercado es un oxímoron," delivered to the audience most invested in climate governance, plus the "casta privilegiada" extension of the anti-elite frame to global institutions (IPCC, UNEP, UNFCCC by implication).
-- **2024 (UN General Assembly, Sep):** the corpus's most direct named attack on a specific climate policy — the WEF's "Zero Emission" policies explicitly called "ridiculous" and "Malthusian," bundled in the same passage with reproductive-rights policy.
-- **2024 (Apertura 142°, Mar):** no explicit climate content, but the first formal presidential articulation of "la casta" as governing frame — the institutional vocabulary later applied to environmental agencies.
-- **2025 (Davos, Jan):** the corpus's only substantive empirical argument against anthropogenic attribution (the "five cycles" claim), paired with the Malthus-abortion-population-control chain and the "golden calf" idolatry framing of the WEF consensus.
-- **2025 (Club de la Libertad, Corrientes, Nov):** the periglaciares passage — a concrete, named forthcoming law to devolve glacier-adjacent mining-zone determination to the provinces, framed via dehumanizing rhetoric against "ambientalistas" ("prefieren que uno se muera de hambre") — the clearest D1→D2 bridge in the corpus (see below).
-- **2026 (Bolsa de Comercio de Córdoba, Mar):** "ambientalistas idiotas extremos" blamed directly for Argentina's comparatively low mining output versus Chile, escalated with an explicit dominion-theology justification for resource extraction.
-- **2026 (Debate "Keynes y la Teoría General", Apr):** the "Agenda Verde" named explicitly (rather than generic "ambientalismo") and blamed, alongside abortion and immigration policy, for Europe's demographic and pension-system collapse.
-- **2026 (Davos, Jan) / Apertura 144° (Mar):** the register shifts from empirical/denialist to purely philosophical — Hoppe's property-rights proof and Huerta de Soto's dynamic-efficiency theorem ground the case that "intervention and regulation are... violent and therefore unjust" without any climate-specific content at all, implying the climate-obstruction argument no longer needs restating for an audience that has already absorbed it.
-
-**Key analytical question — is there a trajectory from D1.3 culture-war framing toward D1.1 economic-foundational argument?** The data suggests the opposite of a clean linear handoff: D1.1 never drops below ~59% in any year and D1.3 rises alongside it, not at its expense — the two registers *compound* rather than substitute for each other over time. What does shift cleanly is D1.2's decline, confirming that the "governing register" abandons empirical science-denial arguments in favor of institutional (D1.1) and civilizational (D1.3) ones, which are far harder to falsify and require no engagement with contested data.
+- **14 March 2026, Madrid Economic Forum:** the densest speech in the corpus (21 codes), overtaking Davos 2024 (19). It contains zero climate-specific content: its codes are `Anti_Casta` (named-businessman rent-seeking attacks), `Anti_State_Anti_Bureaucratic`, `Delegitimization_of_Regulation`, `Anti_Socialism_Anti_Collectivism`, `Civilizational_Defense` and one `Pseudo_Science_or_Ideological_Science` instance. It is the clearest single-speech illustration of the generic discursive infrastructure operating at full intensity independent of any climate content.
+- **29 April 2026, Expo EFI closing:** 17 codes, the third-densest speech.
+- **79th UN General Assembly (24 Sept. 2024):** 13 codes; the densest in climate-signature codes (8).
+- **15 November 2024, CPAC Investors** (10 codes) and **10 March 2026, Gala Algemeiner** (7).
 
 ---
 
-## Co-occurrence Patterns and Rhetorical Bundles
+## Discursive Patterns by Venue and Audience
 
-34 passages carry two or more stacked codes. The most frequent pairings cluster almost entirely around the corpus's explicit climate content, confirming that when Milei does address climate/environmental policy directly, he tends to do so with maximal rhetorical density rather than a single isolated claim:
+**Table 4. Code density and composition by event type (top 10 by total codes)**
+
+| Event type (`tipo`) | n | Total codes | Avg./speech | D1.1 share | D1.2 share | D1.3 share |
+| ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| Foro económico | 21 | 112 | 5.33 | 60% | 12% | 29% |
+| Evento ideológico/político | 21 | 88 | 4.19 | 43% | 8% | 49% |
+| Acto institucional | 26 | 59 | 2.27 | 66% | 10% | 24% |
+| Fundación / think tank | 13 | 47 | 3.62 | 57% | 13% | 30% |
+| Cumbre internacional | 12 | 40 | 3.33 | 80% | 5% | 15% |
+| Bolsa / cámara de comercio | 12 | 31 | 2.58 | 68% | 6% | 26% |
+| Cadena nacional | 10 | 31 | 3.10 | 81% | 3% | 16% |
+| Premio / reconocimiento | 14 | 28 | 2.00 | 46% | 14% | 39% |
+| Empresa | 10 | 28 | 2.80 | 79% | 11% | 11% |
+| Sectorial | 7 | 22 | 3.14 | 77% | 5% | 18% |
+
+Economic and institutional venues run heavily D1.1 (`cadena nacional` 81%, `cumbre internacional` 80%, `empresa` 79%, `sectorial` 77%). Ideological/political events and awards ceremonies invert toward D1.3 (49% and 39%): cultural-backlash framing is the register reserved for identity-aligned or ceremonial audiences. `Foro económico` (Davos-style keynotes) is the highest-volume category (112 codes). A Kruskal-Wallis test on codes per 1,000 words across `tipo` (n≥5, k=15) is significant (H=29.80, p=0.008); summits are the densest major venue (2.90 /1k, about three times `foro económico`), because their speeches are short.
+
+**Table 5. Code density by country (n ≥ 3 speeches)**
+
+| País | n | Total codes | Avg./speech |
+| ----- | ----- | ----- | ----- |
+| Suiza (Davos) | 5 | 32 | 6.40 |
+| España | 8 | 45 | 5.62 |
+| EE.UU. | 21 | 92 | 4.38 |
+| Brasil | 4 | 16 | 4.00 |
+| Argentina | 129 | 368 | 2.85 |
+| Uruguay | 3 | 6 | 2.00 |
+| Paraguay | 5 | 9 | 1.80 |
+| Israel | 10 | 17 | 1.70 |
+
+Foreign venues carry higher average density than domestic ones (Argentina 2.85/speech, 368 of 597 codes, 61.6%); on a per-word basis the difference is smaller (0.88 vs 1.62 /1k, Mann-Whitney p=0.066, not significant at 0.05).
+
+**Table 6. Venue groups (six analytical groups; `venue_group`)**
+
+| Venue group | Speeches | Codes | Mean codes/speech | Mean /1k | D1.1 / D1.2 / D1.3 (% of codes) |
+|---|---|---|---|---|---|
+| Economic & Business Forums | 61 | 234 | 3.84 | 0.85 | 65.4 / 9.8 / 24.8 |
+| State & Institutional Acts | 37 | 90 | 2.43 | 0.91 | 71.1 / 7.8 / 21.1 |
+| Awards, Academic & Think Tanks | 33 | 98 | 2.97 | 0.79 | 59.2 / 11.2 / 29.6 |
+| International & Diplomatic | 26 | 62 | 2.38 | 2.03 | 69.4 / 3.2 / 27.4 |
+| Ideological & Political Events | 22 | 91 | 4.14 | 1.81 | 42.9 / 9.9 / 47.3 |
+| Commemorative & Community | 14 | 22 | 1.57 | 0.93 | 81.8 / 0.0 / 18.2 |
+
+Density does not differ significantly between the six groups (Kruskal-Wallis H=7.53, p=0.18), but the dimension mix does (χ²=29.2, dof=10, p=0.0011, Cramér's V=0.16; descriptive, since code instances within a speech are not independent). Claims about group differences should therefore rest on the dimension mix, not on density. Ideological & Political Events is the only group where D1.3 outweighs D1.1.
+
+---
+
+## Co-occurrence and Rhetorical Bundles
+
+35 passages (5.9% of code annotations) carry two or more stacked codes under the codebook's overcoding rule. The most frequent pairings (count ≥ 2):
+
+**Table 7. Most frequent stacked-code pairs**
 
 | Co-occurring pair | Count | What the bundle achieves |
-|---|---|---|
-| `Rejection_of_Multilateral_Governance` + `Sustainability_as_Ideological_or_Harmful` | 3 | Delegitimizes both the *institution* proposing climate policy and the *policy itself* in one move (UN, WEF) |
-| `Sustainability_as_Ideological_or_Harmful` + `Climate_Skepticism_or_Dismissal` | 2 | Pairs "the policy is harmful" with "the underlying science is doubtful" — belt-and-braces delegitimization |
-| `Climate_Skepticism_or_Dismissal` + `Woke_Bundling` | 2 | Contaminates climate science denial by association with the broader "woke" cultural target |
-| `Sustainability_as_Ideological_or_Harmful` + `Woke_Bundling` | 2 | The climate-is-socialism-in-disguise move — environmentalism reframed as one "head of the same beast" as feminism/gender ideology |
-| `Rejection_of_Multilateral_Governance` + `Woke_Bundling` | 2 | Institutions (UN, WEF) framed as vehicles for the broader woke-ideological project, not neutral technical bodies |
-| `Rejection_of_Multilateral_Governance` + `Civilizational_Defense` | 2 | Elevates institutional rejection from a policy disagreement to a defense of Western civilization itself |
-| `Sustainability_as_Ideological_or_Harmful` + `Civilizational_Defense` | 2 | The dominion-theology justification for resource extraction (Bolsa de Córdoba) |
-| `Anti_State_Anti_Bureaucratic` + `Delegitimization_of_Regulation` | 2 | The generic (non-climate) fusion of "bureaucrats are parasites" with "regulation is illegitimate" |
+| ----- | ----- | ----- |
+| `Anti_State_Anti_Bureaucratic` + `Delegitimization_of_Regulation` | 3 | Fuses "bureaucrats are parasites" with "regulation is illegitimate" (generic, non-climate) |
+| `Rejection_of_Multilateral_Governance` + `Woke_Bundling` | 3 | Institutions (UN, WEF) framed as vehicles for the broader "woke" project |
+| `Rejection_of_Multilateral_Governance` + `Sustainability_as_Ideological_or_Harmful` | 3 | Delegitimizes both the institution proposing climate policy and the policy |
+| `Sustainability_as_Ideological_or_Harmful` + `Climate_Skepticism_or_Dismissal` | 2 | Pairs "the policy is harmful" with "the science is doubtful" |
+| `Climate_Skepticism_or_Dismissal` + `Woke_Bundling` | 2 | Contaminates climate-science denial by association with the "woke" target |
+| `Anti_Casta` + `Anti_State_Anti_Bureaucratic` | 2 | Elite-capture and organizational-form critiques applied together |
+| `Sustainability_as_Ideological_or_Harmful` + `Woke_Bundling` | 2 | The climate-is-socialism-in-disguise move |
+| `Rejection_of_Multilateral_Governance` + `Civilizational_Defense` | 2 | Elevates institutional rejection to defense of Western civilization |
+| `Sustainability_as_Ideological_or_Harmful` + `Civilizational_Defense` | 2 | Dominion-theology justification for resource extraction (Bolsa de Córdoba) |
+| `Delegitimization_of_Regulation` + `Rejection_of_Multilateral_Governance` | 2 | Ties deregulation arguments to rejection of the international bodies proposing regulation |
+| `Delegitimization_of_Regulation` + `Sustainability_as_Ideological_or_Harmful` | 2 | Treats environmental regulation as both illegitimate and harmful |
 
-Outside the climate-specific cluster, stacking is comparatively rare — most of the corpus's 538 codes are single, standalone passages. This confirms that dense multi-code "bundling" is a marker Milei reserves for his highest-priority, most consequential arguments rather than routine rhetorical habit.
+Dense multi-code bundling remains concentrated around the explicit climate-adjacent content; most of the 597 codes are single, standalone passages. Several co-coded passages (for example the same Davos 2025 and UN 2024 passages carrying two or three codes) are candidates for an overcoding check, which has not yet been run.
+
+**Co-occurrence at speech level** (phi coefficients, from the quant memo): the strongest pairs are `Pseudo_Science_or_Ideological_Science` ↔ `Selective_Empiricism` (0.42) and `Rejection_of_Multilateral_Governance` ↔ `Woke_Bundling` (0.40). A k-means solution on speeches with at least three codes (n=92, silhouette 0.13, weak) separates a small, dense international-sovereigntist mode (n=7, 4.1 /1k, 46% `Rejection_of_Multilateral_Governance`) from a large anti-casta/anti-state baseline (n=53) and an anti-collectivist/culture-war mode (n=26).
+
+---
+
+## Testing the "Discursive Infrastructure" Thesis
+
+The article's Section 4.2 scope rule ("Option A") holds that generalized anti-state, anti-regulatory, and anti-"casta" rhetoric should be coded wherever it appears, because it constitutes the discursive infrastructure that climate-specific attacks later plug into. Using the three sub-codes that most explicitly carry climate content (`Sustainability_as_Ideological_or_Harmful`, `Rejection_of_Multilateral_Governance`, `Climate_Skepticism_or_Dismissal`): of 55 climate-signature instances, 23 (42%) occur in speeches the master database flags as high climate-relevance (`clima = ✔`); 32 (58%) occur in speeches flagged only "possible" (`~`, 26) or unflagged (blank, 6). This split is unchanged by the definition review. Because three definitions were broadened, it also serves as the climate-explicit cross-check: the climate-signature codes are exactly those whose definitions were not broadened. Speeches flagged `✔` are about five times denser in D1 codes than the rest (4.82 vs ~1.0 codes per 1,000 words; Kruskal-Wallis p=0.0002), validating the flag as a speech-selection heuristic.
 
 ---
 
 ## Key Quotes and Exemplary Passages
 
-**1. "El fallo del mercado es un oxímoron. No existe fallo de mercado."**
-*[Market failure is an oxymoron. Market failures do not exist.]* — Davos, 17 January 2024. `D1.1 > Market_Primacy`.
-The single most consequential theoretical sentence in the corpus. Environmental externalities are the textbook case of market failure in environmental economics; the entire academic and policy justification for carbon pricing, emissions standards, and pollution regulation rests on the concept. By declaring market failure not merely empirically rare but *logically impossible*, Milei forecloses the theoretical ground for climate regulation at the level of first principles — without engaging climate science at all. Repeated in near-identical form at Davos 2025, Davos 2026, and Apertura 144° (2026), it functions as the corpus's load-bearing axiom.
+The flagship passages identified in the 19 July and 9 August reports are unaffected by the review (none of the removed passages belongs to those speeches): the "el fallo del mercado es un oxímoron" claim (Davos 2024); the Club of Rome/Malthus passage (Luna Park, 2024); the WEF "Zero Emission" attack (UN General Assembly, 2024); the "five cycles" passage (Davos 2025); the periglaciares/glacier-law passage (Corrientes, 2025), the corpus's most important D1→D2 bridge; the "ambientalistas idiotas extremos" dominion-theology passage (Bolsa de Córdoba, 2026); the "Agenda Verde" passage (Debate "Keynes y la Teoría General," 2026); the Hoppe natural-law regulation claim (Davos 2026); the "Los fallos de mercado... no existen" restatement (Madrid Economic Forum, 14 March 2026); and the Madrid address as a whole (21 codes, no climate content). Full text and analysis are in the earlier reports.
 
-**2. "Lo que está inspirando toda la agenda asesina de hoy, es el Club de Roma... sugerían impulsar la agenda del aborto."**
-*[What's inspiring today's whole murderous agenda is the Club of Rome... they suggested pushing the abortion agenda.]* — Luna Park book presentation, 22 May 2024. `D1.2 > Climate_Skepticism_or_Dismissal`.
-Directly names the Club of Rome's 1972 resource-exhaustion predictions — the foundational text of modern environmental-limits discourse — and dismisses them as a discredited, "murderous" agenda traced through Malthus and linked to population control and abortion. Ends with a rare, explicit, pre-emptive self-quotation acknowledging the "science denier" label ("Pero el Señor Milei es un negacionista de la ciencia"), confirming Milei's own awareness that the line of argument reads as climate-science denialism.
+A note on the "five cycles" passage: the codebook cites it as the clearest example of `Selective_Empiricism` ("science and the data are on our side"), but it is coded `Climate_Skepticism_or_Dismissal` and `Pseudo_Science_or_Ideological_Science`. A recoding was considered on 2026-10-11 and not adopted; the discrepancy between the codebook example and the coded sub-code is an open item.
 
-**3. "Tampoco ha ayudado el tutelaje del Foro Económico Mundial... como las políticas de 'Emisión Cero' – que dañan, sobre todo, a los países pobres."**
-*[Nor has the World Economic Forum's tutelage helped... such as 'Zero Emission' policies – which harm poor countries above all.]* — UN General Assembly, 24 September 2024. `D1.1 > Sustainability_as_Ideological_or_Harmful` + `D1.3 > Woke_Bundling`.
-The most direct, named attack on net-zero climate policy delivered at the institution most associated with implementing it, reframing climate skepticism as solidarity with the Global South against "elite climate imperialism" — a geopolitically calibrated argument for an audience of predominantly developing nations.
+---
 
-**4. "La Tierra ha tenido ya cinco ciclos de cambios bruscos de temperatura y... en cuatro de ellos el hombre ni existía... nos tildan de terraplanistas... sin importar que la ciencia y los datos estén de nuestro lado."**
-*[The Earth has already had five abrupt temperature-change cycles... in four of them man didn't even exist... they call us flat-earthers... regardless of the fact that the science and the data are on our side.]* — Davos, 23 January 2025. `D1.2 > Climate_Skepticism_or_Dismissal`.
-The corpus's only substantive, evidence-framed argument against anthropogenic climate attribution — qualitatively different from the corpus's more common policy-level or institutional dismissals. Deploys an epistemic-authority inversion: the consensus position becomes dogmatic silencing, the skeptic becomes the true empiricist.
+## Inductive Categories
 
-**5. "La ley de los periglaciares... permite... devolverles el federalismo a las provincias y que cada provincia determine cuál es la zona periglaciar... los ambientalistas... prefieren que uno se muera de hambre, pero no tocar nada."**
-*[The periglacial law... allows returning federalism to the provinces so each one determines its own periglacial zone... environmentalists... would rather people starve than touch anything.]* — 12° Congreso de Economía Regional, Corrientes, 13 November 2025. `D1.1 > Sustainability_as_Ideological_or_Harmful`.
-**The single most important passage in the corpus for the D1→D2 research question.** Unlike the corpus's otherwise-abstract ideological attacks on environmentalism, this is an active, named, forthcoming legislative proposal targeting Argentina's existing Glacier Protection Law (Ley de Glaciares 26.639) to expand mining access — the clearest documented case of discursive delegitimization translating into a concrete policy mechanism, and the top-priority item for triangulation with the project's D2 (formal documentation) corpus.
-
-**6. "Estamos abrazados a los ambientalistas idiotas extremos... ¿Para qué nos dio el Creador el planeta? ¿Para contemplarlo?"**
-*[We're shackled to extreme idiot environmentalists... Why did the Creator give us the planet? To contemplate it?]* — Bolsa de Comercio de Córdoba, 16 March 2026. `D1.1 > Sustainability_as_Ideological_or_Harmful` + `D1.3 > Civilizational_Defense`.
-Directly attributes Argentina's mining underperformance relative to Chile (same mountain range) to environmentalist obstruction, then escalates to explicit dominion theology — resource extraction as divinely sanctioned human purpose — the corpus's clearest fusion of economic and theological argument applied specifically to environmental regulation of extraction.
-
-**7. "Mientras que proponían la Agenda Verde asesinando a los niños inocentes por nacer... promovían el ingreso de extranjeros... Europa al borde del exterminio."**
-*[While they proposed the Green Agenda, murdering innocent unborn children... they promoted the entry of foreigners... Europe on the brink of extermination.]* — Debate "Keynes y la Teoría General", 28 April 2026. `D1.1 > Sustainability_as_Ideological_or_Harmful`.
-One of the corpus's only instances of "Agenda Verde" named explicitly (rather than generic "ambientalismo"), blamed as one leg of a three-part policy complex — alongside abortion and immigration — for Europe's demographic and pension-system collapse, via a "man against the earth" characterization of ecologism as fundamentally anti-human.
-
-**8. "La intervención y la regulación son dinámicamente ineficientes por ser violentas y, por ende, injustas."**
-*[Intervention and regulation are dynamically inefficient because they are violent and therefore unjust.]* — Davos, 21 January 2026. `D1.1 > Delegitimization_of_Regulation`.
-The corpus's most philosophically load-bearing regulatory claim, grounded in Hoppe's natural-law property-rights proof rather than empirical or policy argument. Regulation is defined as categorically violent and therefore illegitimate regardless of its content or outcomes — environmental regulation is excluded from legitimate state action *by definition*, without needing to name climate policy at all. Represents the endpoint of the corpus's rhetorical evolution: from empirical denial (2023–2025) to unfalsifiable philosophical axiom (2026).
+**No inductive categories are formalized in this pass.** The two previously noted candidate patterns (theological/dominion framing; primitivism-as-regulation metaphor) have not been systematically re-examined; a full inductive-category review is recommended before the next codebook revision.
 
 ---
 
 ## Notes for Triangulation with Dimension 2 (Corpus B)
 
-D2 (State Capability Erosion) applies to formal documentation — decrees, budget records, reorganization orders — not yet collected as part of this project. Based on the D1 findings above, the following are flagged as priority items for D2 collection and triangulation:
-
-- **Highest priority:** the periglaciares/glacier-law reform referenced at 2025-11-13 (Corrientes). If introduced in Congress, the bill text, any accompanying budget/regulatory-impact documentation, and its legislative status should be collected — this is the corpus's only direct textual link between D1 rhetoric and a specific, named environmental-protection statute.
-- **DNU and delegated-powers deregulation packages** (referenced across 2023-12-20, 2025-07-09 "Balance de la Desregulación con Facultades Delegadas," and elsewhere): which specific environmental, mining, or energy regulations were modified or eliminated under the omnibus deregulation authority, and whether any explicitly target climate-adjacent rules (emissions standards, environmental impact assessment requirements, glacier/native-forest protections).
-- **Ministry of Environment and Sustainable Development:** budget allocations, staffing levels, and institutional status (downgrade, merger, or elimination) across the 2023–2026 period, to test whether the rhetorical "casta"/"burócrata" framing applied to environmental institutions in speeches (Davos 2024's "casta privilegiada" extended to global climate governance) corresponds to measurable institutional erosion domestically.
-- **Mining and hydrocarbons regulatory framework** (RIGI — Régimen de Incentivo para Grandes Inversiones — and related instruments): given the explicit resource-extraction framing at Bolsa de Córdoba (2026) and the periglaciares passage, RIGI's environmental-impact and provincial-authority provisions are a natural D2 counterpart.
-- **Multilateral commitment status:** formal documentation of Argentina's stance on the Paris Agreement, 2030 Agenda/SDG reporting, and Pact for the Future implementation, to test whether the UN/Davos rhetorical dissent (2024–2026) translates into withdrawal, non-compliance, or reduced formal engagement.
+Unchanged from earlier reports. D2 (State Capability Erosion) analysis proceeds separately (budget analysis in `analysis/D2_budget/`); the periglaciares/glacier-law reform (13 November 2025) remains the highest-priority D1→D2 bridge.
 
 ---
 
 ## Conclusions and Next Steps
 
-1. **Milei's climate obstruction is primarily institutional and economic-theoretical, not scientific-denialist.** D1.1 (61.2%) dwarfs D1.2 (11.7%); direct climate-science denial appears in only 2 of 193 speeches. The dominant move is declaring market failure — the conceptual foundation of environmental regulation — logically impossible, and characterizing environmental (and all other) state institutions as captured by "la casta," rather than disputing climate data.
+1. **The central finding is unchanged and slightly sharper.** D1.1 (62.8%) dwarfs D1.2 (8.7%) and D1.3 is 28.5%. Climate obstruction operates primarily through a generic anti-institutional, anti-elite frame rather than through disputing climate data; `Anti_Casta` is the single most frequent code (116).
+2. **Do not reuse the "declining density" claim.** Density is roughly stable; the defensible evolution finding is compositional (D1.2 receding from 12.0% to 4.2%, D1.3 rising, D1.1 constant).
+3. **State the scope of three codes accurately in the paper.** `Anti_Socialism_Anti_Collectivism`, `Civilizational_Defense` and `Pseudo_Science_or_Ideological_Science` capture the discursive infrastructure of climate rejection under the Option A rule, not climate talk itself; the climate-signature split (42%/58%) is the climate-explicit view.
+4. **Cite corpus statistics from this report (or later), not earlier versions.** Update the article draft's Table 3 / Section 4.4 figures (613 → 597; D1.1/D1.2/D1.3 = 375/52/170) and the sub-code counts for `Attack_on_Experts_and_Technocrats` (32 → 20), `Pseudo_Science_or_Ideological_Science` (10 → 8), `Anti_State_Anti_Bureaucratic` (93 → 92) and `Delegitimization_of_Regulation` (85 → 84).
 
-2. **The discursive infrastructure is general-purpose and climate-agnostic, but reliably gets pointed at named environmental targets when the occasion arises.** Per the Option A scope rule, the anti-casta/anti-state/anti-regulation apparatus recurs constantly across all speech types; roughly 20 speeches contain explicit, named climate-or-environment content, and these are disproportionately the corpus's densest, most heavily-stacked passages (Davos, UN, Bolsa de Córdoba, the periglaciares announcement).
-
-3. **The rhetoric evolves from denial toward unfalsifiable philosophical axiom as the government consolidates.** D1.2's share nearly halves between 2024 and 2025 and never recovers; by 2026, the corpus's regulatory arguments (Davos, Apertura 144°) are grounded in Hoppe's and Huerta de Soto's natural-law/property-rights theorems rather than empirical claims — arguments that require no engagement with contested climate data and cannot be falsified by it.
-
-4. **The corpus contains a documented, named bridge from discourse to policy action.** The 13 November 2025 periglaciares passage — a forthcoming law to weaken glacier-adjacent mining restrictions — is the single most important exhibit for this project's central research question and the top priority for D2 triangulation.
-
-**Next steps:**
-- Begin D2 (formal documentation) collection per the priority list above, anchored on the periglaciares/glacier-law reform.
-- Monitor for the periglaciares bill's introduction and status; if introduced, add its text and any Congressional debate transcripts to the corpus.
-- Continue coding new speeches as they are delivered (this report reflects the corpus as of 2026-04-29; Milei's presidency continues).
-- Revisit the two candidate inductive patterns (theological/dominion framing; primitivism-as-regulation metaphor) if further speeches reinforce them past the 2-instance threshold — neither currently warrants formalization, but both are worth flagging in the next codebook revision cycle if new v4-coded speeches surface additional instances.
-- No currently-active inductive categories require promotion to deductive status at this time.
+**Open items:**
+- `Woke_Bundling` shows the same definition drift (9 of 41 passages mention climate in the passage); wording not yet revised.
+- Overcoding check on identical passages carrying two or three codes.
+- `Selective_Empiricism`: the codebook example (Davos 2025) is not coded as such; rows #225 and #242 are progress narratives that fit the dual-move definition poorly.
+- Continue coding newly delivered speeches; re-run `sync_xlsx_to_md.py` and regenerate this report after each batch.
 
 ---
 
 ## Output Paths
 
 | File | Path |
-|---|---|
-| Excel workbook | `analysis/results/v4/qda_v4_coded_corpus.xlsx` |
-| HTML explorer | `analysis/results/v4/qda_explorer_v4.html` |
-| Quantitative per-speech code-count database | `analysis/results/v4/milei_corpus_v4_code_counts.csv` |
-| Final report | `analysis/results/v4/final_analysis_report_v4.md` (this file) |
-| Frequency tally (source data) | `analysis/coded_speeches/v4/frequency_tally_v4.json` |
+| ----- | ----- |
+| This report (current; canonical name) | `analysis/results/v4/final_analysis_report_v4.md` |
+| Prior reports (superseded for reporting, not deleted) | `analysis/results/v4/final_analysis_report_v4_20260809.md`, `analysis/results/v4/final_analysis_report_v4_20260719.md` |
+| Master workbook (source of truth) | `analysis/results/v4/qda_v4_coded_corpus_261011.xlsx` |
+| Frequency tally | `analysis/coded_speeches/v4/frequency_tally_v4.json` |
+| Code counts per speech | `analysis/results/v4/milei_corpus_v4_code_counts.csv` |
+| Quantitative analysis memo | `analysis/results/v4/quant_analysis/quant_analysis_memo.md` |
+| Definition review record | `analysis/technical_memory.md`, `analysis/methodology_summary_v4.md`, `analysis/coding_book_v4.md` |

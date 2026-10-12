@@ -49,7 +49,7 @@ Y finalmente, la séptima y más grande de todas las cabezas de este monstruo, l
 
 Ahora, algunos de los que defendían el modelo de sustitución de importaciones nunca se dieron cuenta de que el 80% de las importaciones argentinas son insumos productivos, es decir, son justamente lo que la industria necesita para poder producir. Entonces, cuando ustedes ponen trabas a las importaciones para supuestamente proteger a la industria nacional, en realidad le están poniendo trabas a la industria nacional misma, porque le están encareciendo o directamente impidiendo el acceso a sus propios insumos. Los genios de la sustitución de importaciones nunca hicieron ese cálculo tan elemental.
 
-`[CODE: D1.2 > Attack_on_Experts_and_Technocrats]` — *Memo: "Los genios de la sustitución de importaciones" is an ironic label charging the architects of import-substitution industrialization policy with basic analytical incompetence (failing "ese cálculo tan elemental"), delegitimizing the policy's technocratic authors rather than just the policy's outcomes.*
+
 
 Por eso es que nosotros estamos decididos a matarle las siete cabezas a este monstruo. Estamos bajando el riesgo país, estamos desregulando el mercado laboral en la medida en que el Congreso nos lo permite, estamos eliminando miles de regulaciones y trámites innecesarios, estamos bajando impuestos donde podemos, estamos terminando con los curros de los amigos del poder, y sobre todo, estamos exterminando el déficit fiscal, que es la madre de todas las batallas.
 

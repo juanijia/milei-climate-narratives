@@ -56,7 +56,7 @@ The dual mechanism — rhetoric delegitimizes; formal action dismantles — is d
 | `Attack_on_Experts_and_Technocrats` | Active | **Expanded** — absorbs `Rejection_of_Expert_Mediation` |
 | `Rejection_of_Expert_Mediation` | Retired | Merged |
 | `Climate_Skepticism_or_Dismissal` | Active | Unchanged |
-| `Pseudo_Science_or_Ideological_Science` | Active | Unchanged |
+| `Pseudo_Science_or_Ideological_Science` | Active | **Definition broadened 2026-10-11** (knowledge production of any field, incl. economics/think tanks; no longer climate-science only) |
 | `Selective_Empiricism` | Active (deductive) | **Promoted** from inductive |
 
 **D1.2 sub-code count: 5** (down from 6 in v3, due to mergers; net +0 after promotion of Selective_Empiricism)
@@ -66,8 +66,8 @@ The dual mechanism — rhetoric delegitimizes; formal action dismantles — is d
 | Sub-code | Status in v4 | Change from v3 |
 |---|---|---|
 | `Woke_Bundling` | Active | Unchanged |
-| `Anti_Socialism_Anti_Collectivism` | Active | **Renamed** from `Neo_Marxism` |
-| `Civilizational_Defense` | Active | Unchanged |
+| `Anti_Socialism_Anti_Collectivism` | Active | **Renamed** from `Neo_Marxism`; **definition broadened 2026-10-11** (no climate reference required) |
+| `Civilizational_Defense` | Active | **Definition broadened 2026-10-11** (no climate reference required) |
 
 **D1.3 sub-code count: 3** (unchanged)
 
@@ -337,3 +337,8 @@ The questions from v3 are carried forward, with one update:
 | V4 Final report | `analysis/results/v4/final_analysis_report_v4.md` |
 
 Prior versions (v1, v2, v3) remain untouched in their respective directories.
+
+
+## Addendum 2026-10-11 — definition review
+
+Review of the coded corpus found that three definitions referred to climate/environmentalism while the coded passages were broader. The definitions of `Anti_Socialism_Anti_Collectivism`, `Civilizational_Defense` and `Pseudo_Science_or_Ideological_Science` were broadened in `coding_book_v4.md` (a climate link is an included case, not a requirement; justified by the Option A scope rule, instruction 2b), and a boundary was added between `Pseudo_Science` (knowledge production) and `Attack_on_Experts_and_Technocrats` (people or professional authority as a class). Sixteen passages were removed (#65, 80, 137, 170, 180, 186, 219, 226, 240, 373, 376, 480, 501, 503, 510, 586): economic critiques or taunts that are not expert attacks, and passages outside scope. Corpus: 613 → 597 codes (Attack on Experts 32 → 20; Pseudo-Science 10 → 8; Anti-State 93 → 92; Delegitimization of Regulation 85 → 84; D1.1 375, D1.2 52, D1.3 170). Passage numbers are the workbook `#` IDs. No speech was left without codes except those already uncoded.

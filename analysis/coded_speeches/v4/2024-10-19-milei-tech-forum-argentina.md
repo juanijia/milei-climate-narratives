@@ -41,7 +41,7 @@ Entonces, fíjense, porque esta es la lógica del ser humano. No porque había o
 
 Lo menciono porque en el día de ayer dejó este mundo ese ser siniestro que fue el impresentable y repugnante ministro de Salud que tuvimos, cómplice de la cuarentena cavernícola más grande de la historia, y que además fue el responsable, junto al ex presidente Alberto Fernández, de la muerte de 100 mil argentinos. Porque si Argentina hubiera hecho las cosas como un país mediocre hubiera habido 30 mil muertos, sin embargo nosotros pasamos los 130 mil. [...]
 
-`[CODE: D1.2 > Attack_on_Experts_and_Technocrats]` — *Memo: A uniquely vitriolic, personally-targeted attack on a specific named public-health official (the former Health Minister) upon his death, attributing 100,000 deaths directly to his COVID policy decisions — the most extreme individual-level expert-delegitimization instance in the corpus, going beyond the institutional "gobierno de científicos" framing used elsewhere to target a named individual by name-calling after death.*
+
 
 [... continued price-signal/COVID economic argument, Julian Simon supply-side innovation theory, the population-density demonstration ...]
 

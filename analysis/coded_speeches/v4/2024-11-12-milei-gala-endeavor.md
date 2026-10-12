@@ -33,7 +33,7 @@ Todos los días encontramos y eliminamos un nuevo gasto [...] Todos los días en
 
 Bueno, vamos por 2,7. Pero hay algo muy interesante [...] Y a todos aquellos que nos auguraron que como consecuencia de esto íbamos a meter a la economía en una mega recesión [...] alcanzó el mismo nivel que teníamos en diciembre. Por lo tanto, zurditos y keynesianos: game over.
 
-`[CODE: D1.2 > Attack_on_Experts_and_Technocrats]` — *Memo: "Zurditos y keynesianos: game over" is a brief but pointed taunt directly targeting Keynesian economists as a professional/ideological class whose predictions (of a "mega recesión") failed, distinct from the more diffuse "econochantas" insult by explicitly naming the Keynesian school.*
+
 
 [... poverty-decline figures (below 50%), the price-system/inflation-as-noise explanation — left uncoded as repetition ...]
 

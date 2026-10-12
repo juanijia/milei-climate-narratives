@@ -7,7 +7,7 @@ Usage (run from project root):
     python skills/qda-outputs/scripts/generate_xlsx.py
 
 Output:
-    analysis/results/v4/qda_v4_coded_corpus.xlsx
+    analysis/results/v4/qda_v4_coded_corpus_REGENERATED.xlsx  (comparison build; the master is qda_v4_coded_corpus_261011.xlsx)
 
 Formatting review (2026-08-08): reworked per Juan's feedback —
   - Dimension colors now match the HTML explorer exactly (D1.1 blue / D1.2 orange /
@@ -57,7 +57,8 @@ from corpus_data import build_corpus, VALID_CODES, print_code_warnings
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent  # skills/qda-outputs/scripts/ → project root
 CODED_DIR    = PROJECT_ROOT / "analysis" / "coded_speeches" / "v4"
-OUTPUT_PATH  = PROJECT_ROOT / "analysis" / "results" / "v4" / "qda_v4_coded_corpus.xlsx"
+MASTER_PATH  = PROJECT_ROOT / "analysis" / "results" / "v4" / "qda_v4_coded_corpus_261011.xlsx"   # master: never overwritten
+OUTPUT_PATH  = PROJECT_ROOT / "analysis" / "results" / "v4" / "qda_v4_coded_corpus_REGENERATED.xlsx"   # default target for a fresh build (comparison only)
 
 # NOTE: speech title/venue/event-type/scope/venue_group are no longer hardcoded
 # here. They are derived per-file from the master corpus CSV via
@@ -705,10 +706,23 @@ def main():
     print(f"Venue groups present in corpus: {venue_groups}")
     print(f"Speeches in workbook: {present_speeches}")
 
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    # Guard: the master workbook (qda_v4_coded_corpus_261011.xlsx) is edited by hand and carries
+    # collaborator notes, comment columns and a pivot table that this script cannot reproduce.
+    # NEVER write over it. To build a fresh workbook from the .md files for comparison, pass
+    # --out <path> pointing to a different file.
+    out = OUTPUT_PATH
+    if '--out' in sys.argv:
+        out = Path(sys.argv[sys.argv.index('--out') + 1]).resolve()
+    if out == MASTER_PATH or (out.exists() and out.name == MASTER_PATH.name):
+        print("\nABORTED: refusing to overwrite the master workbook "
+              f"({MASTER_PATH.name}). Edit it directly and use sync_xlsx_to_md.py; "
+              "to regenerate a fresh workbook for comparison use: generate_xlsx.py --out <other_path>.xlsx")
+        sys.exit(3)
+
+    out.parent.mkdir(parents=True, exist_ok=True)
     wb = build_workbook(all_entries, present_speeches, venue_groups)
-    wb.save(OUTPUT_PATH)
-    print(f"\nSaved: {OUTPUT_PATH}")
+    wb.save(out)
+    print(f"\nSaved: {out}")
     print(f"  Sheets: {wb.sheetnames}")
     print(f"  Coded Passages rows: {len(all_entries)}")
 

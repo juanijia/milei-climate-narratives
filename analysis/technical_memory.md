@@ -278,3 +278,21 @@ Both of these should be treated as living documents that need to be re-synchroni
 3. **Refresh `analysis/results/v4/quant_analysis/`** against the corrected 194-file corpus (currently dated 2026-07-20, pre-correction).
 4. **Re-examine the two candidate inductive patterns** noted but not formalized in the July 2026 report (theological/dominion framing; the "primitivism" regulation metaphor) against the ten speeches added in the August 2026 correction, several of which fall in the period these patterns were noted to be intensifying.
 5. Keep this document (`analysis/technical_memory.md`) updated as an append-only log as further coding, audits, or corpus changes occur.
+
+## 2026-10-11 — Single source of truth: xlsx master
+
+- **Master:** `analysis/results/v4/qda_v4_coded_corpus_261011.xlsx` (Google-Drive copy shared with collaborators; 613 coded passages, identical in codes/passages/memos to the previous `qda_v4_coded_corpus.xlsx`; adds collaborator note columns N–Q and a pivot sheet). All older workbook variants were moved to `analysis/results/v4/OLD/` (`qda_v4_coded_corpus.xlsx`, `_20260809`, `_context`, `_new`, `v1`).
+- **Flow:** xlsx `Coded Passages` → `sync_xlsx_to_md.py` (dry run, then `--apply`) → coded `.md` files → `frequency_tally_v4.json`, `milei_corpus_v4_code_counts.csv` (new generator `build_code_counts_csv.py`, adds `venue_group` and `scope`), `qda_explorer_v4.html`. Wrapped in the project skill `skills/sync-coded-passages/`.
+- `generate_xlsx.py` no longer writes to the master (default output `qda_v4_coded_corpus_REGENERATED.xlsx`; `--out` to choose).
+- Code-counts CSV corrected from 538 to 613 codes; `quant_analysis.ipynb` made portable (auto `BASE_DIR`), extended (venue-group section, composition and cluster tables) and re-run; memo rewritten.
+- Historical note: `5_1_passage_preselection.md` cites `qda_v4_coded_corpus_20260809.xlsx` (now in `OLD/`) as its source; content is unchanged.
+
+## 2026-10-11 — v4 definition review and 16 deletions
+
+- `coding_book_v4.md`: definitions of `Anti_Socialism_Anti_Collectivism`, `Civilizational_Defense` and `Pseudo_Science_or_Ideological_Science` broadened (climate link no longer required); boundary note Pseudo_Science vs `Attack_on_Experts_and_Technocrats` added. `Woke_Bundling` not yet revised (9 of 41 passages mention climate).
+- 16 passages removed (workbook # IDs 65, 80, 137, 170, 180, 186, 219, 226, 240, 373, 376, 480, 501, 503, 510, 586). #585 was kept by decision. Corpus 613 → 597 codes; Attack on Experts 32 → 20.
+- Applied with `sync_xlsx_to_md.py --xlsx <scratch copy with the 16 rows removed> --apply` (the real master has charts/pivot/comments, so it was not rewritten by script). **The master `qda_v4_coded_corpus_261011.xlsx` must have the same 16 rows deleted by hand; until then a dry run against it will show 16 passages to re-add as differences.** Backups: `.md.bak` next to each edited file.
+- `milei_corpus_v4_code_counts.csv`, `frequency_tally_v4.json`, `qda_explorer_v4.html` regenerated; `quant_analysis.ipynb` re-run; `quant_analysis_memo.md` updated to n=597.
+- Still to do: update `final_analysis_report_v4.md` and the paper draft numbers; consider a climate-explicit flag; decide on `Woke_Bundling` wording.
+
+- 2026-10-11 (later): the current report is `analysis/results/v4/final_analysis_report_v4.md` (rewritten, n=597; the previous July content was kept as `final_analysis_report_v4_20260719.md`); corrects the 2026-08-09 statement that climate-science dismissal appears in only two speeches (it is 7 codes in 7 speeches). `final_analysis_report_v4.md` (July) and `_20260809.md` are kept as history.
